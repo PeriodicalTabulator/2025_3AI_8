@@ -30,14 +30,17 @@ LuckyReels
 
 ## Project Description
 
-TBD
+Welcome to Lucky Reels—your ultimate destination for thrilling casino games!
+Dive into the excitement with our wide range of games including Slots, Plinko, BeanCanBlast, and Roulette. 
+Whether you're a seasoned player or new to the world of casino games, Lucky Reels offers endless entertainment and opportunities to win big.
 
 ## Project Roadmap
 
 TBD - Few lines about the project, what is its purpose and meaning.
+The purpose and meaning of this project is to learn as much as we can about Angular and Firebase.
 
 | **Minimum Viable Product (MVP)**         | **Should Have** | **Nice to Have** |
 |------------------------------------------|-----------------|------------------|
-| TBD                                      | TBD             | TBD              |
-| TBD                                      | TBD             | TBD              |
-| TBD                                      | TBD             | TBD              |
+| Slots                                    | Plinko          | Not been i debt  |
+| Beancan Blast                            |                 |                  |
+| Account Balance                          |                 |                  |
