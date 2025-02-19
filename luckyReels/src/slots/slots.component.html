@@ -1,2 +1,12 @@
-<p>slots works!</p>
-<button (click) = 'generateRandomNumbers()'>generate number</button>
+<div class="number-column">
+    <div class="number-display">
+      {{ numbers[visibleNumber1] }}
+    </div>
+    <div class="number-display">
+        {{ numbers[visibleNumber2] }}
+      </div>
+      <div class="number-display">
+        {{ numbers[visibleNumber3] }}
+      </div>
+    <button (click) = 'spin()'>generate number</button>
+  </div>

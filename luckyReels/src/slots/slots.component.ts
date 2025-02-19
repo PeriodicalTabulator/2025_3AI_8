@@ -7,14 +7,18 @@ import { Component } from '@angular/core';
 })
 export class SlotsComponent {
   slotMachine: SlotMachine;
+  numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  visibleNumber1: number = 0;
+  visibleNumber2: number = 0;
+  visibleNumber3: number = 0;
+  isRotating: boolean = false;
 
   constructor() {
     this.slotMachine = new SlotMachine();
   }
 
 
-  private SMALL_WIN = new Set([
-    '0-0-0',
+  private SMALL_WIN = new Set(['0-0-0',
     '0-0-1',
     '0-0-2',
     '0-0-3',
@@ -234,10 +238,24 @@ export class SlotsComponent {
   ]);
  
 
-  generateRandomNumbers() {
+  spin() {
     this.slotMachine.generateRandomNumbers();
     console.log(this.slotMachine.collum1, this.slotMachine.collum2, this.slotMachine.collum3);
+    if (this.isRotating) return;
 
+    this.isRotating = true;
+    const interval = setInterval(() => {
+      this.visibleNumber1 = (this.visibleNumber1 + 1) % this.numbers.length;
+      this.visibleNumber2 = (this.visibleNumber1 + 1) % this.numbers.length;
+      this.visibleNumber3 = (this.visibleNumber1 + 1) % this.numbers.length;
+    }, 100);
+    setTimeout(() => {
+      clearInterval(interval);
+      this.visibleNumber1 = this.slotMachine.collum1;
+      this.visibleNumber2 = this.slotMachine.collum2;
+      this.visibleNumber3 = this.slotMachine.collum3;
+      this.isRotating = false;
+    }, 3000);
     this.checkWinningConditions();
   }
 
