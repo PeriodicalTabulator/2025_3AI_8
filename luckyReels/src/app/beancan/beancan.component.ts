@@ -10,15 +10,22 @@ import { FormsModule } from '@angular/forms';
 })
 export class BeancanComponent {
   userNumber: number = 0;
+  isReverse: boolean = false;
 
   generateRandomNumber() {
-    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    let randomNumber;
+    if (this.isReverse) {
+      randomNumber = Math.floor(Math.random() * (100 - this.userNumber + 1)) + this.userNumber;
+    } else {
+      randomNumber = Math.floor(Math.random() * this.userNumber) + 1;
+    }
+    
     console.log(`Generated Number: ${randomNumber}`);
     
-    if (this.userNumber <= randomNumber) {
-      console.log("You won");
+    if (this.isReverse ? randomNumber >= this.userNumber : this.userNumber >= randomNumber) {
+      console.log("You won NIGGA!!!");
     } else {
-      console.log("You lose");
+      console.log("You lose nigga");
     }
   }
 }

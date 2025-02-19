@@ -1,2 +1,5 @@
-<input type="number" [(ngModel)]="userNumber" />
-<button (click)="generateRandomNumber()">E</button>
+<input type="number" [(ngModel)]="userNumber" placeholder="Enter a number" />
+<label>
+  <input type="checkbox" [(ngModel)]="isReverse" /> Vymenené
+</label>
+<button (click)="generateRandomNumber()">Check</button>
