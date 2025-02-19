@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
+
 @Component({
   selector: 'app-beancan',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,MatSliderModule,MatCheckboxModule,MatButtonModule],
   templateUrl: './beancan.component.html',
   styleUrls: ['./beancan.component.css']
 })
@@ -23,11 +27,12 @@ export class BeancanComponent {
     }
     
     console.log(`Generated Number: ${randomNumber}`);
+    console.log(this.userNumber);
     
     if (this.isReverse ? randomNumber >= this.userNumber : this.userNumber >= randomNumber) {
-      console.log("You won NIGGA!!!");
+      console.log("You won");
     } else {
-      console.log("You lose nigga");
+      console.log("You lose");
     }
   }
   
@@ -35,4 +40,22 @@ export class BeancanComponent {
     this.router.navigate([route]);
   }
 
+formatLabel(value: number): string 
+{
+  if(this.isReverse == true){
+      return `${100 - value}`
+  }else{
+    this.userNumber = value;
+    return `${value}`
+  }
+}
+
+  updateUserNumber(event: any) {
+    if(this.isReverse == true){
+      this.userNumber = 100 - event.target.value;
+    }else{
+      this.userNumber = event.target.value;
+    }
+
+  }
 }

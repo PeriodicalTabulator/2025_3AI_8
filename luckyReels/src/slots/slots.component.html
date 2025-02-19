@@ -1,15 +1,27 @@
-<button (click)="navigateToGame('')">Home</button>
-
+<div  class="homeButton"><button mat-raised-button color="primary" (click)="navigateToGame('')">Home</button></div>
 <div class="number-column">
-    <div class="number-display">
+  <div class="number-display-container">
+    <mat-card class="number-display">
       {{ numbers[visibleNumber1] }}
-    </div>
-    <div class="number-display">
-        {{ numbers[visibleNumber2] }}
-      </div>
-      <div class="number-display">
-        {{ numbers[visibleNumber3] }}
-      </div>
-      <p>{{this.youWon}}</p>
-    <button (click) = 'spin()'>generate number</button>
+    </mat-card>
+    <mat-card class="number-display">
+      {{ numbers[visibleNumber2] }}
+    </mat-card>
+    <mat-card class="number-display">
+      {{ numbers[visibleNumber3] }}
+    </mat-card>
   </div>
+  <p>{{this.youWon}}</p>
+  <div class="input-button-container">
+    <mat-form-field>
+        <input matInput type="number" placeholder="Bet">
+      </mat-form-field>
+  <button (click) = 'spin()' mat-raised-button color="primary">Spin</button>
+</div>
+<br>
+<br>
+<p>Winning conditions:</p>
+<p>Small win = Atleast one 0 in colums</p>
+<p>Mid win = All numbers (except 8, 0) are same in colums </p>
+<p>Big win = 8-8-8</p>
+</div>

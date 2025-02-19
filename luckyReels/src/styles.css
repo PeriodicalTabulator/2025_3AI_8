@@ -1,22 +1,56 @@
 .number-column {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    height: 100%;
+    color: white;
+}
+
+.number-display-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.input-button-container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
-  
-  .number-display {
-    font-size: 2em;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 50px;
+
+.number-display {
+    width: 100px;
+    height: 100px;
     text-align: center;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-  }
+    color: white;
+    font-size: 2em;
+    margin: 0 10px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+
+.mat-card {
+    padding: 20px;
+    width: 80px;  
+}
+
+
+.mat-raised-button {
+    margin-top: 10px;
+}
+.homeButton{
+    padding-left: 25px;
+    padding-top: 25px;
+}
+.checkBox{
+    margin: 12px 0;
+}
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: darkmagenta; }
+
+

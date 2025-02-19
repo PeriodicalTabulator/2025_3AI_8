@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+
 @Component({
   selector: 'app-slots',
+  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule],
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.css'
 })

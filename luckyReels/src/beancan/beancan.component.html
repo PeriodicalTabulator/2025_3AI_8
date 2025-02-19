@@ -1,0 +1,8 @@
+<div  class="homeButton"><button mat-raised-button color="primary" (click)="navigateToGame('')">Home</button></div>
+
+<mat-slider min="0" max="100" step="1" showTickMarks discrete [displayWith]="formatLabel" (input)="updateUserNumber($event)" >
+  <input matSliderThumb>
+</mat-slider>
+
+<mat-checkbox class="checkBox" [(ngModel)]="isReverse"></mat-checkbox>
+<button mat-raised-button color="primary" (click)="generateRandomNumber()">Roll</button>
