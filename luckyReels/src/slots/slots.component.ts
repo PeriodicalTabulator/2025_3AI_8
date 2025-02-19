@@ -12,13 +12,29 @@ export class SlotsComponent {
   visibleNumber2: number = 0;
   visibleNumber3: number = 0;
   isRotating: boolean = false;
+  youWon: string = "";
 
   constructor() {
     this.slotMachine = new SlotMachine();
   }
 
 
-  private SMALL_WIN = new Set(['0-0-0',
+  private BIG_WIN = new Set([
+    '8-8-8'
+  ]);
+
+  private MID_WIN = new Set([
+    '1-1-1',
+    '2-2-2',
+    '3-3-3',
+    '4-4-4',
+    '5-5-5',
+    '6-6-6',
+    '7-7-7'
+  ])
+
+  private SMALL_WIN = new Set([
+    '0-0-0',
     '0-0-1',
     '0-0-2',
     '0-0-3',
@@ -255,19 +271,41 @@ export class SlotsComponent {
       this.visibleNumber2 = this.slotMachine.collum2;
       this.visibleNumber3 = this.slotMachine.collum3;
       this.isRotating = false;
+      this.checkWinningConditions();
     }, 3000);
-    this.checkWinningConditions();
   }
 
   private checkWinningConditions() {
     const combination = `${this.slotMachine.collum1}-${this.slotMachine.collum2}-${this.slotMachine.collum3}`;
     if (this.SMALL_WIN.has(combination)) {
-      console.log("You won!");
-    } else {
-      console.log("Try again!");
+       this.smallWin();
+       this.youWon = "you won small"
+    } else if (this.MID_WIN.has(combination)) {
+      this.midWin();
+      this.youWon = "you won mid"
+    }else if (this.BIG_WIN.has(combination)){
+      this.bigWin();
+      this.youWon = "you won big"
+    }else{
+      this.youWon = "you lost"
     }
   }
+
+  private smallWin() {
+    console.log("small win");
+  }
+  private midWin() {
+    console.log("mid win");
+  }
+  private bigWin() {
+    console.log("big win");
+  }
+  
+
+
 }
+
+
 
 class SlotMachine {
   collum1: number = 0;

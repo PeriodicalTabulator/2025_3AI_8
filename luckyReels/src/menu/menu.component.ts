@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SlotsComponent } from '../slots/slots.component';
 
 @Component({
   selector: 'app-menu',

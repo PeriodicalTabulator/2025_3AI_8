@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
+import { SlotsComponent } from '../slots/slots.component';
+import { AppComponent } from './app.component';
 
 export const routes: Routes = [
-  { path: '', component: MenuComponent },
-  { path: 'Hra1', component: MenuComponent },
-  { path: 'Hra2', component: MenuComponent },
-  { path: 'Hra3', component: MenuComponent }
+  { path: 'slots', component: SlotsComponent },
+  { path: 'beancan', component:MenuComponent },
+  {path: '', component: MenuComponent}
 ];
 
 @NgModule({

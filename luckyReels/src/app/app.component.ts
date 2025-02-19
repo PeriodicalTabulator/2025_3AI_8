@@ -7,7 +7,7 @@ import { SlotsComponent } from '../slots/slots.component';
 
 @Component({
   selector: 'app-root',
-  imports: [SlotsComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
