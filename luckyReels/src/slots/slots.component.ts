@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-slots',
   templateUrl: './slots.component.html',
@@ -14,7 +14,7 @@ export class SlotsComponent {
   isRotating: boolean = false;
   youWon: string = "";
 
-  constructor() {
+  constructor(private router: Router) {
     this.slotMachine = new SlotMachine();
   }
 
@@ -301,6 +301,10 @@ export class SlotsComponent {
     console.log("big win");
   }
   
+
+  navigateToGame(route: string) {
+    this.router.navigate([route]);
+  }
 
 
 }

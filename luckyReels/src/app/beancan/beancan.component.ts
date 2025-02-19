@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-beancan',
   standalone: true,
@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 export class BeancanComponent {
   userNumber: number = 0;
   isReverse: boolean = false;
+  
+  constructor(private router: Router) {}
 
   generateRandomNumber() {
     let randomNumber;
@@ -28,4 +30,9 @@ export class BeancanComponent {
       console.log("You lose nigga");
     }
   }
+  
+  navigateToGame(route: string) {
+    this.router.navigate([route]);
+  }
+
 }
