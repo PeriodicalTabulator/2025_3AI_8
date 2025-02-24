@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { NgFor } from '@angular/common';
 
 
 @Component({
   selector: 'app-slots',
-  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule],
+  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule, NgFor],
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.css'
 })
@@ -21,7 +22,11 @@ export class SlotsComponent {
   isRotating: boolean = false;
   youWon: string = "";
 
-  constructor(private router: Router) {
+  @ViewChild('reel1') reel1!: ElementRef;
+  @ViewChild('reel2') reel2!: ElementRef;
+  @ViewChild('reel3') reel3!: ElementRef;
+
+  constructor(private router: Router ) {
     this.slotMachine = new SlotMachine();
   }
 
@@ -263,22 +268,22 @@ export class SlotsComponent {
 
   spin() {
     this.slotMachine.generateRandomNumbers();
-    console.log(this.slotMachine.collum1, this.slotMachine.collum2, this.slotMachine.collum3);
-    if (this.isRotating) return;
+    console.log("Random numbers generated:", this.slotMachine.collum1, this.slotMachine.collum2, this.slotMachine.collum3); // Added console.log
+    console.log(this.numbers)
+    this.youWon = "";
 
-    this.isRotating = true;
-    const interval = setInterval(() => {
-      this.visibleNumber1 = (this.visibleNumber1 + 1) % this.numbers.length;
-      this.visibleNumber2 = (this.visibleNumber1 + 1) % this.numbers.length;
-      this.visibleNumber3 = (this.visibleNumber1 + 1) % this.numbers.length;
-    }, 100);
+    const position1 = -this.slotMachine.collum1 * 80;
+    const position2 = -this.slotMachine.collum2 * 80;
+    const position3 = -this.slotMachine.collum3 * 80;
+
+    console.log("Calculated positions:", position1, position2, position3); 
+
+    this.reel1.nativeElement.style.transform = `translateY(${position1}px)`;
+    this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
+    this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
+
     setTimeout(() => {
-      clearInterval(interval);
-      this.visibleNumber1 = this.slotMachine.collum1;
-      this.visibleNumber2 = this.slotMachine.collum2;
-      this.visibleNumber3 = this.slotMachine.collum3;
-      this.isRotating = false;
-      this.checkWinningConditions();
+        this.checkWinningConditions();
     }, 3000);
   }
 
