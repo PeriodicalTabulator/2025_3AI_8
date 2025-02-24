@@ -1,67 +1,81 @@
-
 .homeButton {
     padding-left: 25px;
     padding-top: 25px;
-}
-
-.number-column {
+  }
+  
+  .number-column {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
     color: white;
-}
-
-.number-display-container {
+  }
+  
+  .number-display-container {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    gap: 10px; 
-}
-
-
-.slot-window {
+    gap: 10px;
+  }
+  
+  .slot-window {
     width: 80px;
     height: 80px;
     overflow: hidden;
-    display: inline-block;
+    border: 5px solid black;
+    background-color: black;
+    position: relative;
+  }
+  
+  .slot-reel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 3s ease-in-out;
+  }
+  
+  .slot-number {
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2em;
-    border: 2px solid white;
-}
-
-.slot-reel {
-    transition: transform 3s ease-in-out;
-}
-
-.slot-number {
-    height: 80px;
-    display: flex;
     box-sizing: border-box;
-    align-items: center; 
-    justify-content: center; 
-}
-
-.input-button-container {
+  }
+  
+  .input-button-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-}
-
-.mat-raised-button {
+  }
+  
+  .mat-raised-button {
     margin-top: 10px;
-}
-
-html, body {
+  }
+  
+  html, body {
     height: 100%;
-}
+  }
 
-body {
+  @keyframes roll {
+    0% {
+      transform: translateY(-640px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .rolling {
+    animation: roll 1s linear infinite; 
+  }
+
+
+
+  body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: darkmagenta;
-}
+  }

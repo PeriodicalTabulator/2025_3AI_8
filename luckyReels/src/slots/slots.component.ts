@@ -1,3 +1,4 @@
+
 import { Component,ViewChild,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
@@ -13,28 +14,20 @@ import { NgFor } from '@angular/common';
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.css'
 })
-export class SlotsComponent {
-  slotMachine: SlotMachine;
-  numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  visibleNumber1: number = 0;
-  visibleNumber2: number = 0;
-  visibleNumber3: number = 0;
-  isRotating: boolean = false;
-  youWon: string = "";
 
+export class SlotsComponent {
   @ViewChild('reel1') reel1!: ElementRef;
   @ViewChild('reel2') reel2!: ElementRef;
   @ViewChild('reel3') reel3!: ElementRef;
 
-  constructor(private router: Router ) {
-    this.slotMachine = new SlotMachine();
-  }
-
+  numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  youWon: string = "";
+  slotMachine = new SlotMachine();
 
   private BIG_WIN = new Set([
     '8-8-8'
   ]);
-
+  
   private MID_WIN = new Set([
     '1-1-1',
     '2-2-2',
@@ -44,7 +37,7 @@ export class SlotsComponent {
     '6-6-6',
     '7-7-7'
   ])
-
+  
   private SMALL_WIN = new Set([
     '0-0-0',
     '0-0-1',
@@ -264,64 +257,69 @@ export class SlotsComponent {
     '8-7-0',
     '8-8-0',
   ]);
- 
+  constructor(private router: Router) {}
 
   spin() {
     this.slotMachine.generateRandomNumbers();
-    console.log("Random numbers generated:", this.slotMachine.collum1, this.slotMachine.collum2, this.slotMachine.collum3); // Added console.log
+    console.log( this.slotMachine.collum1, this.slotMachine.collum2, this.slotMachine.collum3);
     console.log(this.numbers)
     this.youWon = "";
-
-    const position1 = -this.slotMachine.collum1 * 80;
-    const position2 = -this.slotMachine.collum2 * 80;
-    const position3 = -this.slotMachine.collum3 * 80;
-
-    console.log("Calculated positions:", position1, position2, position3); 
-
-    this.reel1.nativeElement.style.transform = `translateY(${position1}px)`;
-    this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
-    this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
-
+  
+    this.reel1.nativeElement.classList.add('rolling');
+    this.reel2.nativeElement.classList.add('rolling');
+    this.reel3.nativeElement.classList.add('rolling');
+  
     setTimeout(() => {
+      this.reel1.nativeElement.classList.remove('rolling');
+      this.reel2.nativeElement.classList.remove('rolling');
+      this.reel3.nativeElement.classList.remove('rolling');
+  
+      const position1 = -this.slotMachine.collum1 * 80;
+      const position2 = -this.slotMachine.collum2 * 80;
+      const position3 = -this.slotMachine.collum3 * 80;
+  
+      this.reel1.nativeElement.style.transform = `translateY(${position1}px)`;
+      this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
+      this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
+  
+      setTimeout(() => {
         this.checkWinningConditions();
+      }, 500);
     }, 3000);
   }
 
   private checkWinningConditions() {
     const combination = `${this.slotMachine.collum1}-${this.slotMachine.collum2}-${this.slotMachine.collum3}`;
     if (this.SMALL_WIN.has(combination)) {
-       this.smallWin();
-       this.youWon = "you won small"
+      this.smallWin();
+      this.youWon = "You won small!";
     } else if (this.MID_WIN.has(combination)) {
       this.midWin();
-      this.youWon = "you won mid"
-    }else if (this.BIG_WIN.has(combination)){
+      this.youWon = "You won mid!";
+    } else if (this.BIG_WIN.has(combination)) {
       this.bigWin();
-      this.youWon = "you won big"
-    }else{
-      this.youWon = "you lost"
+      this.youWon = "You won big!";
+    } else {
+      this.youWon = "You lost!";
     }
   }
 
   private smallWin() {
-    console.log("small win");
+    console.log("Small win");
   }
+
   private midWin() {
-    console.log("mid win");
+    console.log("Mid win");
   }
+
   private bigWin() {
-    console.log("big win");
+    console.log("Big win");
   }
-  
 
   navigateToGame(route: string) {
     this.router.navigate([route]);
   }
-
-
 }
-
-
 
 class SlotMachine {
   collum1: number = 0;
@@ -334,3 +332,11 @@ class SlotMachine {
     this.collum3 = Math.floor(Math.random() * 9);
   }
 }
+
+
+
+
+
+
+
+

@@ -1,35 +1,38 @@
 <div class="homeButton">
-  <button mat-raised-button color="primary" (click)="navigateToGame('')">Home</button>
-</div>
-
-<div class="number-column">
-  <div class="number-display-container">
-      <div class="slot-window">
-          <div class="slot-reel" #reel1>
-              <div *ngFor="let number of numbers" class="slot-number">{{ number }}</div>
-          </div>
-      </div>
-      <div class="slot-window">
-          <div class="slot-reel" #reel2>
-              <div *ngFor="let number of numbers" class="slot-number">{{ number }}</div>
-          </div>
-      </div>
-      <div class="slot-window">
-          <div class="slot-reel" #reel3>
-              <div *ngFor="let number of numbers" class="slot-number">{{ number }}</div>
-          </div>
-      </div>
+    <button mat-raised-button color="primary" (click)="navigateToGame('')">Home</button>
   </div>
-  <p>{{ youWon }}</p>
-  <div class="input-button-container">
+  
+  <div class="number-column">
+    <div class="number-display-container">
+        <div class="slot-window">
+            <div class="slot-reel" #reel1>
+              <div *ngFor="let number of numbers" class="slot-number">{{ number }}</div>
+            </div>
+          </div>
+          <div class="slot-window">
+            <div class="slot-reel" #reel2>
+              <div *ngFor="let number of numbers" class="slot-number">{{ number }}</div>
+            </div>
+          </div>
+          <div class="slot-window">
+            <div class="slot-reel" #reel3>
+              <div *ngFor="let number of numbers" class="slot-number">{{ number }}</div>
+            </div>
+          </div>
+    </div>
+  
+    <p>{{ youWon }}</p>
+  
+    <div class="input-button-container">
       <mat-form-field>
-          <input matInput type="number" placeholder="Bet" />
+        <input matInput type="number" placeholder="Bet" />
       </mat-form-field>
       <button (click)="spin()" mat-raised-button color="primary">Spin</button>
+    </div>
+  
+    <br /><br />
+    <p>Winning conditions:</p>
+    <p>Small win = At least one 0 in columns</p>
+    <p>Mid win = All numbers (except 8, 0) are same in columns</p>
+    <p>Big win = 8-8-8</p>
   </div>
-  <br /><br />
-  <p>Winning conditions:</p>
-  <p>Small win = At least one 0 in columns</p>
-  <p>Mid win = All numbers (except 8, 0) are same in columns</p>
-  <p>Big win = 8-8-8</p>
-</div>

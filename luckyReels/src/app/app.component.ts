@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MenuComponent } from '../menu/menu.component';
-import { SlotsComponent } from '../slots/slots.component';
+
 
 
 
