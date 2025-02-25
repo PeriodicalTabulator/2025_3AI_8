@@ -274,18 +274,17 @@ export class SlotsComponent {
       this.reel2.nativeElement.classList.remove('rolling');
       this.reel3.nativeElement.classList.remove('rolling');
   
-      const position1 = -this.slotMachine.collum1 * 80;
-      const position2 = -this.slotMachine.collum2 * 80;
-      const position3 = -this.slotMachine.collum3 * 80;
+      const position1 = -this.slotMachine.collum1 *  120;
+      const position2 = -this.slotMachine.collum2 *  120;
+      const position3 = -this.slotMachine.collum3 *  120;
   
       this.reel1.nativeElement.style.transform = `translateY(${position1}px)`;
       this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
       this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
   
-      setTimeout(() => {
         this.checkWinningConditions();
-      }, 500);
-    }, 3000);
+     
+    }, 1000);
   }
 
   private checkWinningConditions() {

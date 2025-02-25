@@ -1,0 +1,31 @@
+<button mat-raised-button color="primary" (click)="navigateToGame('')">Home</button>
+
+
+<div class="gameField">
+    <div class="dealer">
+        <h2>Dealer:</h2>
+        <div class="cards">
+         <div *ngFor="let card of dealersHand" class="card">
+            {{ card }}
+         </div>
+        </div>
+    </div>
+
+    <div class="player">
+        <h2>Player:</h2>
+        <div class="cards">
+         <div *ngFor="let card of playersHand" class="card">
+            {{ card }}
+         </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button mat-raised-button (click)="hit()">Hit</button>
+        <button mat-raised-button (click)="stand()">Stand</button>
+    </div>
+
+    <p>{{ gameResult }}</p>
+
+</div>
+

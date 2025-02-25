@@ -1,0 +1,105 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { NgFor } from '@angular/common';
+
+@Component({
+  selector: 'app-blackjack',
+  imports: [MatButtonModule, NgFor],
+  templateUrl: './blackjack.component.html',
+  styleUrl: './blackjack.component.css'
+})
+export class BlackjackComponent implements OnInit {
+  playingDeck: string[] = [];
+  dealersHand: string[] = [];
+  playersHand: string[] = [];
+  gameResult: string = '';
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.initializeGame();
+  }
+
+  initializeGame(): void {
+    this.playingDeck = this.createDeck()
+    //this.dealersHand = [this.drawCard(), this.drawCard()];
+    //this.playersHand = [this.drawCard(), this.drawCard()]; 
+    //this.gameResult = ''; 
+  }
+
+  createDeck(): string[] {
+    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const deck: string[] = [];
+    for (const suit of suits) {
+      for (const value of values) {
+        deck.push(`${value} of ${suit}`);
+      }
+    }
+    return this.shuffleDeck(deck);
+  }
+
+  shuffleDeck(deck: string[]): string[] {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+  }
+
+  drawCard(): string {
+    if (this.playingDeck.length === 0) {
+      console.error('Deck is empty! Resetting the deck.');
+      this.initializeGame();
+    }
+    return this.playingDeck.pop()!;
+  }
+
+  hit(): void {
+    this.playersHand.push(this.drawCard());
+    if (this.calculateHandValue(this.playersHand) > 21) {
+      this.gameResult = 'You Busted!';
+    }
+  }
+
+  stand(): void {
+    while (this.calculateHandValue(this.dealersHand) < 17) {
+      this.dealersHand.push(this.drawCard());
+    }
+    const playersValue = this.calculateHandValue(this.playersHand);
+    const dealersValue = this.calculateHandValue(this.dealersHand);
+    if (dealersValue > 21 || playersValue > dealersValue) {
+      this.gameResult = 'Player won!';
+    } else if (playersValue > 21) {
+      this.gameResult = 'Busted!';
+    } else {
+      this.gameResult = 'You lost!';
+    }
+  }
+
+  calculateHandValue(hand: string[]): number {
+    let value = 0;
+    let aces = 0;
+    for (const card of hand) {
+      const cardValue = card.split(' ')[0];
+      if (cardValue === 'A') {
+        value += 11;
+        aces++;
+      } else if (['J', 'Q', 'K'].includes(cardValue)) {
+        value += 10;
+      } else {
+        value += parseInt(cardValue, 10);
+      }
+    }
+    while (value > 21 && aces > 0) {
+      value -= 10;
+      aces--;
+    }
+    return value;
+  }
+
+  navigateToGame(route: string): void {
+    this.router.navigate([route]);
+  }
+}
