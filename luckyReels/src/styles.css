@@ -81,16 +81,15 @@
   body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: darkmagenta;
+    background-color: darkgreen;
   }
-  .blackjack-container {
+  .gameField {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
     color: white;
-    background-color: darkgreen;
     padding: 20px;
   }
   
@@ -114,6 +113,9 @@
     border-radius: 5px;
     font-size: 1.2em;
     border: 1px solid black;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    padding: 5px;
   }
   
   .actions {

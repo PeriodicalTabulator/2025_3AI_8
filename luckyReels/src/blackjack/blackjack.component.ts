@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { NgFor } from '@angular/common';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-blackjack',
-  imports: [MatButtonModule, NgFor],
+  imports: [MatButtonModule, NgFor,MatFormFieldModule,MatInputModule],
   templateUrl: './blackjack.component.html',
   styleUrl: './blackjack.component.css'
 })
@@ -14,18 +17,34 @@ export class BlackjackComponent implements OnInit {
   dealersHand: string[] = [];
   playersHand: string[] = [];
   gameResult: string = '';
+  startDisable:boolean = false;
+  hitStandDisable:boolean = true;
+  bet:number = 0;
+  
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.initializeGame();
+    this.playingDeck = this.createDeck()
   }
 
-  initializeGame(): void {
-    this.playingDeck = this.createDeck()
-    //this.dealersHand = [this.drawCard(), this.drawCard()];
-    //this.playersHand = [this.drawCard(), this.drawCard()]; 
-    //this.gameResult = ''; 
+  reset(){
+    this.startDisable = false;
+    this.hitStandDisable = true;
+  }
+
+  startGame(): void {
+   /* if(this.bet == 0){
+      this.gameResult = 'You have to bet';
+      return
+    }*/
+      this.dealersHand = [];
+      this.playersHand = [];
+    this.dealersHand = [this.drawCard(), this.drawCard()];
+    this.playersHand = [this.drawCard(), this.drawCard()]; 
+    this.gameResult = ''; 
+    this.startDisable = true;
+    this.hitStandDisable = false;
   }
 
   createDeck(): string[] {
@@ -50,8 +69,8 @@ export class BlackjackComponent implements OnInit {
 
   drawCard(): string {
     if (this.playingDeck.length === 0) {
-      console.error('Deck is empty! Resetting the deck.');
-      this.initializeGame();
+      console.error('Deck is empty!');
+      this.createDeck()
     }
     return this.playingDeck.pop()!;
   }
@@ -60,22 +79,29 @@ export class BlackjackComponent implements OnInit {
     this.playersHand.push(this.drawCard());
     if (this.calculateHandValue(this.playersHand) > 21) {
       this.gameResult = 'You Busted!';
+      this.reset();
     }
   }
 
   stand(): void {
+    this.hitStandDisable = true;
     while (this.calculateHandValue(this.dealersHand) < 17) {
+      delay(1000);
       this.dealersHand.push(this.drawCard());
     }
     const playersValue = this.calculateHandValue(this.playersHand);
     const dealersValue = this.calculateHandValue(this.dealersHand);
     if (dealersValue > 21 || playersValue > dealersValue) {
       this.gameResult = 'Player won!';
+      this.reset();
     } else if (playersValue > 21) {
       this.gameResult = 'Busted!';
+      this.reset();
     } else {
       this.gameResult = 'You lost!';
+      this.reset();
     }
+
   }
 
   calculateHandValue(hand: string[]): number {
