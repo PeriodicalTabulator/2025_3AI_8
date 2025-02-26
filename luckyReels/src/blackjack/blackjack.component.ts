@@ -48,12 +48,12 @@ export class BlackjackComponent implements OnInit {
   }
 
   createDeck(): string[] {
-    const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+    const symbols = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
     const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     const deck: string[] = [];
-    for (const suit of suits) {
+    for (const symbol of symbols) {
       for (const value of values) {
-        deck.push(`${value} of ${suit}`);
+        deck.push(`${value} of ${symbol}`);
       }
     }
     return this.shuffleDeck(deck);
@@ -64,13 +64,14 @@ export class BlackjackComponent implements OnInit {
       const j = Math.floor(Math.random() * (i + 1));
       [deck[i], deck[j]] = [deck[j], deck[i]];
     }
+    console.log(deck);
     return deck;
   }
 
   drawCard(): string {
     if (this.playingDeck.length === 0) {
       console.error('Deck is empty!');
-      this.createDeck()
+      this.playingDeck = this.createDeck();
     }
     return this.playingDeck.pop()!;
   }
