@@ -22,6 +22,7 @@ export class SlotsComponent {
 
   numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   youWon: string = "";
+  disableButton:boolean = false;
   slotMachine = new SlotMachine();
 
   private BIG_WIN = new Set([
@@ -261,8 +262,8 @@ export class SlotsComponent {
 
   spin() {
     this.slotMachine.generateRandomNumbers();
+    this.disableButton = true;
     console.log( this.slotMachine.collum1, this.slotMachine.collum2, this.slotMachine.collum3);
-    console.log(this.numbers)
     this.youWon = "";
   
     this.reel1.nativeElement.classList.add('rolling');
@@ -291,14 +292,18 @@ export class SlotsComponent {
     const combination = `${this.slotMachine.collum1}-${this.slotMachine.collum2}-${this.slotMachine.collum3}`;
     if (this.SMALL_WIN.has(combination)) {
       this.smallWin();
+      this.disableButton = false;
       this.youWon = "You won small!";
     } else if (this.MID_WIN.has(combination)) {
       this.midWin();
+      this.disableButton = false;
       this.youWon = "You won mid!";
     } else if (this.BIG_WIN.has(combination)) {
       this.bigWin();
+      this.disableButton = false;
       this.youWon = "You won big!";
     } else {
+      this.disableButton = false;
       this.youWon = "You lost!";
     }
   }
