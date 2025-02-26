@@ -41,6 +41,6 @@ The purpose and meaning of this project is to learn as much as we can about Angu
 
 | **Minimum Viable Product (MVP)**         | **Should Have** | **Nice to Have** |
 |------------------------------------------|-----------------|------------------|
-| Slots                                    | Plinko          | Not been i debt  |
-| Beancan Blast                            |                 |                  |
-| Account Balance                          |                 |                  |
+| Slots                                    | Plinko          | Statistic        |
+| Beancan Blast                            | Acount Balance  | Feeding slot     |
+| BlackJack                                |Roulette         | Free Spin Slot   |
