@@ -29,6 +29,7 @@
         <button mat-raised-button (click)="startGame()" [disabled]="startDisable">Start</button>
         <button mat-raised-button (click)="hit()" [disabled]="hitStandDisable">Hit</button>
         <button mat-raised-button (click)="stand()" [disabled]="hitStandDisable">Stand</button>
+        <button mat-raised-button (click)="split()" [disabled]="splitAble">Split</button>
     </div>
 
     <p>{{ gameResult }}</p>

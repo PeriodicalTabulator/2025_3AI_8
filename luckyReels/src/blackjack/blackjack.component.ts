@@ -20,6 +20,9 @@ export class BlackjackComponent implements OnInit {
   startDisable:boolean = false;
   hitStandDisable:boolean = true;
   bet:number = 0;
+  splitAble:boolean = true;
+  leftSplit:string[] = [];
+  rightSplit:string[]=[];
   
 
   constructor(private router: Router) {}
@@ -45,6 +48,7 @@ export class BlackjackComponent implements OnInit {
     this.gameResult = ''; 
     this.startDisable = true;
     this.hitStandDisable = false;
+    this.hasSameValue(this.playersHand);
   }
 
   createDeck(): string[] {
@@ -104,6 +108,44 @@ export class BlackjackComponent implements OnInit {
     }
 
   }
+
+
+  hasSameValue(array: string[]): boolean {
+    const elementCount = new Map<string, number>();
+  
+    for (const card of array) {
+      const cardValue = card.split(' ')[0];
+  
+      
+      if (elementCount.has(cardValue)) {
+        elementCount.set(cardValue, elementCount.get(cardValue)! + 1);
+      } else {
+        
+        elementCount.set(cardValue, 1);
+      }
+    }
+  
+    for (const count of elementCount.values()) {
+      if (count > 1) {
+        this.splitAble = false;
+        return true;
+      }
+    }
+      this.splitAble = true;
+    return false; 
+  }
+
+  playerPop():string{
+    return this.playersHand.pop()!;
+  }
+
+ split(){
+    this.rightSplit.push(this.playerPop());
+    this.leftSplit.push(this.playerPop());
+    console.log('right: ', this.rightSplit, 'left: ',this.leftSplit);
+  }
+  
+  
 
   calculateHandValue(hand: string[]): number {
     let value = 0;
