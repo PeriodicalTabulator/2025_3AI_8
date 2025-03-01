@@ -36,11 +36,10 @@ Whether you're a seasoned player or new to the world of casino games, Lucky Reel
 
 ## Project Roadmap
 
-TBD - Few lines about the project, what is its purpose and meaning.
 The purpose and meaning of this project is to learn as much as we can about Angular and Firebase.
 
 | **Minimum Viable Product (MVP)**         | **Should Have** | **Nice to Have** |
 |------------------------------------------|-----------------|------------------|
-| Slots                                    | Plinko          | Not been i debt  |
-| Beancan Blast                            |                 |                  |
-| Account Balance                          |                 |                  |
+| Slots                                    | Plinko          | Statistic        |
+| Beancan Blast                            | Acount Balance  | Feeding slot     |
+| BlackJack                                |Roulette         | Free Spin Slot   |
