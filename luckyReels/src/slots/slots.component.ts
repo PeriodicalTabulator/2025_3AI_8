@@ -20,10 +20,22 @@ export class SlotsComponent {
   @ViewChild('reel2') reel2!: ElementRef;
   @ViewChild('reel3') reel3!: ElementRef;
 
+  fruitsList: fruits[] = [
+    new fruits(0, 'cherry.png', 10),
+    new fruits(1, 'banana.png', 20),
+    new fruits(2, 'watermelon.png', 30),
+    new fruits(3, 'citrus.png', 40),
+    new fruits(4, 'plum.png', 50),
+    new fruits(5, 'orange.png', 50),
+    new fruits(6, 'apple.png', 60),
+    new fruits(7, 'bar.png', 70),
+    new fruits(8, 'seven.png', 100),
+  ];
   numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   youWon: string = "";
   disableButton:boolean = false;
-  slotMachine = new SlotMachine();
+  slotMachine = new SlotMachine(this.fruitsList);
+
 
   private BIG_WIN = new Set([
     '8-8-8'
@@ -260,6 +272,7 @@ export class SlotsComponent {
   ]);
   constructor(private router: Router) {}
 
+
   spin() {
     this.slotMachine.generateRandomNumbers();
     this.disableButton = true;
@@ -275,10 +288,15 @@ export class SlotsComponent {
       this.reel2.nativeElement.classList.remove('rolling');
       this.reel3.nativeElement.classList.remove('rolling');
   
-      const position1 = -this.slotMachine.collum1 *  120;
-      const position2 = -this.slotMachine.collum2 *  120;
-      const position3 = -this.slotMachine.collum3 *  120;
-  
+      const offset:number = 480;
+
+      const itemHeight = 120; 
+      const position1 = -(this.slotMachine.collum1!.id * itemHeight) + offset ;
+      const position2 = -(this.slotMachine.collum2!.id * itemHeight) + offset ;
+      const position3 = -(this.slotMachine.collum3!.id * itemHeight)+ offset ;
+      
+      console.log(position1,position2,position3);
+
       this.reel1.nativeElement.style.transform = `translateY(${position1}px)`;
       this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
       this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
@@ -289,7 +307,7 @@ export class SlotsComponent {
   }
 
   private checkWinningConditions() {
-    const combination = `${this.slotMachine.collum1}-${this.slotMachine.collum2}-${this.slotMachine.collum3}`;
+    const combination = `${this.slotMachine.collum1?.id}-${this.slotMachine.collum2?.id}-${this.slotMachine.collum3?.id}`;
     if (this.SMALL_WIN.has(combination)) {
       this.smallWin();
       this.disableButton = false;
@@ -326,21 +344,71 @@ export class SlotsComponent {
 }
 
 class SlotMachine {
-  collum1: number = 0;
-  collum2: number = 0;
-  collum3: number = 0;
+  collum1: fruits | null = null;
+  collum2: fruits | null = null;
+  collum3: fruits | null = null;
+
+  constructor(private fruitsList: fruits[]) {}
 
   generateRandomNumbers() {
-    this.collum1 = Math.floor(Math.random() * 9);
-    this.collum2 = Math.floor(Math.random() * 9);
-    this.collum3 = Math.floor(Math.random() * 9);
+    this.collum1 = this.fruitsList[Math.floor(Math.random() * this.fruitsList.length)];
+    this.collum2 = this.fruitsList[Math.floor(Math.random() * this.fruitsList.length)];
+    this.collum3 = this.fruitsList[Math.floor(Math.random() * this.fruitsList.length)];
   }
 }
 
+class fruits{
+  constructor( public id: number = 0,
+    public imgPath: string = '',
+    public value: number = 0){ 
 
+  }
 
+}
 
+/*
+const cherry = new fruits();
+cherry.id = 0;
+cherry.imgPath = 'images/cherry.png';
+cherry.value = 10;
 
+const banana = new fruits();
+banana.id = 1;
+banana.imgPath = 'images/cherry.png';
+banana.value = 20;
 
+const watermelon = new fruits();
+watermelon.id = 2;
+watermelon.imgPath = ' '; //have to be filled
+watermelon.value = 30
 
+const citrus = new fruits();
+citrus.id = 3;
+citrus.imgPath = ''; //have to be filled
+citrus.value = 40
 
+const plum = new fruits();
+plum.id = 4;
+plum.imgPath = ''; // have to be filled
+plum.value = 50;
+
+const orange = new fruits();
+orange.id = 5;
+orange.imgPath = ''; //have to be filled
+orange.value = 50;
+
+const apple = new fruits()
+apple.id = 6;
+apple.imgPath = ''; //have to be filled
+apple.value = 60;
+
+const bar = new fruits();
+bar.id = 7;
+bar.imgPath = ''; //have to be filled
+bar.value = 70;
+
+const seven = new fruits();
+seven.id = 8;
+seven.imgPath = ''; //have to be filled
+seven.value = 100;
+*/

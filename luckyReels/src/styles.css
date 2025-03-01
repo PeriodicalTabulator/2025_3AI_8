@@ -1,125 +1,130 @@
+
+
 .homeButton {
-    padding-left: 25px;
-    padding-top: 25px;
-  }
-  
-  .number-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: white;
-  }
-  
-  .number-display-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    gap: 10px;
-  }
-  
-  .slot-window {
-    width: 100px;
-    height: 120px;
-    overflow: hidden;
-    border: 5px solid transparent;
-    background-color: rgba(0, 0, 0, 0.5);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-  }
-  
-  .slot-reel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: transform 3s ease-in-out;
-  }
-  
-  .slot-number {
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3em;
-    box-sizing: border-box;
-    color: white;
-  }
-  
-  .input-button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .mat-raised-button {
-    margin-top: 10px;
-  }
-  
-  html, body {
-    height: 100%;
-  }
+  padding-left: 25px;
+  padding-top: 25px;
+}
 
-  @keyframes roll {
-    0% {
-      transform: translateY(-960px);
-    }
-    100% {
-      transform: translateY(0px);
-    }
-  }
-  
-  .rolling {
-    animation: roll 0.6s linear infinite; 
-  }
+.number-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
+}
 
+.number-display-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
 
-  body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: darkgreen;
+.slot-window {
+  width: 100px; /* Match image width */
+  height: 120px; /* Match image height */
+  overflow: hidden;
+  border: 5px solid transparent;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.slot-reel {
+  display: flex;
+  flex-direction: column;
+  transition: transform 1s ease-in-out;
+  position: relative;
+  top: 0;
+}
+
+.slot-number {
+
+  width: 100px; 
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  box-sizing: border-box;
+  color: white;
+}
+
+.input-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.mat-raised-button {
+  margin-top: 10px;
+}
+
+html, body {
+  height: 100%;
+}
+
+.rolling {
+  animation: roll 0.6s linear infinite;
+}
+
+@keyframes roll {
+  0% {
+    transform: translateY(0px);
   }
-  .gameField {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: white;
-    padding: 20px;
+  100% {
+    transform: translateY(-1080px);
   }
-  
-  .dealer-hand, .player-hand {
-    margin-bottom: 20px;
-  }
-  
-  .cards {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .card {
-    width: 60px;
-    height: 90px;
-    background-color: white;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    font-size: 1.2em;
-    border: 1px solid black;
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    padding: 5px;
-  }
-  
-  .actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: darkgreen;
+}
+
+.gameField {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+  padding: 20px;
+}
+
+.dealer-hand, .player-hand {
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  width: 60px;
+  height: 90px;
+  background-color: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: 1.2em;
+  border: 1px solid black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
