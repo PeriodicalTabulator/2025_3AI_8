@@ -19,11 +19,12 @@
   justify-content: center;
   margin-bottom: 20px;
   gap: 10px;
+  position: relative;
 }
 
 .slot-window {
-  width: 100px; /* Match image width */
-  height: 120px; /* Match image height */
+  width: 100px;
+  height: 120px;
   overflow: hidden;
   border: 5px solid transparent;
   background-color: rgba(0, 0, 0, 0.5);
@@ -72,20 +73,41 @@ html, body {
 .rolling {
   animation: roll 0.6s linear infinite;
 }
-
+.navbar{
+  margin-top: 10px;
+  text-align: center;
+}
 @keyframes roll {
   0% {
-    transform: translateY(0px);
+    transform: translateY(480px);
   }
   100% {
-    transform: translateY(-1080px);
+    transform: translateY(-600px);
   }
+}
+
+.wing {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px; 
+  height: auto;
+}
+
+.left-wing {
+  top: 162px;
+  left: -370px;
+}
+
+.right-wing {
+  top: 162px;
+  left: 400px; 
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: darkgreen;
+  background-color: #50113C;
 }
 
 .gameField {
@@ -128,3 +150,4 @@ body {
   gap: 10px;
   margin-top: 20px;
 }
+

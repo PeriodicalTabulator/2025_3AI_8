@@ -1,5 +1,11 @@
-<div class="number-column">
-  <div class="number-display-container">
+ <div class="number-column">
+  <div class="backgroundSlots">
+   <div class="number-display-container">
+
+    <div class="wing left-wing">
+      <img src="leftwing.png" alt="Left Wing" />
+    </div>
+
     <div class="slot-window">
       <div class="slot-reel" #reel1>
         <div *ngFor="let fruit of fruitsList" class="slot-number">
@@ -21,9 +27,13 @@
         </div>
       </div>
     </div>
+
+    <div class="wing right-wing">
+      <img src="rightwing.png" alt="Right Wing" />
+    </div>
   </div>
 
-  <p>{{ youWon }}</p>
+  <p style="text-align: center;">{{ youWon }}</p>
 
   <div class="input-button-container">
     <mat-form-field>
@@ -37,4 +47,5 @@
   <p>Small win = At least one 0 in columns</p>
   <p>Mid win = All numbers (except 8, 0) are same in columns</p>
   <p>Big win = 8-8-8</p>
+</div>
 </div>
