@@ -13,14 +13,25 @@
 
     <div class="player">
         <h2>Player:</h2>
-        <p>{{calculateHandValue(playersHand)}}</p>
-        <div class="cards">
+        <p *ngIf="splited == false">{{calculateHandValue(playersHand)}}</p>
+        <div class="cards" *ngIf="splited == false">
          <div *ngFor="let card of playersHand" class="card">
             {{ card }}
          </div>
         </div>
+        <p *ngIf="splited == true">{{calculateHandValue(leftSplit)}}</p>
+        <div class="cards">
+            <div *ngFor="let card of leftSplit" class="card">
+               {{ card }}
+            </div>
+           </div>
+           <p *ngIf="splited == true">{{calculateHandValue(rightSplit)}}</p>
+           <div class="cards">
+            <div *ngFor="let card of rightSplit" class="card">
+               {{ card }}
+            </div>
+           </div>
     </div>
-
     <div class="actions">
         <mat-form-field>
             <input matInput type="number" placeholder="Bet" [disabled]="startDisable" />
@@ -30,7 +41,7 @@
         <button mat-raised-button (click)="stand()" [disabled]="hitStandDisable">Stand</button>
         <button mat-raised-button (click)="split()" [disabled]="splitAble">Split</button>
     </div>
-
+    <p>{{leftResult}}</p>
     <p>{{ gameResult }}</p>
 
 </div>

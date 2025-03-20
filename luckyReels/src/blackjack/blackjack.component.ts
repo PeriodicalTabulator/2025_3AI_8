@@ -5,10 +5,11 @@ import { NgFor } from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { delay } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-blackjack',
-  imports: [MatButtonModule, NgFor,MatFormFieldModule,MatInputModule],
+  imports: [MatButtonModule, NgFor,MatFormFieldModule,MatInputModule,NgIf],
   templateUrl: './blackjack.component.html',
   styleUrl: './blackjack.component.css'
 })
@@ -23,7 +24,10 @@ export class BlackjackComponent implements OnInit {
   splitAble:boolean = true;
   leftSplit:string[] = [];
   rightSplit:string[]=[];
-  
+  splited: boolean = false;
+  leftHand:boolean = true;
+  splitcreated:boolean = false;
+  leftResult:string = '';
 
   constructor(private router: Router) {}
 
@@ -34,6 +38,10 @@ export class BlackjackComponent implements OnInit {
   reset(){
     this.startDisable = false;
     this.hitStandDisable = true;
+    this.splitcreated = false;
+    this.splited = false;
+    this.splitAble = true;
+    this.leftHand = true;
   }
 
   startGame(): void {
@@ -41,11 +49,16 @@ export class BlackjackComponent implements OnInit {
       this.gameResult = 'You have to bet';
       return
     }*/
+      this.leftSplit = [];
+      this.rightSplit = [];
       this.dealersHand = [];
       this.playersHand = [];
     this.dealersHand = [this.drawCard(), this.drawCard()];
-    this.playersHand = [this.drawCard(), this.drawCard()]; 
+    //testing split
+    this.playersHand = ['3 of Clubs','3 of Clubs']; 
+    //this.playersHand = [this.drawCard(),this.drawCard()];
     this.gameResult = ''; 
+    this.leftResult = '';
     this.startDisable = true;
     this.hitStandDisable = false;
     this.hasSameValue(this.playersHand);
@@ -81,34 +94,108 @@ export class BlackjackComponent implements OnInit {
   }
 
   hit(): void {
-    this.playersHand.push(this.drawCard());
-    if (this.calculateHandValue(this.playersHand) > 21) {
-      this.gameResult = 'You Busted!';
-      this.reset();
+    if(this.splited && this.leftHand){
+      this.leftSplit.push(this.drawCard());
+      if (this.calculateHandValue(this.leftSplit) > 21) {
+        this.leftResult = 'Left hand busted';
+        !this.leftHand;
+      }
+    }else if(this.splited && !this.leftHand){
+      this.rightSplit.push(this.drawCard());
+      if (this.calculateHandValue(this.rightSplit) > 21) {
+        this.gameResult = 'Right hand busted';
+        this.stand();
+      }
+    }else{
+      this.playersHand.push(this.drawCard());
+      if (this.calculateHandValue(this.playersHand) > 21) {
+        this.gameResult = 'You Busted!';
+        this.reset();
+      }
+      this.splitAble = true; //html component expect true for disable button
     }
+  }
+
+  split(){
+    if(this.splitAble) return;
+
+    this.splitcreated = true;
+    this.splitAble = true;
+    this.splited = true;
+    this.rightSplit.push(this.playerPop());
+    this.leftSplit.push(this.playerPop());
+
+    this.leftSplit.push(this.drawCard());
+    this.rightSplit.push(this.drawCard());
+
+    console.log('right: ', this.rightSplit, 'left: ',this.leftSplit);
+  }
+
+  playerPop():string{
+    return this.playersHand.pop()!;
   }
 
   stand(): void {
-    this.hitStandDisable = true;
-    while (this.calculateHandValue(this.dealersHand) < 17) {
-      delay(1000);
-      this.dealersHand.push(this.drawCard());
+    if (this.splited) {
+      if (this.leftHand) {
+        this.leftHand = false;
+        return;
+      }
     }
-    const playersValue = this.calculateHandValue(this.playersHand);
-    const dealersValue = this.calculateHandValue(this.dealersHand);
-    if (dealersValue > 21 || playersValue > dealersValue) {
-      this.gameResult = 'Player won!';
-      this.reset();
-    } else if (playersValue > 21) {
-      this.gameResult = 'Busted!';
-      this.reset();
-    } else {
-      this.gameResult = 'You lost!';
-      this.reset();
-    }
+    if(this.splitcreated){
+      this.dealerPlay();
+      const leftSplitValue = this.calculateHandValue(this.leftSplit);
+      const rightSplitValue = this.calculateHandValue(this.rightSplit);
+      const dealersValue = this.calculateHandValue(this.dealersHand);
 
+      if(leftSplitValue > 21){
+        this.leftResult = 'Left hand busted';
+      }else if(dealersValue>21 || leftSplitValue > dealersValue){
+        this.leftResult = 'Left hand won';
+      }else if(leftSplitValue == dealersValue){
+        this.leftResult = 'Left hand tie';
+      }else{
+        this.leftResult = 'Left hand lost';
+      }
+      
+      if(rightSplitValue > 21){
+        this.gameResult = 'Right hand busted';
+      }else if(dealersValue>21 || rightSplitValue > dealersValue){
+        this.gameResult = 'Right hand won';
+      }else if(rightSplitValue == dealersValue){
+        this.gameResult = 'Right hand tie';
+      }else{
+        this.gameResult = 'Right hand lost';
+      }
+      this.reset();
+    
+    }else{
+      this.dealerPlay();
+      const playersValue = this.calculateHandValue(this.playersHand);
+      const dealersValue = this.calculateHandValue(this.dealersHand);
+
+      if(playersValue > 21){
+        this.gameResult = 'You busted';
+      }else if(dealersValue > 21){
+        this.gameResult = 'Dealer bust';
+      }else if(playersValue > dealersValue){
+        this.gameResult = 'Player won';
+      }else if(playersValue === dealersValue){
+        this.gameResult = 'Push';
+      }else{
+        this.gameResult = 'Dealer won';
+      }
+      this.reset();
+
+    }
   }
 
+  dealerPlay(): void {
+    this.hitStandDisable = true;
+    while(this.calculateHandValue(this.dealersHand) < 17){
+      this.dealersHand.push(this.drawCard());
+    }
+  }
 
   hasSameValue(array: string[]): boolean {
     const elementCount = new Map<string, number>();
@@ -134,18 +221,6 @@ export class BlackjackComponent implements OnInit {
       this.splitAble = true;
     return false; 
   }
-
-  playerPop():string{
-    return this.playersHand.pop()!;
-  }
-
- split(){
-    this.rightSplit.push(this.playerPop());
-    this.leftSplit.push(this.playerPop());
-    console.log('right: ', this.rightSplit, 'left: ',this.leftSplit);
-  }
-  
-  
 
   calculateHandValue(hand: string[]): number {
     let value = 0;
