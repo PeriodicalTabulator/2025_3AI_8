@@ -11,7 +11,6 @@ export const routes: Routes = [
   { path: 'beancan', component:BeancanComponent },
   {path: 'blackjack', component: BlackjackComponent},
   {path: '', component:MenuComponent},
-  {path: 'login', component:LoginComponent}
 ];
 
 @NgModule({
