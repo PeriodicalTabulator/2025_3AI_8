@@ -1,7 +1,17 @@
 <h2 mat-dialog-title>Login</h2>
 <br>
 <mat-dialog-content>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>User name</mat-label>
+        <input matInput formControlName="userName" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Id number</mat-label>
+        <input matInput formControlName="idNumber" required minlength="8" maxlength="8">
+      </mat-form-field>
+
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" required>
@@ -15,10 +25,9 @@
     <div mat-dialog-actions>
       <button mat-button (click)="onCancel()">Cancel</button>
       <button mat-raised-button color="primary" type="submit" 
-              [disabled]="loginForm.invalid">
-        Login
+              [disabled]="registerForm.invalid">
+        Register
       </button>
     </div>
-    <p>Dont have account yet? <button (click)="openRegisterDialog()" mat-raised-button>Register</button></p>
   </form>
 </mat-dialog-content>
