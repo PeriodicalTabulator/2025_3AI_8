@@ -1,0 +1,25 @@
+<div class="wheel">
+    <div class="outerRim">
+        <div class="pocket-rim">
+            <div class="ballTrack">
+                <div class="ball"></div>
+                <div class="pockets"></div>
+                <div class="cone"></div>
+                <div class="turret"></div>
+                <div class="turretHandle"></div>
+                <div class="thendOne"></div>
+                <div class="thendTwo"></div>
+            </div>
+        </div>
+      <div *ngFor="let num of numbers; let i = index" 
+           id="sect{{i + 1}}" 
+           class="sect"
+           [ngStyle]="getSectorStyle(i)">
+
+            <span [ngClass]="getNumberClass(num)">{{num}}</span>
+         <div class="block"></div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="spinWheel()">start roll</button>
