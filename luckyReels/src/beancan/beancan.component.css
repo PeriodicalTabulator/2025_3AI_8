@@ -1,0 +1,20 @@
+.number-input {
+    width: 200px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #790048;
+    color: #000000;
+    margin-right: 12px;
+  }
+  
+  .result-box {
+    margin-top: 16px;
+    padding: 12px;
+    border: 2px solid #ff7eb6;
+    border-radius: 8px;
+    background-color: #610954;
+    font-family: Arial, sans-serif;
+  }
+  

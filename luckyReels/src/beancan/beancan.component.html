@@ -1,8 +1,25 @@
+<!-- Simple number input -->
+<input
+  type="number"
+  [(ngModel)]="userInput"
+  min="1"
+  max="99"
+  class="number-input"
+  placeholder="Pick a number (1–99)" />
 
+<!-- Reverse toggle -->
+<mat-checkbox [(ngModel)]="isReverse">
+  Reverse
+</mat-checkbox>
 
-<mat-slider min="0" max="100" step="1" showTickMarks discrete [displayWith]="formatLabel" (input)="updateUserNumber($event)" >
-  <input matSliderThumb>
-</mat-slider>
+<!-- Roll button -->
+<button mat-raised-button color="primary" (click)="generateRandomNumber()">
+  Roll
+</button>
 
-<mat-checkbox class="checkBox" [(ngModel)]="isReverse"></mat-checkbox>
-<button mat-raised-button color="primary" (click)="generateRandomNumber()">Roll</button>
+<!-- Output display -->
+<div *ngIf="generatedNumber !== null" class="result-box">
+  <p><strong>Generated Number:</strong> {{ generatedNumber }}</p>
+  <p><strong>Your Number:</strong> {{ userNumber }}</p>
+  <p><strong>Result:</strong> {{ resultMessage }}</p>
+</div>
