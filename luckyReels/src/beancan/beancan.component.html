@@ -1,4 +1,3 @@
-<!-- Simple number input -->
 <input
   type="number"
   [(ngModel)]="userInput"
@@ -7,17 +6,17 @@
   class="number-input"
   placeholder="Pick a number (1–99)" />
 
-<!-- Reverse toggle -->
+
 <mat-checkbox [(ngModel)]="isReverse">
   Reverse
 </mat-checkbox>
 
-<!-- Roll button -->
+
 <button mat-raised-button color="primary" (click)="generateRandomNumber()">
   Roll
 </button>
 
-<!-- Output display -->
+
 <div *ngIf="generatedNumber !== null" class="result-box">
   <p><strong>Generated Number:</strong> {{ generatedNumber }}</p>
   <p><strong>Your Number:</strong> {{ userNumber }}</p>
