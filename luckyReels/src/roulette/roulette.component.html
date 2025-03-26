@@ -22,4 +22,46 @@
     </div>
   </div>
 
+
+  <div class="betting-area">
+    <div class="betting-board">
+      <div class="numbers-grid">
+        <div class="zero">0</div>
+        <div class="main-numbers">
+          <div *ngFor="let row of numberRows" class="number-row">
+            <div *ngFor="let num of row" 
+                 class="number-cell" 
+                 [class.red]="isRed(num)"
+                 [class.black]="isBlack(num)">
+              {{num}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outside-bets">
+        <div class="dozens">
+          <div class="dozen">1st 12</div>
+          <div class="dozen">2nd 12</div>
+          <div class="dozen">3rd 12</div>
+        </div>
+        <div class="columns">
+          <div class="column">2 to 1</div>
+          <div class="column">2 to 1</div>
+          <div class="column">2 to 1</div>
+        </div>
+        <div class="even-money">
+          <div class="even-money-bet">1-18</div>
+          <div class="even-money-bet">Even</div>
+          <div class="even-money-bet red-bg">Red</div>
+          <div class="even-money-bet black-bg">Black</div>
+          <div class="even-money-bet">Odd</div>
+          <div class="even-money-bet">19-36</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <button (click)="spinWheel()">start roll</button>
