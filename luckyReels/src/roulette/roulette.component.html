@@ -26,42 +26,96 @@
   <div class="betting-area">
     <div class="betting-board">
       <div class="numbers-grid">
-        <div class="zero">0</div>
+        <div class="zero" (click)="placeBet(0)">
+          0
+          <div class="bet-container" #zeroBets></div>
+        </div>
         <div class="main-numbers">
           <div *ngFor="let row of numberRows" class="number-row">
             <div *ngFor="let num of row" 
                  class="number-cell" 
                  [class.red]="isRed(num)"
-                 [class.black]="isBlack(num)">
+                 [class.black]="isBlack(num)"
+                 (click)="placeBet(num)">
               {{num}}
+              <div class="bet-container" [id]="'bet-' + num"></div>
             </div>
           </div>
         </div>
       </div>
-
+  
       <div class="outside-bets">
         <div class="dozens">
-          <div class="dozen">1st 12</div>
-          <div class="dozen">2nd 12</div>
-          <div class="dozen">3rd 12</div>
+          <div class="dozen" (click)="placeBet('1st12')">
+            1st 12
+            <div class="bet-container" id="bet-1st12"></div>
+          </div>
+          <div class="dozen" (click)="placeBet('2nd12')">
+            2nd 12
+            <div class="bet-container" id="bet-2nd12"></div>
+          </div>
+          <div class="dozen" (click)="placeBet('3rd12')">
+            3rd 12
+            <div class="bet-container" id="bet-3rd12"></div>
+          </div>
         </div>
         <div class="columns">
-          <div class="column">2 to 1</div>
-          <div class="column">2 to 1</div>
-          <div class="column">2 to 1</div>
+          <div class="column" (click)="placeBet('1stCol')">
+            2 to 1
+            <div class="bet-container" id="bet-1stCol"></div>
+          </div>
+          <div class="column" (click)="placeBet('2ndCol')">
+            2 to 1
+            <div class="bet-container" id="bet-2ndCol"></div>
+          </div>
+          <div class="column" (click)="placeBet('3rdCol')">
+            2 to 1
+            <div class="bet-container" id="bet-3rdCol"></div>
+          </div>
         </div>
         <div class="even-money">
-          <div class="even-money-bet">1-18</div>
-          <div class="even-money-bet">Even</div>
-          <div class="even-money-bet red-bg">Red</div>
-          <div class="even-money-bet black-bg">Black</div>
-          <div class="even-money-bet">Odd</div>
-          <div class="even-money-bet">19-36</div>
+          <div class="even-money-bet" (click)="placeBet('1-18')">
+            1-18
+            <div class="bet-container" id="bet-1-18"></div>
+          </div>
+          <div class="even-money-bet" (click)="placeBet('Even')">
+            Even
+            <div class="bet-container" id="bet-Even"></div>
+          </div>
+          <div class="even-money-bet red-bg" (click)="placeBet('Red')">
+            Red
+            <div class="bet-container" id="bet-Red"></div>
+          </div>
+          <div class="even-money-bet black-bg" (click)="placeBet('Black')">
+            Black
+            <div class="bet-container" id="bet-Black"></div>
+          </div>
+          <div class="even-money-bet" (click)="placeBet('Odd')">
+            Odd
+            <div class="bet-container" id="bet-Odd"></div>
+          </div>
+          <div class="even-money-bet" (click)="placeBet('19-36')">
+            19-36
+            <div class="bet-container" id="bet-19-36"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
-  <button (click)="spinWheel()">start roll</button>
+  
+  <div class="bet-control">
+    <div class="chip-values">
+      <div *ngFor="let chip of chipValues"
+           class="chip"
+           [style.background]="chip.color"
+           (click)="selectChip(chip.value)">
+        {{chip.value}}
+      </div>
+    </div>
+    <div class="current-bet">
+      <div>Current Bet: {{currentBetAmount}}</div>
+      <div>Selected Chip: {{selectedChip}}</div>
+    </div>
+  </div>
+  
+  <button (click)="spinWheel()">Start Roll</button>

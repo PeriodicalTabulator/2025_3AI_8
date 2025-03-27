@@ -79,10 +79,10 @@ html, body {
 }
 @keyframes roll {
   0% {
-    transform: translateY(480px);
+    transform: translateY(-600px);
   }
   100% {
-    transform: translateY(-600px);
+    transform: translateY(480px);
   }
 }
 
@@ -439,12 +439,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000;
+  color: black;
   font-weight: bold;
   cursor: pointer;
   border: 2px solid #333;
 }
 
+.bet-chip{
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid #333;
+}
 .current-bet {
   font-weight: bold;
 }
