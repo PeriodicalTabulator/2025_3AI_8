@@ -50,7 +50,7 @@ export class RouletteComponent {
   selectChip(value:number){
     this.selectedChip = value;
   }
-
+//need them to stack on each other and not go out of elements
   placeBet(betTarget: number | string): void {
   
    this.currentBetAmount += this.selectedChip;
