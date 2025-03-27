@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports:[MatSidenavModule],
+  imports:[MatSidenavModule, MatButtonModule],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
