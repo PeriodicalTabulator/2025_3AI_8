@@ -14,8 +14,9 @@ import { fakeAsync } from '@angular/core/testing';
 export class RouletteComponent {
   @ViewChild('zeroBets') zeroBets!: ElementRef;
   numbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
+  red = []
   isSpinning = false;
-  spinDuration = 5000;
+  spinDuration = 1000;
   bets: {number: number | string, amount: number}[] = [];
   selectedChip = 1;
   currentBetAmount = 0;
@@ -55,7 +56,7 @@ export class RouletteComponent {
   
    this.currentBetAmount += this.selectedChip;
    this.bets.push({ number: betTarget, amount: this.selectedChip });
-   
+   console.log(this.bets)
    let container: HTMLElement;
    if (betTarget === 0) {
        container = this.zeroBets.nativeElement;
@@ -97,16 +98,18 @@ export class RouletteComponent {
     
     this.isSpinning = true;
     const wheel = document.querySelector('.outerRim') as HTMLElement;
-    const ball = document.querySelector('.ball') as HTMLElement;
+    const ball = document.querySelector('.ballTrack') as HTMLElement;
     
     const rotations = 5 + Math.random() * 5;
     const finalAngle = rotations * 360 + (Math.random() * 360);
-    
+
+    ball.style.transition = `transform ${this.spinDuration}ms cubic-bezier(0.17, 0.67, 0.21, 0.99)`;
+    ball.style.transform = `rotate(${finalAngle}deg)`;
+
     wheel.style.transition = `transform ${this.spinDuration}ms cubic-bezier(0.17, 0.67, 0.21, 0.99)`;
     wheel.style.transform = `rotate(${finalAngle}deg)`;
     
-    ball.style.transition = `transform ${this.spinDuration}ms cubic-bezier(0.17, 0.67, 0.21, 0.99)`;
-    ball.style.transform = `rotate(${-finalAngle * 1.5}deg)`;
+    console.log(finalAngle)
     
     setTimeout(() => {
       this.isSpinning = false;
