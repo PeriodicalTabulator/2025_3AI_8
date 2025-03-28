@@ -236,8 +236,8 @@ body {
   z-index: 2;
 }
 .pockets{	position: absolute;
-	top: -13px;
-	left: -13px;
+	top: 0px;
+	left: 0px;
 	width: 235px;
 	height: 235px;
 	background-color: #000;
@@ -246,8 +246,8 @@ body {
 }
 .cone{
   position: absolute;
-	top: 12px;
-	left: 12px;
+	top: 25px;
+	left: 25px;
 	height: 180px;
 	width: 180px;
 	border: 3px solid #9f9a9a;
@@ -260,8 +260,8 @@ body {
 	width: 45px;
 	height: 45px;
 	position: absolute;
-	top: 83px;
-	left: 83px;
+	top: 98px;
+	left: 98px;
 	z-index: 1;
 }
 .turretHandle{
@@ -269,8 +269,8 @@ body {
 	width: 87px;
 	height: 14px;
 	position: absolute;
-	left: 63px;
-	top: 98px;
+	left: 78px;
+	top: 112px;
 }
 
 .thendOne, .thendTwo{
@@ -282,13 +282,13 @@ body {
 }
 
 .thendOne{
-	top: 93px;
-	left: 45px;
+	top: 106px;
+	left: 64px;
 }
 
 .thendTwo{
-	top: 93px;
-	left: 140px;
+	top: 106px;
+	left: 150px;
 }
 
 @keyframes wheelRotate {
