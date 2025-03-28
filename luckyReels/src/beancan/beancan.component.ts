@@ -27,7 +27,7 @@ export class BeancanComponent {
   constructor(private router: Router) {}
 
   generateRandomNumber() {
-    // Clamp the number between 1 and 99
+  
     const clamped = Math.min(99, Math.max(1, this.userInput));
     this.userNumber = this.isReverse ? 100 - clamped : clamped;
 
