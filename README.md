@@ -42,4 +42,5 @@ The purpose and meaning of this project is to learn as much as we can about Angu
 |------------------------------------------|-----------------|------------------|
 | Slots                                    | Plinko          | Statistic        |
 | Beancan Blast                            | Acount Balance  | Feeding slot     |
-| BlackJack                                |Roulette         | Free Spin Slot   |
+| BlackJack                                | Roulette        | Free Spin Slot   |
+

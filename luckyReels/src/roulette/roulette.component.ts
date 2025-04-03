@@ -16,7 +16,7 @@ export class RouletteComponent {
   numbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
   red = []
   isSpinning = false;
-  spinDuration = 1000;
+  spinDuration = 4000;
   bets: {number: number | string, amount: number}[] = [];
   selectedChip = 1;
   currentBetAmount = 0;
@@ -75,15 +75,15 @@ export class RouletteComponent {
    chip.style.backgroundColor = this.getChipColor(this.selectedChip);
    chip.textContent = this.selectedChip.toString();
    
-   const stackPosition = existingChips % 4; 
+   //const stackPosition = existingChips % 4; 
    let offsetX = 0, offsetY = 0;
    
-   switch(stackPosition) {
+   /*switch(stackPosition) {
        case 0: offsetX = 0; offsetY = 0; break;
        case 1: offsetX = 5; offsetY = 5; break;
        case 2: offsetX = -5; offsetY = 5; break;
        case 3: offsetX = 0; offsetY = 10; break;
-   }
+   }*/
    
    chip.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
    chip.style.zIndex = existingChips.toString();
