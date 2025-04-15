@@ -3,20 +3,27 @@ import { Router, RouterOutlet } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from './auth.service';
+import { UserComponent } from '../user/user.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MatButton],
+  imports: [NgIf,RouterOutlet,MatButton],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'luckyReels';
-  
   constructor(
+    private authService: AuthService,
     private router: Router,
     private dialog: MatDialog
   ) {}
+
+  currentUser() {
+    return this.authService.userEmail;
+  }
 
   navigateToGame(route: string) {
     this.router.navigate([route]);
@@ -27,10 +34,17 @@ export class AppComponent {
       width: '400px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Login successful', result);
-      }
+    dialogRef.afterClosed()
+  
+  }
+
+
+  openUserDialog() {
+    const dialogRef = this.dialog.open(UserComponent, {
+      width: '400px'
     });
+
+    dialogRef.afterClosed()
+  
   }
 }

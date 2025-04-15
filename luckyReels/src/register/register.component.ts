@@ -6,6 +6,7 @@ import { FormGroup, Validators, ReactiveFormsModule, MaxLengthValidator, MinLeng
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../app/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -18,12 +19,13 @@ export class RegisterComponent {
   registerForm: FormGroup;
 
   constructor(
+    private authService: AuthService,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<RegisterComponent>
   ) {
     this.registerForm = this.fb.group({
-      userName: ['', [Validators.required]],
-      idNumber: ['', [Validators.required, Validators.minLength(8),Validators.maxLength(8)]],
+      //userName: ['', [Validators.required]],
+      //idNumber: ['', [Validators.required, Validators.minLength(8),Validators.maxLength(8)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
@@ -33,6 +35,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       console.log(this.registerForm.value);
       this.dialogRef.close(this.registerForm.value);
+      this.authService.signup(this.registerForm.value.email, this.registerForm.value.password);
     }
   }
 

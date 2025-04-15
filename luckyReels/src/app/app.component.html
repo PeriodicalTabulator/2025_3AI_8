@@ -3,6 +3,7 @@
 <button mat-raised-button (click)="navigateToGame('beancan')"> Beancan</button>
 <button mat-raised-button (click)="navigateToGame('blackjack')">Blackjack</button>
 <button mat-raised-button (click)="navigateToGame('roulette')">Roulette</button>
-<button mat-raised-button (click)="openLoginDialog()">Login</button>
+<button mat-raised-button (click)="openLoginDialog()" *ngIf="currentUser() == ''">Login</button>
+<button mat-raised-button (click)="openUserDialog()" *ngIf="currentUser() != ''">{{currentUser()}}</button>
 </div>
 <router-outlet></router-outlet>
