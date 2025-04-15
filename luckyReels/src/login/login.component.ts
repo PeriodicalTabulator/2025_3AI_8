@@ -8,6 +8,7 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from '../register/register.component';
+import { AuthService } from '../app/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
+    private authService: AuthService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<LoginComponent>
@@ -34,6 +36,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
       this.dialogRef.close(this.loginForm.value);
+      this.authService.login(this.loginForm.value.email, this.loginForm.value.password);
     }
   }
 

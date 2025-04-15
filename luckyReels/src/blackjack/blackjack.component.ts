@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgFor } from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { delay } from 'rxjs';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -28,6 +27,7 @@ export class BlackjackComponent implements OnInit {
   leftHand:boolean = true;
   splitcreated:boolean = false;
   leftResult:string = '';
+  maxValueOfHand:number = 21;
 
   constructor(private router: Router) {}
 
@@ -96,19 +96,19 @@ export class BlackjackComponent implements OnInit {
   hit(): void {
     if(this.splited && this.leftHand){
       this.leftSplit.push(this.drawCard());
-      if (this.calculateHandValue(this.leftSplit) > 21) {
+      if (this.calculateHandValue(this.leftSplit) > this.maxValueOfHand) {
         this.leftResult = 'Left hand busted';
         !this.leftHand;
       }
     }else if(this.splited && !this.leftHand){
       this.rightSplit.push(this.drawCard());
-      if (this.calculateHandValue(this.rightSplit) > 21) {
+      if (this.calculateHandValue(this.rightSplit) > this.maxValueOfHand) {
         this.gameResult = 'Right hand busted';
         this.stand();
       }
     }else{
       this.playersHand.push(this.drawCard());
-      if (this.calculateHandValue(this.playersHand) > 21) {
+      if (this.calculateHandValue(this.playersHand) > this.maxValueOfHand) {
         this.gameResult = 'You Busted!';
         this.reset();
       }
@@ -148,9 +148,9 @@ export class BlackjackComponent implements OnInit {
       const rightSplitValue = this.calculateHandValue(this.rightSplit);
       const dealersValue = this.calculateHandValue(this.dealersHand);
 
-      if(leftSplitValue > 21){
+      if(leftSplitValue >  this.maxValueOfHand){
         this.leftResult = 'Left hand busted';
-      }else if(dealersValue>21 || leftSplitValue > dealersValue){
+      }else if(dealersValue> this.maxValueOfHand || leftSplitValue > dealersValue){
         this.leftResult = 'Left hand won';
       }else if(leftSplitValue == dealersValue){
         this.leftResult = 'Left hand tie';
@@ -158,9 +158,9 @@ export class BlackjackComponent implements OnInit {
         this.leftResult = 'Left hand lost';
       }
       
-      if(rightSplitValue > 21){
+      if(rightSplitValue > this.maxValueOfHand){
         this.gameResult = 'Right hand busted';
-      }else if(dealersValue>21 || rightSplitValue > dealersValue){
+      }else if(dealersValue> this.maxValueOfHand || rightSplitValue > dealersValue){
         this.gameResult = 'Right hand won';
       }else if(rightSplitValue == dealersValue){
         this.gameResult = 'Right hand tie';
@@ -174,9 +174,9 @@ export class BlackjackComponent implements OnInit {
       const playersValue = this.calculateHandValue(this.playersHand);
       const dealersValue = this.calculateHandValue(this.dealersHand);
 
-      if(playersValue > 21){
+      if(playersValue > this.maxValueOfHand){
         this.gameResult = 'You busted';
-      }else if(dealersValue > 21){
+      }else if(dealersValue > this.maxValueOfHand){
         this.gameResult = 'Dealer bust';
       }else if(playersValue > dealersValue){
         this.gameResult = 'Player won';
@@ -236,7 +236,7 @@ export class BlackjackComponent implements OnInit {
         value += parseInt(cardValue, 10);
       }
     }
-    while (value > 21 && aces > 0) {
+    while (value > this.maxValueOfHand && aces > 0) {
       value -= 10;
       aces--;
     }
