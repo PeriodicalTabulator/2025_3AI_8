@@ -1,14 +1,12 @@
-.imgmenu{
-justify-content: center;
-display: flex;
-height: 550px;
+.imgmenu {
+  justify-content: center;
+  display: flex;
+  height: 550px;
+  overflow: hidden;
 }
 
-.menuButton{
+.menuButton {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-
-
