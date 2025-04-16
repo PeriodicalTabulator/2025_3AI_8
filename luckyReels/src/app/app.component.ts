@@ -9,14 +9,15 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [NgIf,RouterOutlet,MatButton],
+  imports: [RouterOutlet,MatButton,NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'luckyReels';
+  isSignedIn: boolean = false;
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     private dialog: MatDialog
   ) {}
@@ -33,9 +34,14 @@ export class AppComponent {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '400px'
     });
-
+    this.isSignedIn = true;
     dialogRef.afterClosed()
   
+  }
+
+  signOut(){
+    this.authService.logout();
+    this.isSignedIn = false;
   }
 
 

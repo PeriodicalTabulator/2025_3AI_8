@@ -12,7 +12,6 @@ export class AuthService {
   firebase endpoint*/
 
   constructor(public afAuth: AngularFireAuth) {
-    localStorage.clear();
   }
   userEmail:string = '';
   firebaseAccountKey:string = '{}';
@@ -35,7 +34,7 @@ export class AuthService {
 
   logout() {
     this.afAuth.signOut();
-    localStorage.clear();
+    this.firebaseAccountKey = '{}';
     console.log('logout successful');
     return 
   }
