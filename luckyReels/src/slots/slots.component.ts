@@ -6,11 +6,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { NgFor } from '@angular/common';
+import { LoginComponent } from '../login/login.component';
+import { MatDialog } from '@angular/material/dialog';
+import { NgIf } from '@angular/common';
+import { AuthService } from '../app/auth.service';
 
 
 @Component({
   selector: 'app-slots',
-  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule, NgFor],
+  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule, NgFor,NgIf],
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.css'
 })
@@ -270,8 +274,12 @@ export class SlotsComponent {
     '8-7-0',
     '8-8-0',
   ]);
-  constructor(private router: Router) {}
-
+  constructor(private router: Router, private dialog: MatDialog, public authService: AuthService) {
+    console.log(this.authService.firebaseAccountKey);
+  }
+ seeKey(){
+  console.log(this.authService.firebaseAccountKey)
+ }
 
   spin() {
     this.slotMachine.generateRandomNumbers();
@@ -341,6 +349,15 @@ export class SlotsComponent {
   navigateToGame(route: string) {
     this.router.navigate([route]);
   }
+   openLoginDialog() {
+      const dialogRef = this.dialog.open(LoginComponent, {
+        width: '400px'
+      });
+  
+      dialogRef.afterClosed()
+    
+    }
+    
 }
 
 class SlotMachine {
