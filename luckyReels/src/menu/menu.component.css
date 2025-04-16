@@ -10,3 +10,68 @@
   justify-content: center;
   align-items: center;
 }
+
+
+
+
+.coin-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.falling-coin {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #e2c000, #b6850b);
+  border-radius: 50%;
+  box-shadow:
+    inset -2px -2px 6px rgba(0, 0, 0, 0.2),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.2),
+    0 4px 10px rgba(0, 0, 0, 0.4);
+  animation: fall linear infinite;
+}
+
+.falling-coin {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #ffd700, #daa520);
+  border-radius: 50%;
+  box-shadow:
+    inset -2px -2px 6px rgba(0, 0, 0, 0.2),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.2),
+    0 4px 10px rgba(0, 0, 0, 0.4);
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  top: -60px;
+}
+
+@keyframes fall {
+  0% {
+    top: -60px;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+/* Skibidi */
