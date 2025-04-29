@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { Renderer2 } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { trigger, transition, style, animate, } from '@angular/animations';
+
+/* Sigma */
 
 @Component({
   selector: 'app-menu',
