@@ -65,7 +65,7 @@ Sprint 2
 
 ✅ Roulette
 
-✅ Updated Slots
+✅ Updated Slots design
 
 ✅ Blackjack Split Function Working
 
