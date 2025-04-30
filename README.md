@@ -49,7 +49,7 @@ The purpose and meaning of this project is to learn as much as we can about Angu
 
 Sprint 1 (Completed)
 
-✅ Slots
+✅ Basic Slots
 
 ✅ Beancan
 
@@ -59,16 +59,19 @@ Sprint 1 (Completed)
 
 
 
-Sprint 2 (In Progress)
+Sprint 2
 
 ✅ Redesign of Beancan
+
+✅ Roulette
+
+✅ Updated Slots
+
+
+Sprint 3
+
+✅ Login + Register Working
 
 ✅ Redesign of Main Menu
 
 ✅ Blackjack Split Function Working
-
-✅ Roulette
-
-✅ Login + Register Working
-
-
