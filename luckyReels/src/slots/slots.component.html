@@ -1,5 +1,5 @@
 
-<div *ngIf = 'this.authService.firebaseAccountKey != "{}" else notSignedIn'>
+<div *ngIf>
 <div class="number-column">
   <div class="backgroundSlots">
    <div class="number-display-container">
@@ -49,13 +49,6 @@
   <p>Small win = At least one 0 in columns</p>
   <p>Mid win = All numbers (except 8, 0) are same in columns</p>
   <p>Big win = 8-8-8</p>
-  <button (click)="seeKey()">key</button>
 </div>
 </div>
 </div>
-
-
-<ng-template #notSignedIn>
-  <p>Not signed in</p>
-  <button (click)="openLoginDialog()">Sing In</button>
-</ng-template>>

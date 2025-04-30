@@ -275,10 +275,6 @@ export class SlotsComponent {
     '8-8-0',
   ]);
   constructor(private router: Router, private dialog: MatDialog, public authService: AuthService) {
-    console.log(this.authService.firebaseAccountKey);
-  }
- seeKey(){
-  console.log(this.authService.firebaseAccountKey)
  }
 
   spin() {
