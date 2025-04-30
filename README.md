@@ -67,6 +67,8 @@ Sprint 2
 
 ✅ Updated Slots
 
+✅ Blackjack Split Function Working
+
 
 Sprint 3
 
@@ -74,4 +76,3 @@ Sprint 3
 
 ✅ Redesign of Main Menu
 
-✅ Blackjack Split Function Working
