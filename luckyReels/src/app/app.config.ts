@@ -4,7 +4,8 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {AngularFireModule } from '@angular/fire/compat';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
-import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import { provideHttpClient } from '@angular/common/http';
 
 
 const firebaseConfig = {
@@ -18,7 +19,7 @@ const firebaseConfig = {
 }
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
-    importProvidersFrom(AngularFireModule.initializeApp(firebaseConfig),AngularFireAuthModule,AngularFirestoreModule)
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),provideHttpClient(),
+    importProvidersFrom(AngularFireModule.initializeApp(firebaseConfig),AngularFireAuthModule,AngularFirestoreModule,AngularFirestore)
   ]
 };
