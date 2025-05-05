@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { firstValueFrom, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +18,9 @@ export class FirestoreDataService {
     return
   }
   
-  getUID(){
-    this.auth.showUID();
+  async getDataOfSingleUser() {
+    const uid = await firstValueFrom(this.auth.showUID());
+    return this.getDataBasedOnField('uid', uid);
   }
 
   getDataBasedOnField(field: string, value: string){

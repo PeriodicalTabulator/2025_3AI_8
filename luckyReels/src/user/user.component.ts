@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { AuthService } from '../app/auth.service';
 import  { MatDialogRef } from '@angular/material/dialog';
+import { FirestoreDataService } from '../app/firestore-data.service';
 
 @Component({
   selector: 'app-user',
@@ -12,12 +13,11 @@ import  { MatDialogRef } from '@angular/material/dialog';
 })
 export class UserComponent {
 
-  constructor(public authService: AuthService, public dialogRef: MatDialogRef<UserComponent>) { 
+  constructor(public authService: AuthService, public dialogRef: MatDialogRef<UserComponent>, private dataService: FirestoreDataService) { 
   }
 
-  email(){
-    return this.authService.userEmail
-  }
+ // user$ = this.dataService.getDataOfSingleUser();
+
 
   logOut(){
     this.dialogRef.close();

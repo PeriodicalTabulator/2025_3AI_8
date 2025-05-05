@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,17 +24,14 @@ export class AuthService {
     
   }
 
-  async showUID(): Promise<string>{
-    return new Promise((resolve) => {
-      this.afAuth.onAuthStateChanged((user) => {
-        if (user) {
-          resolve(user.uid);
-        } else {
-          resolve('');
-        }
-      });
-    });
-  }  
+  showUID(): Observable<string> {
+    return this.afAuth.authState.pipe(
+      map((user) => {
+        if (!user) throw new Error('No user logged in');
+        return user.uid;
+      })
+    );
+  }
 
   async signup(email: string, password: string): Promise<firebase.auth.UserCredential>  {
    return await this.afAuth.createUserWithEmailAndPassword(email, password);
@@ -45,3 +44,7 @@ export class AuthService {
   }
 
 }
+function resolve(uid: string) {
+  throw new Error('Function not implemented.');
+}
+

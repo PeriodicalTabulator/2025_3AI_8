@@ -34,9 +34,8 @@ export class AppComponent {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '400px'
     });
-    this.isSignedIn = true;
     dialogRef.afterClosed()
-  
+    this.isSignedIn = true;
   }
 
   signOut(){

@@ -41,16 +41,13 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
         const formValue = this.registerForm.value;
       
-        // 1. Create auth account (now returns UserCredential)
-        const credential = await this.authService.signup(
+        const credential = await  this.authService.signup(
           formValue.email, 
           formValue.password
         );
-        
-        // 2. Get UID from the credential
+      
         const uid = credential.user?.uid;
         
-        // 3. Create user object
         const user: User = {
           uid: uid || '' ,
           userName: formValue.userName,
@@ -61,10 +58,8 @@ export class RegisterComponent {
           wallet: 0
         };
    
-        // 4. Add user to Firestore
         await this.firestore.addUser(user);
-  
-        // 5. Close dialog
+
         this.dialogRef.close(user);
       } 
   }

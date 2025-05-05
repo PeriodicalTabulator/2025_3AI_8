@@ -1,4 +1,3 @@
-
 import { Component,ViewChild,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
@@ -8,13 +7,11 @@ import {MatInputModule} from '@angular/material/input';
 import { NgFor } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NgIf } from '@angular/common';
 import { AuthService } from '../app/auth.service';
-
 
 @Component({
   selector: 'app-slots',
-  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule, NgFor,NgIf],
+  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule, NgFor],
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.css'
 })
