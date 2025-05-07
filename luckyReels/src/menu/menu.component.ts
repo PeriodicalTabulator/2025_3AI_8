@@ -4,6 +4,8 @@ import { Renderer2 } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { trigger, transition, style, animate, } from '@angular/animations';
+import { LoginComponent } from '../login/login.component';
+import { MatDialog } from '@angular/material/dialog';
 
 /* Sigma */
 
@@ -25,6 +27,15 @@ import { trigger, transition, style, animate, } from '@angular/animations';
 export class MenuComponent implements AfterViewInit {
   private router = inject(Router);
   private renderer = inject(Renderer2);
+
+  constructor(private dialog:MatDialog){}
+
+ openLoginDialog() {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '400px'
+    });
+    dialogRef.afterClosed()
+  }
 
   navigateToGame(route: string) {
     this.router.navigate([route]);
