@@ -8,6 +8,7 @@ import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/compat/fir
 import { provideHttpClient } from '@angular/common/http';
 
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCC48HTBJxIsUQZwyHH7Jr-rXAj1EMOuYc",
   authDomain: "luckyreels-project.firebaseapp.com",

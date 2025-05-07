@@ -1,10 +1,11 @@
-<div class="navbar"><button mat-raised-button (click)="navigateToGame('')" >Home</button>
-<button mat-raised-button (click)="navigateToGame('slots')">Slots</button>
-<button mat-raised-button (click)="navigateToGame('beancan')"> Beancan</button>
-<button mat-raised-button (click)="navigateToGame('blackjack')">Blackjack</button>
-<button mat-raised-button (click)="navigateToGame('roulette')">Roulette</button>
-<button mat-raised-button (click)="openLoginDialog()">Login</button>
-<ng-template><button mat-raised-button (click)="openUserDialog()" >User</button></ng-template>
-<ng-template><button mat-raised-button (click)="signOut()" >Logout</button></ng-template>
+<div class="navbar" *ngIf="router.url !== '/'">
+    <button mat-raised-button (click)="navigateToGame('')" >Home</button>
+    <button mat-raised-button (click)="navigateToGame('slots')">Slots</button>
+    <button mat-raised-button (click)="navigateToGame('beancan')"> Beancan</button>
+    <button mat-raised-button (click)="navigateToGame('blackjack')">Blackjack</button>
+    <button mat-raised-button (click)="navigateToGame('roulette')">Roulette</button>
+    <button mat-raised-button (click)="openLoginDialog()">Login</button>
+    <ng-template><button mat-raised-button (click)="openUserDialog()">User</button></ng-template>
+    <ng-template><button mat-raised-button (click)="signOut()">Logout</button></ng-template>
 </div>
 <router-outlet></router-outlet>

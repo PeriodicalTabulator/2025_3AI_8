@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, IsActiveMatchOptions, Router, RouterOutlet } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { UserComponent } from '../user/user.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MatButton],
+  imports: [RouterOutlet,MatButton, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -17,9 +18,11 @@ export class AppComponent {
   isSignedIn: boolean = false;
   constructor(
     public authService: AuthService,
-    private router: Router,
-    private dialog: MatDialog
+    public router: Router,
+    private dialog: MatDialog,
   ) {}
+
+
 
   currentUser() {
     return this.authService.userEmail;
