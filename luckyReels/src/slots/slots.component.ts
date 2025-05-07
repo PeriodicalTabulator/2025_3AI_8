@@ -8,10 +8,11 @@ import { NgFor } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../app/auth.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-slots',
-  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule, NgFor],
+  imports: [MatCardModule,MatButtonModule,MatFormFieldModule,MatInputModule, NgFor, NgIf],
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.css'
 })
