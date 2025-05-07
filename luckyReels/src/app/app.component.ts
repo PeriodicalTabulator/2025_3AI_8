@@ -5,11 +5,10 @@ import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { UserComponent } from '../user/user.component';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MatButton,NgIf],
+  imports: [RouterOutlet,MatButton],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -2,12 +2,12 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { NgStyle } from '@angular/common';
-import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
-import { fakeAsync } from '@angular/core/testing';
+import { MatButton } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-roulette',
-  imports: [NgFor,NgClass,NgStyle],
+  imports: [NgFor,NgClass,NgStyle, MatButton],
   templateUrl: './roulette.component.html',
   styleUrl: './roulette.component.css'
 })
@@ -33,6 +33,16 @@ export class RouletteComponent {
     {value:10, color:'green'},
     {value:50, color:'white'},
   ]
+
+//need to be fixed
+  resetBets(){
+    const element = this.zeroBets.nativeElement;
+    if (element as HTMLElement && element.parentNode as HTMLElement) {
+      element.parentNode.removeChild(element);
+    }
+    this.bets = [];
+    this.currentBetAmount = 0;
+  }
 
   getNumberClass(num: number): string {
     return num < 10 ? 'single' : 'double';

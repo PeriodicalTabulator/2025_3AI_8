@@ -55,8 +55,8 @@ export class BlackjackComponent implements OnInit {
       this.playersHand = [];
     this.dealersHand = [this.drawCard(), this.drawCard()];
     //testing split
-    this.playersHand = ['3 of Clubs','3 of Clubs']; 
-    //this.playersHand = [this.drawCard(),this.drawCard()];
+    //this.playersHand = ['3 of Clubs','3 of Clubs']; 
+    this.playersHand = [this.drawCard(),this.drawCard()];
     this.gameResult = ''; 
     this.leftResult = '';
     this.startDisable = true;
