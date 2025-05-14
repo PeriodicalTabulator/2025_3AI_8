@@ -4,7 +4,7 @@
     <button mat-raised-button (click)="navigateToGame('blackjack')">Blackjack</button>
     <button mat-raised-button (click)="navigateToGame('roulette')">Roulette</button>
     <button mat-raised-button (click)="openLoginDialog()">Login</button>
-    <ng-template><button mat-raised-button (click)="openUserDialog()">User</button></ng-template>
-    <ng-template><button mat-raised-button (click)="signOut()">Logout</button></ng-template>
+    <button mat-raised-button (click)="openUserDialog()">User</button>
+    <button mat-raised-button (click)="signOut()">Logout</button>
 </div>
 <router-outlet></router-outlet>

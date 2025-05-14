@@ -4,6 +4,7 @@ import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { firstValueFrom, Observable } from 'rxjs';
+import { setDoc } from 'firebase/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,14 +15,14 @@ export class FirestoreDataService {
 
 
   async addUser(user: User ){
-    this.firestore.collection('userData').add(user);
+    this.firestore.collection('userData').doc(user.uid), user
+    //this.firestore.collection('userData').add(user);
     return
   }
   
-  async getDataOfSingleUser() {
-    const uid = await firstValueFrom(this.auth.showUID());
-    return this.getDataBasedOnField('uid', uid);
-  }
+ getDataOfSingleUser(uid: string) {
+  return this.getDataBasedOnField('uid', uid);
+}
 
   getDataBasedOnField(field: string, value: string){
     return this.firestore.collection('userData', ref => ref.where(field, '==', value))

@@ -15,22 +15,33 @@ export class AuthService {
 
   constructor(public afAuth: AngularFireAuth) {
   }
-  
-  userEmail:string = '';
-  
+
+  signin:boolean = false;
+  uidUser: string = String(this.showUID())
 
   async login(email: string, password: string) {
-   return this.afAuth.signInWithEmailAndPassword(email, password);
-    
+    this.afAuth.signInWithEmailAndPassword(email, password);
+    this.signin = true;
+   return 
   }
 
-  showUID(): Observable<string> {
+  
+
+  showUID(): Observable<string> | null {
+    if(this.signin == true){
     return this.afAuth.authState.pipe(
       map((user) => {
-        if (!user) throw new Error('No user logged in');
+      if (!user) return '';
         return user.uid;
       })
     );
+  }
+  return null
+  }
+  
+  observableToString(showUID: Observable<string>){
+     showUID.subscribe(uid => `${uid}`)
+    return showUID
   }
 
   async signup(email: string, password: string): Promise<firebase.auth.UserCredential>  {
@@ -39,12 +50,9 @@ export class AuthService {
 
   logout() {
     this.afAuth.signOut();
-    localStorage.clear();
     return 
   }
 
 }
-function resolve(uid: string) {
-  throw new Error('Function not implemented.');
-}
+
 

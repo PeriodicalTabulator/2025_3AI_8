@@ -24,10 +24,10 @@ export class AppComponent {
 
 
 
-  currentUser() {
+ /* currentUser()
     return this.authService.userEmail;
   }
-
+*/
   navigateToGame(route: string) {
     this.router.navigate([route]);
   }
@@ -42,7 +42,7 @@ export class AppComponent {
 
   signOut(){
     this.authService.logout();
-    this.isSignedIn = false;
+    localStorage.clear();
   }
 
 
