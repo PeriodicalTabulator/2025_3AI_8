@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Login</h2>
 <br>
 <mat-dialog-content>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin();">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" required>

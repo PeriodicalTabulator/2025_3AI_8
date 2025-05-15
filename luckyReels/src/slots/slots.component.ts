@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
+import { Component,ViewChild,ElementRef, ɵɵqueryRefresh } from '@angular/core';
 import { Router } from '@angular/router';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
@@ -9,6 +9,7 @@ import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../app/auth.service';
 import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-slots',
@@ -272,9 +273,9 @@ export class SlotsComponent {
     '8-7-0',
     '8-8-0',
   ]);
+  
   constructor(private router: Router, private dialog: MatDialog, public authService: AuthService) {
  }
-
   spin() {
     this.slotMachine.generateRandomNumbers();
     this.disableButton = true;
@@ -349,10 +350,11 @@ export class SlotsComponent {
       });
   
       dialogRef.afterClosed()
-    
+      this.constructor
     }
-    
+
 }
+
 
 class SlotMachine {
   collum1: fruits | null = null;

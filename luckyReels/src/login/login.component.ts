@@ -28,6 +28,9 @@ export class LoginComponent {
     private router: Router
   
   ) {
+      if(localStorage.getItem('token') != null){ this.navigateToGame('slots');
+      this.dialogRef.close();
+      }
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -58,6 +61,7 @@ openRegisterDialog() {
     }
   });
 }
+
 
 navigateToGame(route: string) {
   this.router.navigate([route]);
