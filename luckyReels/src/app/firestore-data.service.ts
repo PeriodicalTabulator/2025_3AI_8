@@ -3,8 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { firstValueFrom, Observable } from 'rxjs';
-import { setDoc } from 'firebase/firestore';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,16 +14,16 @@ export class FirestoreDataService {
 
 
   async addUser(user: User ){
-    this.firestore.collection('userData').doc(user.uid), user
-    //this.firestore.collection('userData').add(user);
+    this.firestore.collection('userData').doc(user.uid).set(user);
     return
   }
   
- getDataOfSingleUser(uid: string) {
+ getDataOfSingleUser(uid: string):Observable<User[]>{
   return this.getDataBasedOnField('uid', uid);
 }
 
-  getDataBasedOnField(field: string, value: string){
-    return this.firestore.collection('userData', ref => ref.where(field, '==', value))
-  }
+  getDataBasedOnField(field: string, value: string):Observable<User[]>{
+    return this.firestore
+      .collection<User>('userData', ref => ref.where(field, '==', value))
+      .valueChanges({ idField: 'docId' });}
 }

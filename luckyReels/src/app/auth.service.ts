@@ -1,56 +1,58 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  /*To do:
-  catch sign in response
-  save in localstorage or cookie token
-  firebase endpoint*/
+  private userSubject = new BehaviorSubject<firebase.User | null>(null);
 
-  constructor(public afAuth: AngularFireAuth) {
+  user$ = this.userSubject.asObservable();
+  isAuthenticated$ = this.user$.pipe(map (user => !!user));
+  uid$ = this.user$.pipe(map(user => user?.uid))
+  constructor(public afAuth: AngularFireAuth, private router: Router) {
+
+    this.afAuth.authState.subscribe(user => {
+      this.userSubject.next(user);
+      if(user){
+        user.getIdToken().then(token => {
+          localStorage.setItem('token', token);
+        })
+      }else {
+        localStorage.removeItem('token');
+      }
+    })
   }
 
-  signin:boolean = false;
-  uidUser: string = String(this.showUID())
 
-  async login(email: string, password: string) {
-    this.afAuth.signInWithEmailAndPassword(email, password);
-    this.signin = true;
-   return 
+  async login(email: string, password: string): Promise<firebase.auth.UserCredential> {
+  const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+  return result
   }
 
-  
 
-  showUID(): Observable<string> | null {
-    if(this.signin == true){
-    return this.afAuth.authState.pipe(
-      map((user) => {
-      if (!user) return '';
-        return user.uid;
-      })
-    );
-  }
-  return null
-  }
-  
-  observableToString(showUID: Observable<string>){
-     showUID.subscribe(uid => `${uid}`)
-    return showUID
-  }
-
-  async signup(email: string, password: string): Promise<firebase.auth.UserCredential>  {
+   async signup(email: string, password: string): Promise<firebase.auth.UserCredential>  {
    return await this.afAuth.createUserWithEmailAndPassword(email, password);
   }
+  
+  
+  async logout() {
+    await this.afAuth.signOut();
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
 
-  logout() {
-    this.afAuth.signOut();
-    return 
+  getCurrentUser(): firebase.User | null{
+    return this.userSubject.value
+  }
+
+  getUID(): string | null{
+    const user = this.getCurrentUser();
+    return user ? user.uid : null
   }
 
 }
