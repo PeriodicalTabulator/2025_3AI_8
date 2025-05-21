@@ -36,9 +36,8 @@
   </div>
 
   <div class="input-button-container">
-    <mat-form-field>
-      <input matInput type="number" placeholder="Bet" />
-    </mat-form-field>
+     <p>Bet is 0.5€</p>
+     <p>You have {{ this.userData![0].wallet }}€</p>
     <button (click)="spin()" mat-raised-button color="primary" [disabled]="disableButton">Spin</button>
     <ng-template #youWonDialog><p style="text-align: center;">{{ youWon }}</p></ng-template>
     <ng-template #startGame><p *ngIf="this.youWon === '' else youWonDialog" style="text-align: center;">Click spin to start a game</p></ng-template>

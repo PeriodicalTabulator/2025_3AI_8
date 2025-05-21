@@ -55,6 +55,13 @@ export class UserComponent {
       });
   }
 
+  clearWallet(){
+    this.dataService.updateWallet(this.userData![0].uid, this.userData![0].wallet - this.userData![0].wallet)
+  }
+  addToWallet(){
+    this.dataService.updateWallet(this.userData![0].uid, this.userData![0].wallet + 10);
+  }
+
   async logout(){
     this.dialogRef.close();
     this.router.navigate(['/login']);

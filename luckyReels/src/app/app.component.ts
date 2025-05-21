@@ -6,6 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { UserComponent } from '../user/user.component';
 import { NgIf } from '@angular/common';
+import { User } from './user';
+import { FirestoreDataService } from './firestore-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +19,18 @@ import { NgIf } from '@angular/common';
 export class AppComponent {
   title = 'luckyReels';
   isSignedIn: boolean = false;
+ userData: User[] | null = null
+  private subscription: Subscription | null = null;
+
   constructor(
     public authService: AuthService,
     public router: Router,
     private dialog: MatDialog,
-  ) {}
-
-
-
+    private dataService: FirestoreDataService
+  ) {
+   // this.userData = this.userComponent.userData;
+    console.log(this.userData);
+  }
  /* currentUser()
     return this.authService.userEmail;
   }
