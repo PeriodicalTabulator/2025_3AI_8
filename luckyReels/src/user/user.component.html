@@ -10,6 +10,7 @@
       <p style="color: white;"><strong>Wallet Balance:</strong> {{ userData[0].wallet.toFixed(2) }}€</p>
     </div>
     <div>
+      <button mat-raised-button (click)="clearWallet()">Clear wallet</button>
       <button mat-raised-button (click)="addToWallet()">Add 10€</button>
       <button mat-raised-button (click)="logout()">Logout</button>
     </div>
