@@ -76,3 +76,11 @@ Sprint 3
 
 ✅ Redesign of Main Menu
 
+
+Sprint 4  
+
+❓ Ability to bet (Slots only probably)
+
+❓ Background change
+
+❓ pictures on blackjack
