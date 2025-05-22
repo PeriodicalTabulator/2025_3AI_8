@@ -179,7 +179,7 @@ body {
   width: 80px;
   height: 160px;
   background: #6a2a54;
-  clip-path: polygon(30% 0%, 40% 30%, 20% 30%, 50% 100%, 60% 70%, 80% 70%);
+  clip-path: polygon(33% 0%, 40% 33%, 20% 25%, 50% 100%, 55% 62%, 85% 70%);
   filter: blur(8px);   
   opacity: 0.6;         
 }
