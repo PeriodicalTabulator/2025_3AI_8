@@ -5,6 +5,10 @@ import { NgFor } from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { NgIf } from '@angular/common';
+import { User } from '../app/user';
+import { AuthService } from '../app/auth.service';
+import { FirestoreDataService } from '../app/firestore-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blackjack',
@@ -13,13 +17,15 @@ import { NgIf } from '@angular/common';
   styleUrl: './blackjack.component.css'
 })
 export class BlackjackComponent implements OnInit {
+  //game
   playingDeck: string[] = [];
   dealersHand: string[] = [];
   playersHand: string[] = [];
   gameResult: string = '';
   startDisable:boolean = false;
   hitStandDisable:boolean = true;
-  bet:number = 0;
+  bet:number = 0.5;
+  winBet:number = this.bet *2;
   splitAble:boolean = true;
   leftSplit:string[] = [];
   rightSplit:string[]=[];
@@ -29,10 +35,23 @@ export class BlackjackComponent implements OnInit {
   leftResult:string = '';
   maxValueOfHand:number = 21;
 
-  constructor(private router: Router) {}
+  //user bets
+  userData$:User[] | null = null;
+  isDataLoaded: boolean = false;
+  subscription: Subscription | null = null;
+
+  constructor(private router: Router, private authService: AuthService, private dataService: FirestoreDataService) {}
 
   ngOnInit(): void {
-    this.playingDeck = this.createDeck()
+    this.playingDeck = this.createDeck();
+    
+    this.subscription = this.dataService.userData$.subscribe(users => 
+      {
+        this.userData$ = users || [];
+        this.isDataLoaded = users && users.length > 0;
+        console.log('received user data:', users);
+      }
+    );
   }
 
   reset(){
@@ -45,6 +64,7 @@ export class BlackjackComponent implements OnInit {
   }
 
   startGame(): void {
+     this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet - this.bet);
    /* if(this.bet == 0){
       this.gameResult = 'You have to bet';
       return
@@ -53,7 +73,7 @@ export class BlackjackComponent implements OnInit {
       this.rightSplit = [];
       this.dealersHand = [];
       this.playersHand = [];
-    this.dealersHand = [this.drawCard(), this.drawCard()];
+     this.dealersHand = [this.drawCard(), this.drawCard()];
     //testing split
     //this.playersHand = ['3 of Clubs','3 of Clubs']; 
     this.playersHand = [this.drawCard(),this.drawCard()];
@@ -118,7 +138,7 @@ export class BlackjackComponent implements OnInit {
 
   split(){
     if(this.splitAble) return;
-
+     this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet - this.bet);
     this.splitcreated = true;
     this.splitAble = true;
     this.splited = true;
@@ -152,8 +172,10 @@ export class BlackjackComponent implements OnInit {
         this.leftResult = 'Left hand busted';
       }else if(dealersValue> this.maxValueOfHand || leftSplitValue > dealersValue){
         this.leftResult = 'Left hand won';
+          this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet + this.winBet);
       }else if(leftSplitValue == dealersValue){
         this.leftResult = 'Left hand tie';
+          this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet +  this.bet);
       }else{
         this.leftResult = 'Left hand lost';
       }
@@ -162,8 +184,10 @@ export class BlackjackComponent implements OnInit {
         this.gameResult = 'Right hand busted';
       }else if(dealersValue> this.maxValueOfHand || rightSplitValue > dealersValue){
         this.gameResult = 'Right hand won';
+          this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet +  this.winBet);
       }else if(rightSplitValue == dealersValue){
         this.gameResult = 'Right hand tie';
+         this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet + this.bet);
       }else{
         this.gameResult = 'Right hand lost';
       }
@@ -178,10 +202,13 @@ export class BlackjackComponent implements OnInit {
         this.gameResult = 'You busted';
       }else if(dealersValue > this.maxValueOfHand){
         this.gameResult = 'Dealer bust';
+         this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet +  this.winBet);
       }else if(playersValue > dealersValue){
         this.gameResult = 'Player won';
+          this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet +  this.winBet);
       }else if(playersValue === dealersValue){
         this.gameResult = 'Push';
+          this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet + this.bet);
       }else{
         this.gameResult = 'Dealer won';
       }

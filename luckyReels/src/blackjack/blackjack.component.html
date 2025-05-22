@@ -33,16 +33,17 @@
            </div>
     </div>
     <div class="actions">
-        <mat-form-field>
+        <!--<mat-form-field>
             <input matInput type="number" placeholder="Bet" [disabled]="startDisable" />
-          </mat-form-field>
+          </mat-form-field>-->
         <button mat-raised-button (click)="startGame()" [disabled]="startDisable">Start</button>
         <button mat-raised-button (click)="hit()" [disabled]="hitStandDisable">Hit</button>
         <button mat-raised-button (click)="stand()" [disabled]="hitStandDisable">Stand</button>
         <button mat-raised-button (click)="split()" [disabled]="splitAble">Split</button>
-    </div>
+        </div>
     <p>{{leftResult}}</p>
     <p>{{ gameResult }}</p>
-
+    <p>bet is 0.5</p>
+    <p> {{this.userData$![0].wallet}}</p>
 </div>
 
