@@ -79,7 +79,7 @@ Sprint 3
 
 Sprint 4  
 
-❓ Ability to bet (Slots only probably)
+✅ Ability to bet (Slots only probably)
 
 ❓ Background change
 
