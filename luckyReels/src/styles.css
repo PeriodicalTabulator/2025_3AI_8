@@ -1,4 +1,33 @@
 
+.bomb{
+  width: 500px;
+  height: 500px;
+}
+.exploded-bomb{
+  width: 500px;
+  height: 500px;
+}
+
+.bombactivated{
+  animation: bombShaking 0.5s infinite alternate-reverse;
+}
+
+@keyframes bombShaking{
+from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(20deg);
+  }
+}
+.bomb-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
+}
 
 .homeButton {
   padding-left: 25px;

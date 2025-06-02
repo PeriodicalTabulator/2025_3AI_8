@@ -325,6 +325,7 @@ loadUserData(){
     if (wallet < 0.5) {
       this.enoughMoney = 'Not enough money';
     } else {
+      this.dataService.updateWallet(this.userData![0].uid, wallet - 0.5);
       this.enoughMoney = '';
       console.log('user wallet before spin', wallet);
       this.slotMachine.generateRandomNumbers();
@@ -355,7 +356,7 @@ loadUserData(){
         this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
         this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
     
-        this.dataService.updateWallet(this.userData![0].uid, wallet - 0.5);
+        
         
         this.checkWinningConditions();
       }, 1000);
