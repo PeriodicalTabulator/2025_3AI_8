@@ -154,6 +154,18 @@ body {
   margin-bottom: 20px;
 }
 
+.split{
+ display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hand{
+   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .cards {
   display: flex;
   gap: 10px;

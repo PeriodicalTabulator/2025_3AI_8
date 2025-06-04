@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class BlackjackComponent implements OnInit {
   //game
+  hiddenCardOfDealer:string[] = [];
   playingDeck: string[] = [];
   dealersHand: string[] = [];
   playersHand: string[] = [];
@@ -73,10 +74,11 @@ export class BlackjackComponent implements OnInit {
       this.rightSplit = [];
       this.dealersHand = [];
       this.playersHand = [];
-     this.dealersHand = [this.drawCard(), this.drawCard()];
+     this.dealersHand = [this.drawCard(), 'Hidden Card'];
+     this.hiddenCardOfDealer = [this.drawCard()];
     //testing split
-    //this.playersHand = ['3 of Clubs','3 of Clubs']; 
-    this.playersHand = [this.drawCard(),this.drawCard()];
+    this.playersHand = ['3 of Clubs','3 of Clubs']; 
+   // this.playersHand = [this.drawCard(),this.drawCard()];
     this.gameResult = ''; 
     this.leftResult = '';
     this.startDisable = true;
@@ -104,6 +106,10 @@ export class BlackjackComponent implements OnInit {
     console.log(deck);
     return deck;
   }
+
+    hiddenCardPop():string{
+      return this.hiddenCardOfDealer.pop()!;
+    }
 
   drawCard(): string {
     if (this.playingDeck.length === 0) {
@@ -217,8 +223,12 @@ export class BlackjackComponent implements OnInit {
     }
   }
 
+
+
   dealerPlay(): void {
     this.hitStandDisable = true;
+    this.dealersHand.pop();
+    this.dealersHand.push(this.hiddenCardPop());
     while(this.calculateHandValue(this.dealersHand) < 17){
       this.dealersHand.push(this.drawCard());
     }
@@ -253,6 +263,9 @@ export class BlackjackComponent implements OnInit {
     let value = 0;
     let aces = 0;
     for (const card of hand) {
+      if(card == 'Hidden Card'){
+       continue;
+      }
       const cardValue = card.split(' ')[0];
       if (cardValue === 'A') {
         value += 11;

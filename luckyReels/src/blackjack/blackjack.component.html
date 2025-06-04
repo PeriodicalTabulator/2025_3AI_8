@@ -19,18 +19,28 @@
             {{ card }}
          </div>
         </div>
-        <p *ngIf="splited == true">{{calculateHandValue(leftSplit)}}</p>
-        <div class="cards">
-            <div *ngFor="let card of leftSplit" class="card">
-               {{ card }}
+        <div *ngIf="splited == true">
+            <p *ngIf="splited == true">{{calculateHandValue(leftSplit)}}</p>
+            <div class="split">
+                <div class="hand">
+                    <p *ngIf="leftHand == true">-></p>
+                    <div class="cards">
+                        <div *ngFor="let card of leftSplit" class="card">
+                            {{card}}
+                        </div>
+                    </div>
+                </div>
+                <p *ngIf="splited == true">{{calculateHandValue(rightSplit)}}</p>
+                <div class="hand">
+                    <p *ngIf="leftHand == false">-></p>
+                    <div class="cards">
+                        <div *ngFor="let card of rightSplit" class="card">
+                        {{ card }}
+                        </div>
+                    </div>
+                </div>
             </div>
-           </div>
-           <p *ngIf="splited == true">{{calculateHandValue(rightSplit)}}</p>
-           <div class="cards">
-            <div *ngFor="let card of rightSplit" class="card">
-               {{ card }}
-            </div>
-           </div>
+        </div>
     </div>
     <div class="actions">
         <!--<mat-form-field>
