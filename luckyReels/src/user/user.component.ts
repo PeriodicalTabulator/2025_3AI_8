@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { AuthService } from '../app/auth.service';
 import  { MatDialogRef } from '@angular/material/dialog';
+import { FirestoreDataService } from '../app/firestore-data.service';
+import { User } from '../app/user';
+import { Subscription } from 'rxjs';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -12,15 +16,55 @@ import  { MatDialogRef } from '@angular/material/dialog';
 })
 export class UserComponent {
 
-  constructor(public authService: AuthService, public dialogRef: MatDialogRef<UserComponent>) { 
+ userData: User[] | null = null;
+ loading = true;
+ private subscription: Subscription | null = null;
+
+  constructor(public authService: AuthService, public dialogRef: MatDialogRef<UserComponent>, private dataService: FirestoreDataService, private router:Router) { 
+  
+  }
+  ngOnInit():void{
+    this.loadUserData();
   }
 
-  email(){
-    return this.authService.userEmail
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  logOut(){
+  loadUserData(){
+    this.loading = true;
+    
+    const uid = this.authService.getUID();
+
+     if (!uid) { 
+      this.loading = false;
+      return;
+    }
+
+    this.subscription = this.dataService.getDataOfSingleUser(uid)
+      .subscribe({
+        next: (users) => {
+          this.userData = users;
+          this.loading = false;
+          
+          if (!users || users.length === 0) {
+          }
+        },
+      });
+  }
+
+  clearWallet(){
+    this.dataService.updateWallet(this.userData![0].uid, this.userData![0].wallet - this.userData![0].wallet)
+  }
+  addToWallet(){
+    this.dataService.updateWallet(this.userData![0].uid, this.userData![0].wallet + 10);
+  }
+
+  async logout(){
     this.dialogRef.close();
+    this.router.navigate(['/login']);
     return this.authService.logout();
   }
 

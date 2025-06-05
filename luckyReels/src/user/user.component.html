@@ -1,4 +1,22 @@
-<h1 style="text-align: center; color: white;">User</h1>
-<p style="text-align: center; color: white;">Email: {{ email() }}</p>
-<p style="text-align: center; color: white;">Amount of bets: <p>
-<button mat-raised-button color="primary" (click)="logOut()">Logout</button>
+<div *ngIf="!loading && userData && userData.length > 0">
+  <div>
+    <h2 style="color: white;">User Profile</h2>
+    <div>
+      <p style="color: white;"><strong>Username:</strong> {{ userData[0].userName }}</p>
+      <p  style="color: white;"><strong>First Name:</strong> {{ userData[0].firstName }}</p>
+      <p style="color: white;"><strong>Last Name:</strong> {{ userData[0].lastName }}</p>
+      <p style="color: white;"><strong>ID Number:</strong> {{ userData[0].idNumber }}</p>
+      <p style="color: white;"><strong>Email:</strong> {{ userData[0].email }}</p>
+      <p style="color: white;"><strong>Wallet Balance:</strong> {{ userData[0].wallet.toFixed(2) }}€</p>
+    </div>
+    <div>
+      <button mat-raised-button (click)="clearWallet()">Clear wallet</button>
+      <button mat-raised-button (click)="addToWallet()">Add 10€</button>
+      <button mat-raised-button (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading">
+  <p style="color: white;">Loading user data...</p>
+</div>

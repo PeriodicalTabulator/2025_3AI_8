@@ -1,4 +1,33 @@
 
+.bomb{
+  width: 500px;
+  height: 500px;
+}
+.exploded-bomb{
+  width: 500px;
+  height: 500px;
+}
+
+.bombactivated{
+  animation: bombShaking 0.5s infinite alternate-reverse;
+}
+
+@keyframes bombShaking{
+from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(20deg);
+  }
+}
+.bomb-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
+}
 
 .homeButton {
   padding-left: 25px;
@@ -12,6 +41,7 @@
   align-items: center;
   height: 100%;
   color: white;
+  padding-top: 180px;
 }
 
 .number-display-container {
@@ -181,25 +211,59 @@ body {
   margin-bottom: 20px;
 }
 
+.split{
+ display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hand{
+   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .cards {
   display: flex;
   gap: 10px;
 }
 
 .card {
-  width: 60px;
-  height: 90px;
+  width: 120px;
+  height: 180px;
   background-color: white;
   color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
   font-size: 1.2em;
   border: 1px solid black;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 5px;
+}
+
+.card-symbol {
+  position: absolute;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-symbol.top-left {
+  top: 8px;
+  left: 8px;
+}
+
+.card-symbol.bottom-right {
+  bottom: 8px;
+  right: 8px;
+  transform: rotate(180deg); 
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  z-index: 1;
 }
 
 .actions {

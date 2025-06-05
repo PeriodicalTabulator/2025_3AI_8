@@ -44,3 +44,43 @@ The purpose and meaning of this project is to learn as much as we can about Angu
 | Beancan Blast                            | Acount Balance  | Feeding slot     |
 | BlackJack                                | Roulette        | Free Spin Slot   |
 
+
+
+
+Sprint 1 (Completed)
+
+✅ Basic Slots
+
+✅ Beancan
+
+✅ Temporary Main Menu
+
+✅ Blackjack
+
+
+
+Sprint 2
+
+✅ Redesign of Beancan
+
+✅ Roulette
+
+✅ Updated Slots design
+
+✅ Blackjack Split Function Working
+
+
+Sprint 3
+
+✅ Login + Register Working
+
+✅ Redesign of Main Menu
+
+
+Sprint 4  
+
+✅ Ability to bet (Slots only probably)
+
+❓ Background change
+
+❓ pictures on blackjack

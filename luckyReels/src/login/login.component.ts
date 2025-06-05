@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from '../register/register.component';
 import { AuthService } from '../app/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,9 +24,13 @@ export class LoginComponent {
     private authService: AuthService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    public dialogRef: MatDialogRef<LoginComponent>
+    public dialogRef: MatDialogRef<LoginComponent>,
+    private router: Router
   
   ) {
+      if(localStorage.getItem('token') != null){ this.navigateToGame('slots');
+      this.dialogRef.close();
+      }
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -37,6 +42,7 @@ export class LoginComponent {
       console.log(this.loginForm.value);
       this.dialogRef.close(this.loginForm.value);
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password);
+      this.navigateToGame('slots');
     }
   }
 
@@ -55,4 +61,10 @@ openRegisterDialog() {
     }
   });
 }
+
+
+navigateToGame(route: string) {
+  this.router.navigate([route]);
+}
+
 }

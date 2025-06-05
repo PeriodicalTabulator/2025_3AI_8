@@ -1,30 +1,40 @@
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, IsActiveMatchOptions, Router, RouterOutlet } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { UserComponent } from '../user/user.component';
 import { NgIf } from '@angular/common';
+import { User } from './user';
+import { FirestoreDataService } from './firestore-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [NgIf,RouterOutlet,MatButton],
+  imports: [RouterOutlet,MatButton, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'luckyReels';
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private dialog: MatDialog
-  ) {}
+  isSignedIn: boolean = false;
+ userData: User[] | null = null
+  private subscription: Subscription | null = null;
 
-  currentUser() {
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    private dialog: MatDialog,
+    private dataService: FirestoreDataService
+  ) {
+   // this.userData = this.userComponent.userData;
+    console.log(this.userData);
+  }
+ /* currentUser()
     return this.authService.userEmail;
   }
-
+*/
   navigateToGame(route: string) {
     this.router.navigate([route]);
   }
@@ -33,9 +43,13 @@ export class AppComponent {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '400px'
     });
-
     dialogRef.afterClosed()
-  
+    this.isSignedIn = true;
+  }
+
+  signOut(){
+    this.authService.logout();
+    localStorage.clear();
   }
 
 
