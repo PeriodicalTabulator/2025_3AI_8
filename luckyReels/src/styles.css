@@ -125,13 +125,15 @@ html, body {
 }
 
 .left-wing {
-  top: 162px;
-  left: -370px;
+  top: 62px;
+  left: -335px;
+  z-index: 0;
 }
 
 .right-wing {
-  top: 162px;
-  left: 400px; 
+  top: 62px;
+  left: 365px; 
+  z-index: 0;
 }
 
 body {
@@ -194,6 +196,34 @@ body {
 .card-symbol.top-left {
   top: 8px;
   left: 8px;
+}
+
+.valueOfCard{
+  font-family: 'times new roman'; 
+  position: relative;
+  font-size: 30px;
+  font-weight: bold;
+  top: 0px;
+  left: 5px;
+}
+
+.topSymbol{
+   font-family: 'times new roman'; 
+  position: relative;
+  font-size: 35px;
+  font-weight: bold;
+  top: -35px;
+  left: -40px;
+}
+
+.botSymbol{
+   font-family: 'times new roman'; 
+  rotate: 180deg;
+  position: relative;
+  font-size: 35px;
+  font-weight: bold;
+  top: 35px;
+  left: 40px;
 }
 
 .card-symbol.bottom-right {

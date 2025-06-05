@@ -303,6 +303,10 @@ export class BlackjackComponent implements OnInit {
   }
 
   getCardValue(card: string):string{
+    const cardValue = card.split(' ')[0];
+    if(cardValue == '1'){
+      return 'A';
+    }
     return card.split('')[0];
   }
 }

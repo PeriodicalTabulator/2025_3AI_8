@@ -7,13 +7,13 @@
         <div class="cards">
             <div *ngFor="let card of dealersHand" class="card">
                 <div *ngIf="!getCardSymbol(card).includes('.png')">
-                    <div>
+                    <div class="topSymbol">
                         {{ getCardSymbol(card)}}
                     </div>
-                    <div>
+                    <div class="valueOfCard">
                         {{getCardValue(card)}}
                     </div>
-                    <div>
+                    <div  class="botSymbol">
                         {{getCardSymbol(card)}}
                     </div>
                 </div>
@@ -30,13 +30,13 @@
         <div class="cards" *ngIf="splited == false">
          <div *ngFor="let card of playersHand" class="card">
                  <div *ngIf="!getCardSymbol(card).includes('.png')">
-                    <div>
+                    <div class="topSymbol">
                         {{ getCardSymbol(card)}}
                     </div>
-                    <div>
+                    <div class="valueOfCard">
                         {{getCardValue(card)}}
                     </div>
-                    <div>
+                    <div class="botSymbol">
                         {{getCardSymbol(card)}}
                     </div>
                  </div>
@@ -49,13 +49,13 @@
                     <p *ngIf="leftHand == true">-></p>
                     <div class="cards">
                         <div *ngFor="let card of leftSplit" class="card">
-                           <div>
+                    <div  class="topSymbol">
                         {{ getCardSymbol(card)}}
                     </div>
-                    <div>
+                    <div class="valueOfCard">
                         {{getCardValue(card)}}
                     </div>
-                    <div>
+                    <div class="botSymbol">
                         {{getCardSymbol(card)}}
                     </div>
                         </div>
@@ -66,15 +66,15 @@
                     <p *ngIf="leftHand == false">-></p>
                     <div class="cards">
                         <div *ngFor="let card of rightSplit" class="card">
-                       <div>
-                        {{ getCardSymbol(card)}}
-                    </div>
-                    <div>
-                        {{getCardValue(card)}}
-                    </div>
-                    <div>
-                        {{getCardSymbol(card)}}
-                    </div>
+                            <div class="topSymbol">
+                                {{ getCardSymbol(card)}}
+                            </div>
+                            <div class="valueOfCard">
+                                {{getCardValue(card)}}
+                            </div>
+                            <div class="botSymbol">
+                                {{getCardSymbol(card)}}
+                            </div>
                         </div>
                     </div>
                 </div>
