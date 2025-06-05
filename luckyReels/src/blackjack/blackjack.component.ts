@@ -59,9 +59,9 @@ export class BlackjackComponent implements OnInit {
     this.startDisable = false;
     this.hitStandDisable = true;
     this.splitcreated = false;
-    this.splited = false;
     this.splitAble = true;
     this.leftHand = true;
+    //this.splited = false;
   }
 
   startGame(): void {
@@ -70,6 +70,7 @@ export class BlackjackComponent implements OnInit {
       this.gameResult = 'You have to bet';
       return
     }*/
+      this.splited = false;
       this.leftSplit = [];
       this.rightSplit = [];
       this.dealersHand = [];
@@ -285,5 +286,23 @@ export class BlackjackComponent implements OnInit {
 
   navigateToGame(route: string): void {
     this.router.navigate([route]);
+  }
+
+  getCardSymbol(card: string):string{
+    if (card.includes('Hearts')){
+      return '♡';
+    }else if (card.includes('Diamonds')){
+      return '♦';
+    }else if (card.includes('Clubs')){
+      return '♣';
+    }else if (card.includes('Spades')){
+      return '♠';
+    }else{
+      return 'luckyReels\public\backOfCard.png';
+    }
+  }
+
+  getCardValue(card: string):string{
+    return card.split('')[0];
   }
 }

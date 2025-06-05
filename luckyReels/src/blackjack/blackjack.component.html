@@ -5,9 +5,22 @@
         <h2>Dealer:</h2>
         <p>{{calculateHandValue(dealersHand)}}</p>
         <div class="cards">
-         <div *ngFor="let card of dealersHand" class="card">
-            {{ card }}
-         </div>
+            <div *ngFor="let card of dealersHand" class="card">
+                <div *ngIf="!getCardSymbol(card).includes('.png')">
+                    <div>
+                        {{ getCardSymbol(card)}}
+                    </div>
+                    <div>
+                        {{getCardValue(card)}}
+                    </div>
+                    <div>
+                        {{getCardSymbol(card)}}
+                    </div>
+                </div>
+                <div *ngIf="getCardSymbol(card).includes('.png')">
+                    <img src="backOfCard.png" alt="Card" style="width:125px ; height:188px ;" />
+                </div>
+            </div>
         </div>
     </div>
 
@@ -16,8 +29,18 @@
         <p *ngIf="splited == false">{{calculateHandValue(playersHand)}}</p>
         <div class="cards" *ngIf="splited == false">
          <div *ngFor="let card of playersHand" class="card">
-            {{ card }}
-         </div>
+                 <div *ngIf="!getCardSymbol(card).includes('.png')">
+                    <div>
+                        {{ getCardSymbol(card)}}
+                    </div>
+                    <div>
+                        {{getCardValue(card)}}
+                    </div>
+                    <div>
+                        {{getCardSymbol(card)}}
+                    </div>
+                 </div>
+            </div>
         </div>
         <div *ngIf="splited == true">
             <p *ngIf="splited == true">{{calculateHandValue(leftSplit)}}</p>
@@ -26,7 +49,15 @@
                     <p *ngIf="leftHand == true">-></p>
                     <div class="cards">
                         <div *ngFor="let card of leftSplit" class="card">
-                            {{card}}
+                           <div>
+                        {{ getCardSymbol(card)}}
+                    </div>
+                    <div>
+                        {{getCardValue(card)}}
+                    </div>
+                    <div>
+                        {{getCardSymbol(card)}}
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -35,7 +66,15 @@
                     <p *ngIf="leftHand == false">-></p>
                     <div class="cards">
                         <div *ngFor="let card of rightSplit" class="card">
-                        {{ card }}
+                       <div>
+                        {{ getCardSymbol(card)}}
+                    </div>
+                    <div>
+                        {{getCardValue(card)}}
+                    </div>
+                    <div>
+                        {{getCardSymbol(card)}}
+                    </div>
                         </div>
                     </div>
                 </div>
