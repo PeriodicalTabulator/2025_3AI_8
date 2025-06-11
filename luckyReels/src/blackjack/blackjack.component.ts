@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { NgFor } from '@angular/common';
@@ -9,10 +9,12 @@ import { User } from '../app/user';
 import { AuthService } from '../app/auth.service';
 import { FirestoreDataService } from '../app/firestore-data.service';
 import { Subscription } from 'rxjs';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-blackjack',
-  imports: [MatButtonModule, NgFor,MatFormFieldModule,MatInputModule,NgIf],
+  imports: [MatButtonModule, NgFor,MatFormFieldModule,MatInputModule,NgIf, MatCheckbox,FormsModule],
   templateUrl: './blackjack.component.html',
   styleUrl: './blackjack.component.css'
 })
@@ -35,6 +37,7 @@ export class BlackjackComponent implements OnInit {
   splitcreated:boolean = false;
   leftResult:string = '';
   maxValueOfHand:number = 21;
+  splitPrototype:boolean = false;
 
   //user bets
   userData$:User[] | null = null;
@@ -78,8 +81,12 @@ export class BlackjackComponent implements OnInit {
      this.dealersHand = [this.drawCard(), 'Hidden Card'];
      this.hiddenCardOfDealer = [this.drawCard()];
     //testing split
-    this.playersHand = ['3 of Clubs','3 of Clubs']; 
    // this.playersHand = [this.drawCard(),this.drawCard()];
+     if(this.splitPrototype == true){
+     this.playersHand = ['3 of Clubs','3 of Clubs']; 
+   }else{
+    this.playersHand = [this.drawCard(),this.drawCard()];
+   }
     this.gameResult = ''; 
     this.leftResult = '';
     this.startDisable = true;

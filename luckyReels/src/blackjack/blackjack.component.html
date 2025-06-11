@@ -89,6 +89,7 @@
         <button mat-raised-button (click)="hit()" [disabled]="hitStandDisable">Hit</button>
         <button mat-raised-button (click)="stand()" [disabled]="hitStandDisable">Stand</button>
         <button mat-raised-button (click)="split()" [disabled]="splitAble">Split</button>
+       <mat-checkbox [(ngModel)]="splitPrototype"   [disabled]="startDisable">Split Prototype</mat-checkbox>
         </div>
     <p>{{leftResult}}</p>
     <p>{{ gameResult }}</p>
