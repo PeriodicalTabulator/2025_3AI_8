@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +6,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {MatSliderModule} from '@angular/material/slider';
-
+import { Subscription } from 'rxjs';
+import { User } from '../app/user';
+import { FirestoreDataService } from '../app/firestore-data.service';
 @Component({
   selector: 'app-beancan',
   standalone: true,
@@ -21,7 +23,7 @@ import {MatSliderModule} from '@angular/material/slider';
   templateUrl: './beancan.component.html',
   styleUrls: ['./beancan.component.css']
 })
-export class BeancanComponent {
+export class BeancanComponent implements OnInit {
   @ViewChild('bombElement') bombElement!: ElementRef;
   userInput: number = 50;
   userNumber: number = 50;
@@ -31,9 +33,22 @@ export class BeancanComponent {
   isExploded: boolean = false;
   isAnimating: boolean = false;
   showNumber: number | null = null;
+  
+  userData$:User[] | null = null;
+  isDataLoaded: boolean = false;
+  subscription: Subscription | null = null;
+  bet:number = 0.5;
+  constructor(private router: Router, private dataService: FirestoreDataService) {}
 
-  constructor(private router: Router) {}
-
+  ngOnInit(): void {
+    this.subscription = this.dataService.userData$.subscribe(users => 
+      {
+        this.userData$ = users || [];
+        this.isDataLoaded = users && users.length > 0;
+        console.log('received user data:', users);
+      }
+    );
+  }
   generateRandomNumber() {
     this.isExploded = false;
     this.resultMessage = '';
@@ -48,6 +63,7 @@ export class BeancanComponent {
   }
 
   startGame() {
+    this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet - this.bet)
     this.isAnimating = true;
     
     if (this.bombElement) {
@@ -63,13 +79,22 @@ export class BeancanComponent {
       this.isAnimating = false;
     }, 2000);
   }
+
+  mathOfWinningBet(bet:number):number{
+    let hunderBet = this.bet / 100;
+    bet = hunderBet * this.userInput;
+    return bet
+  }
   
   winningConditions() {
     if (this.isReverse == false) {
       if (this.generatedNumber! >= this.userNumber) {
          this.showNumber = this.generatedNumber;
-        this.resultMessage = 'Bomb didnt explode. You won!';
         this.isExploded = false;
+        let finalbet = this.bet + this.mathOfWinningBet(this.bet);
+        this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet + finalbet);
+        this.resultMessage = 'Bomb didnt explode. You won!';
+        console.log(finalbet);
       } else {
         this.showNumber = this.generatedNumber;
         this.resultMessage = 'Bomb exploded. You lost!';
@@ -77,9 +102,12 @@ export class BeancanComponent {
       }
     } else {
       if (this.generatedNumber! <= this.userNumber) {
-         this.showNumber = this.generatedNumber;
-        this.resultMessage = 'Bomb didnt explode. You won!';
+        this.showNumber = this.generatedNumber;
         this.isExploded = false;
+        let finalbet = this.bet + this.mathOfWinningBet(this.bet);
+        this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet + finalbet);
+        this.resultMessage = 'Bomb didnt explode. You won!';
+         console.log(finalbet);
       } else {
          this.showNumber = this.generatedNumber;
         this.resultMessage = 'Bomb exploded. You lost!';

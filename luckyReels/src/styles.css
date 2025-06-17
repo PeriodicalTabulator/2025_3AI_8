@@ -1,11 +1,19 @@
 
 .bomb{
-  width: 500px;
-  height: 500px;
+  width: 350px;
+  height: 350px;
 }
+
+.bomb-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 90px;
+}
+
 .exploded-bomb{
-  width: 500px;
-  height: 500px;
+  width: 350px;
+  height: 350px;
 }
 
 .bombactivated{
@@ -20,9 +28,9 @@ from {
     transform: rotate(20deg);
   }
 }
-.bomb-column {
+.bomb-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 100%;
