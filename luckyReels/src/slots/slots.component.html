@@ -37,18 +37,11 @@
 
   <div class="input-button-container">
      <p>Bet is 0.5€</p>
-     <p>You have {{ this.userData![0].wallet }}€</p>
     <button (click)="spin()" mat-raised-button color="primary" [disabled]="disableButton">Spin</button>
     <ng-template #youWonDialog><p style="text-align: center;">{{ youWon }}</p></ng-template>
     <ng-template #startGame><p *ngIf="this.youWon === '' else youWonDialog" style="text-align: center;">Click spin to start a game</p></ng-template>
     <p *ngIf="this.disableButton else startGame">Spinning</p>
   </div>
-
-  <br /><br />
-  <p>Winning conditions:</p>
-  <p>Small win = At least one 0 in columns</p>
-  <p>Mid win = All numbers (except 8, 0) are same in columns</p>
-  <p>Big win = 8-8-8</p>
 </div>
 </div>
 </div>

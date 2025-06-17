@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, IsActiveMatchOptions, Router, RouterOutlet } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { LoginComponent } from '../login/login.component';
@@ -16,11 +16,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'luckyReels';
   isSignedIn: boolean = false;
- userData: User[] | null = null
-  private subscription: Subscription | null = null;
+  userData: User[] | null = null
+  subscription: Subscription | null = null;
+  wallet: number | null = null;
 
   constructor(
     public authService: AuthService,
@@ -35,7 +36,16 @@ export class AppComponent {
     return this.authService.userEmail;
   }
 */
-  navigateToGame(route: string) {
+ngOnInit(){
+   this.subscription = this.dataService.userData$.subscribe(users => 
+      {
+        this.userData = users || [];
+        this.wallet = users?.[0].wallet;
+        console.log('received user data:', users);
+      }
+    );
+}  
+navigateToGame(route: string) {
     this.router.navigate([route]);
   }
 
