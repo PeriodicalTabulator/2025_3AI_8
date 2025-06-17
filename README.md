@@ -83,4 +83,6 @@ Sprint 4
 
 ❓ Background change
 
-❓ pictures on blackjack
+✅ pictures on blackjack
+ 
+✅ Better UX on blackjack
