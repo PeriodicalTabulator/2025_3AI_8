@@ -86,3 +86,14 @@ Sprint 4
 ✅ pictures on blackjack
  
 ✅ Better UX on blackjack
+
+
+Sprint 5  
+
+✅ Ability to bet (BlackJack, Beancan)
+
+✅ Background change
+
+✅ BlackJack hidden card
+ 
+✅ Slots redesign
