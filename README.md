@@ -81,8 +81,6 @@ Sprint 4
 
 ✅ Ability to bet (Slots only probably)
 
-❓ Background change
-
 ✅ pictures on blackjack
  
 ✅ Better UX on blackjack
