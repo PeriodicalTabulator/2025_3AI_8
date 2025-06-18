@@ -151,6 +151,7 @@ body {
 }
 
 .gameField {
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,14 +165,14 @@ body {
   margin-bottom: 20px;
 }
 
-.split{
- display: flex;
+.split {
+  display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.hand{
-   display: flex;
+.hand {
+  display: flex;
   align-items: center;
   gap: 10px;
 }
@@ -182,69 +183,43 @@ body {
 }
 
 .card {
-  width: 120px;
-  height: 180px;
+  width: 80px;
+  height: 140px;
   background-color: white;
   color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2em;
   border: 1px solid black;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  position: relative;
+  flex-shrink: 0; 
+  box-sizing: border-box;
 }
 
-.card-symbol {
+.topSymbol {
+  font-family: 'times new roman';
   position: absolute;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
-}
-
-.card-symbol.top-left {
   top: 8px;
   left: 8px;
 }
 
-.valueOfCard{
-  font-family: 'times new roman'; 
-  position: relative;
+.valueOfCard {
+  font-family: 'times new roman';
+  position: absolute;
   font-size: 30px;
   font-weight: bold;
-  top: 0px;
-  left: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.topSymbol{
-   font-family: 'times new roman'; 
-  position: relative;
-  font-size: 35px;
+.botSymbol {
+  font-family: 'times new roman';
+  position: absolute;
+  font-size: 20px;
   font-weight: bold;
-  top: -35px;
-  left: -40px;
-}
-
-.botSymbol{
-   font-family: 'times new roman'; 
-  rotate: 180deg;
-  position: relative;
-  font-size: 35px;
-  font-weight: bold;
-  top: 35px;
-  left: 40px;
-}
-
-.card-symbol.bottom-right {
   bottom: 8px;
   right: 8px;
-  transform: rotate(180deg); 
-}
-
-.card-value {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  z-index: 1;
+  transform: rotate(180deg);
 }
 
 .actions {
@@ -252,7 +227,6 @@ body {
   gap: 10px;
   margin-top: 20px;
 }
-
 /*roulette*/
 .wheel {
   height: 312px;

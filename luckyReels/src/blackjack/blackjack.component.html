@@ -1,6 +1,9 @@
 
 
 <div class="gameField">
+     <p>{{leftResult}}</p>
+    <p>{{ gameResult }}</p>
+    <p>Bet is 0.5 €</p>
     <div class="dealer">
         <h2>Dealer:</h2>
         <p>{{calculateHandValue(dealersHand)}}</p>
@@ -18,7 +21,7 @@
                     </div>
                 </div>
                 <div *ngIf="getCardSymbol(card).includes('.png')">
-                    <img src="backOfCard.png" alt="Card" style="width:125px ; height:188px ;" />
+                    <img src="backOfCard.png" alt="Card" style="width:80px ; height:140px ;" />
                 </div>
             </div>
         </div>
@@ -91,9 +94,5 @@
         <button mat-raised-button (click)="split()" [disabled]="splitAble">Split</button>
        <mat-checkbox [(ngModel)]="splitPrototype"   [disabled]="startDisable">Split Prototype</mat-checkbox>
         </div>
-    <p>{{leftResult}}</p>
-    <p>{{ gameResult }}</p>
-     <p>Wallet {{this.userData$![0].wallet}} €</p>
-    <p>Bet is 0.5 €</p>
 </div>
 
