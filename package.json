@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@swimlane/ngx-charts": "^23.0.1"
+  }
+}
