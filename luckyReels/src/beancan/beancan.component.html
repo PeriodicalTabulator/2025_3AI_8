@@ -16,7 +16,7 @@
     </mat-checkbox>
     <div style="display: flex; align-items: center; gap: 15px;">
     <p>Bet is 0.5€</p>
-    <p>Profit on Win: {{this.mathOfWinningBet(this.bet)}}</p>
+    <p>Profit on Win: {{this.mathOfWinningBet(bet)}}</p>
 </div>
     <button mat-raised-button color="primary" (click)="generateRandomNumber()" [disabled]="isAnimating">
         {{ isAnimating ? 'Rolling...' : 'Roll' }}

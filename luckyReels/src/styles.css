@@ -208,7 +208,7 @@ body {
 
 
 .gameField {
-  margin-top: 80px;
+ margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -593,3 +593,34 @@ body {
 .current-bet {
   font-weight: bold;
 }
+
+
+
+
+.background-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.bolt {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  width: 80px;
+  height: 160px;
+  background: #6a2a54;
+  clip-path: polygon(33% 0%, 40% 33%, 20% 25%, 50% 100%, 55% 62%, 85% 70%);
+  filter: blur(8px);
+  opacity: 0.6;
+}
+
+.bolt:nth-child(1) { top: 10%; left: 10%; }
+.bolt:nth-child(2) { top: 10%; left: 40%; }
+.bolt:nth-child(3) { top: 10%; left: 70%; }
+.bolt:nth-child(4) { top: 40%; left: 20%; }
+.bolt:nth-child(5) { top: 40%; left: 50%; }
+.bolt:nth-child(6) { top: 40%; left: 80%; }
+.bolt:nth-child(7) { top: 70%; left: 30%; }
+.bolt:nth-child(8) { top: 70%; left: 60%; }
