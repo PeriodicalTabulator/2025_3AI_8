@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AuthService } from '../auth.service';
+import { FirestoreDataService } from '../firestore-data.service';
+import { Router } from '@angular/router';
+import { User } from '../user';
+import { Subscription, async } from 'rxjs';
 
 
 @Component({
@@ -8,51 +13,56 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   templateUrl: './pie-chart-1.component.html',
   styleUrl: './pie-chart-1.component.css'
 })
-export class PieChart1Component {
-  single: any[] = [
-    {
-      name: 'Germany',
-      value: 8940000,
-    },
-    {
-      name: 'USA',
-      value: 5000000,
-    },
-    {
-      name: 'France',
-      value: 7200000,
-    },
-    {
-      name: 'UK',
-      value: 6200000,
-    },
-  ];
-  view: [number, number] = [700, 400];
+export class PieChart1Component implements OnInit, OnDestroy {
+  userData: User[] | null = null;
+  single: any[] = [];
+  loading = true;
+  private subscription: Subscription | null = null;
 
-  // options
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
-  legendPosition: string = 'below';
+  view: [number, number] = [700, 400];
+  gradient = true;
+  showLegend = true;
+  showLabels = true;
+  isDoughnut = false;
+  legendPosition = 'below';
 
   colorScheme = {
-    domain: ['#1fb112ff', '#A10A28', '#C7B42C', '#AAAAAA'],
+    domain: ['blue', 'red', 'orange'], // only # colors
   };
 
-  constructor() {
-    Object.assign(this.single) ;
+  constructor(
+    public authService: AuthService,
+    private dataService: FirestoreDataService,
+  ) {}
+
+  ngOnInit(): void {
+    this.loadUserData();
   }
 
-  onSelect(data: { name: string; value: number }): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
-  onActivate(data: { name: string; value: number }): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
+  loadUserData(): void {
+    const uid = this.authService.getUID();
+    if (!uid) {
+      this.loading = false;
+      return;
+    }
 
-  onDeactivate(data: { name: string; value: number }): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    this.subscription = this.dataService.getDataOfSingleUser(uid).subscribe({
+      next: (users) => {
+        this.userData = users;
+        this.loading = false;
+
+        const user = users?.[0] ?? {};
+
+        this.single = [
+          { name: 'BlackJack', value: user.blackJackPlayed ?? 0 },
+          { name: 'Slots', value: user.slotsPlayed ?? 0 },
+          { name: 'BeanCan', value: user.beancanPlayed ?? 0 }
+        ];
+      },
+    });
   }
 }
