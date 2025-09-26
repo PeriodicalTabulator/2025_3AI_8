@@ -1,30 +1,29 @@
-<div class="bomb-row">
-    <div class="bomb-container" #bombElement>
-        <img class="bomb" src="bomb.png" *ngIf="!isExploded" alt="Bomb">
-        <img class="exploded-bomb" src="bomb blow.png" *ngIf="isExploded" alt="Exploded Bomb">
-    </div>
-    <div style=" gap: 10px; width: 350px; height: 350px;">
-    <div style="display: flex; align-items: center; gap: 10px;;">
-        <mat-slider min="0" max="100" step="1">
-            <input matSliderThumb [(ngModel)]="userInput">
-        </mat-slider>
-        <p style="color: white;">{{userInput}}%</p>
-    </div>
-    
-    <mat-checkbox [(ngModel)]="isReverse">
-        Reverse
-    </mat-checkbox>
-    <div style="display: flex; align-items: center; gap: 15px;">
-    <p>Bet is 0.5€</p>
-    <p>Profit on Win: {{this.mathOfWinningBet(bet)}}</p>
-</div>
-    <button mat-raised-button color="primary" (click)="generateRandomNumber()" [disabled]="isAnimating">
-        {{ isAnimating ? 'Rolling...' : 'Roll' }}
-    </button>
+<input
+  type="number"
+  [(ngModel)]="userInput"
+  min="1"
+  max="99"
+  class="number-input"
+  placeholder="Pick a number (1–99)" />
 
-    <div *ngIf="generatedNumber !== null" class="result-box">
-        <p><strong>Generated Number:</strong> {{ showNumber }}</p>
-        <p><strong>Result:</strong> {{ resultMessage }}</p>
-    </div>
-    </div>
+
+<mat-checkbox [(ngModel)]="isReverse">
+  Reverse
+</mat-checkbox>
+
+
+<button mat-raised-button color="primary" (click)="generateRandomNumber()">
+  Roll
+</button>
+
+
+<div *ngIf="generatedNumber !== null" class="result-box">
+  <p><strong>Generated Number:</strong> {{ generatedNumber }}</p>
+  <p><strong>Your Number:</strong> {{ userNumber }}</p>
+  <p><strong>Result:</strong> {{ resultMessage }}</p>
 </div>
+
+<p>Winning conditions:</p>
+
+<p><b>Normal:</b> If player hits a number bellow chosen number, player wins.</p>
+<p><b>Reversed:</b> If player hits a number above chosen number, player wins.</p>
