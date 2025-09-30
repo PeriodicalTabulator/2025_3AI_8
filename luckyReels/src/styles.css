@@ -1,11 +1,19 @@
 
 .bomb{
-  width: 500px;
-  height: 500px;
+  width: 350px;
+  height: 350px;
 }
+
+.bomb-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 90px;
+}
+
 .exploded-bomb{
-  width: 500px;
-  height: 500px;
+  width: 350px;
+  height: 350px;
 }
 
 .bombactivated{
@@ -20,9 +28,9 @@ from {
     transform: rotate(20deg);
   }
 }
-.bomb-column {
+.bomb-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -126,13 +134,15 @@ html, body {
 }
 
 .left-wing {
-  top: 162px;
-  left: -370px;
+  top: 93px;
+  left: -365px;
+  z-index: 0;
 }
 
 .right-wing {
-  top: 162px;
-  left: 400px; 
+  top: 93px;
+  left: 342px; 
+  z-index: 0;
 }
 
 body {
@@ -198,6 +208,7 @@ body {
 
 
 .gameField {
+ margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -211,14 +222,14 @@ body {
   margin-bottom: 20px;
 }
 
-.split{
- display: flex;
+.split {
+  display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.hand{
-   display: flex;
+.hand {
+  display: flex;
   align-items: center;
   gap: 10px;
 }
@@ -229,41 +240,43 @@ body {
 }
 
 .card {
-  width: 120px;
-  height: 180px;
+  width: 80px;
+  height: 140px;
   background-color: white;
   color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2em;
   border: 1px solid black;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  position: relative;
+  flex-shrink: 0; 
+  box-sizing: border-box;
 }
 
-.card-symbol {
+.topSymbol {
+  font-family: 'times new roman';
   position: absolute;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
-}
-
-.card-symbol.top-left {
   top: 8px;
   left: 8px;
 }
 
-.card-symbol.bottom-right {
-  bottom: 8px;
-  right: 8px;
-  transform: rotate(180deg); 
+.valueOfCard {
+  font-family: 'times new roman';
+  position: absolute;
+  font-size: 30px;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.card-value {
-  font-size: 24px;
+.botSymbol {
+  font-family: 'times new roman';
+  position: absolute;
+  font-size: 20px;
   font-weight: bold;
-  color: #333;
-  z-index: 1;
+  bottom: 8px;
+  right: 8px;
+  transform: rotate(180deg);
 }
 
 .actions {
@@ -271,7 +284,6 @@ body {
   gap: 10px;
   margin-top: 20px;
 }
-
 /*roulette*/
 .wheel {
   height: 312px;
@@ -581,3 +593,34 @@ body {
 .current-bet {
   font-weight: bold;
 }
+
+
+
+
+.background-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.bolt {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  width: 80px;
+  height: 160px;
+  background: #6a2a54;
+  clip-path: polygon(33% 0%, 40% 33%, 20% 25%, 50% 100%, 55% 62%, 85% 70%);
+  filter: blur(8px);
+  opacity: 0.6;
+}
+
+.bolt:nth-child(1) { top: 10%; left: 10%; }
+.bolt:nth-child(2) { top: 10%; left: 40%; }
+.bolt:nth-child(3) { top: 10%; left: 70%; }
+.bolt:nth-child(4) { top: 40%; left: 20%; }
+.bolt:nth-child(5) { top: 40%; left: 50%; }
+.bolt:nth-child(6) { top: 40%; left: 80%; }
+.bolt:nth-child(7) { top: 70%; left: 30%; }
+.bolt:nth-child(8) { top: 70%; left: 60%; }

@@ -79,8 +79,11 @@ Sprint 3
 
 Sprint 4  
 
-✅ Ability to bet (Slots only probably)
+✅ Ability to bet (Slots, Beancan, Blackjack)
 
-❓ Background change
+✅ Background change
 
-❓ pictures on blackjack
+✅ pictures on blackjack
+ 
+✅ Better UX on blackjack
+
