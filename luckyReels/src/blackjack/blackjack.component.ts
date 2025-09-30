@@ -68,6 +68,7 @@ export class BlackjackComponent implements OnInit {
   }
 
   startGame(): void {
+    this.dataService.updateChartValueBlackJack(this.userData$![0].uid, this.userData$![0].blackJackPlayed + 1);
      this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet - this.bet);
    /* if(this.bet == 0){
       this.gameResult = 'You have to bet';
