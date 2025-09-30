@@ -48,6 +48,21 @@ export class FirestoreDataService {
     }
   }
 
+  updateChartValueSlots(uid:string, amount: number){
+    this.firestore.collection('userData').doc(uid).update({slotsPlayed : amount })
+
+    const currentUsers = this.userDataSubject.getValue();
+    if(currentUsers && currentUsers.length > 0){
+      const updatedUsers = currentUsers.map(user => {
+        if (user.uid === uid){
+          return{...user, slotsPlayed : amount};
+        }
+        return user
+      });
+      this.userDataSubject.next(updatedUsers);
+    }
+  }
+
  getDataOfSingleUser(uid: string):Observable<User[]>{
   return this.getDataBasedOnField('uid', uid).pipe(
     tap(users => {
