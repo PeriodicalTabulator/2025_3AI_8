@@ -6,6 +6,9 @@ import { BlackjackComponent } from '../blackjack/blackjack.component';
 import { MenuComponent } from '../menu/menu.component';
 import { RouletteComponent } from '../roulette/roulette.component';
 import { UserComponent } from '../user/user.component';
+import { ChartComponent } from './chart/chart.component';
+
+
 
 export const routes: Routes = [
   { path: 'slots', component: SlotsComponent },
@@ -13,7 +16,8 @@ export const routes: Routes = [
   {path: 'blackjack', component: BlackjackComponent},
   {path: '', component:MenuComponent},
   {path: 'roulette', component:RouletteComponent},
-  {path: 'user', component:UserComponent}
+  {path: 'user', component:UserComponent},
+  {path: 'chart', component:ChartComponent},
 ];
 
 @NgModule({
