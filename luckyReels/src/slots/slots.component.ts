@@ -45,6 +45,7 @@ export class SlotsComponent {
   userData: User[] | null = null;
   enoughMoney:string = '';
   isDataLoaded: boolean = false;
+  game: string = "slotsPlayed";
 
   private BIG_WIN = new Set([
     '8-8-8'
@@ -314,7 +315,7 @@ loadUserData(){
 
     this.dataService.getDataOfSingleUser(uid).subscribe();
 }
-  spin() {
+ spin() {
  if (!this.isDataLoaded || this.userData!.length === 0) {
       this.enoughMoney = 'User data not loaded. Please try again.';
       return;
@@ -326,6 +327,7 @@ loadUserData(){
       this.enoughMoney = 'Not enough money';
     } else {
       this.dataService.updateWallet(this.userData![0].uid, wallet - 0.5);
+      this.dataService.updateChartValueSlots(this.userData![0].uid, this.userData![0].slotsPlayed + 1);
       this.enoughMoney = '';
       console.log('user wallet before spin', wallet);
       this.slotMachine.generateRandomNumbers();
@@ -338,7 +340,7 @@ loadUserData(){
       this.reel2.nativeElement.classList.add('rolling');
       this.reel3.nativeElement.classList.add('rolling');
     
-      setTimeout(() => {
+       setTimeout(() => {
         this.reel1.nativeElement.classList.remove('rolling');
         this.reel2.nativeElement.classList.remove('rolling');
         this.reel3.nativeElement.classList.remove('rolling');
@@ -356,8 +358,6 @@ loadUserData(){
         this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
         this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
     
-        
-        
         this.checkWinningConditions();
       }, 1000);
     }

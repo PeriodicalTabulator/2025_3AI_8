@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { AuthService } from '../auth.service';
-import { FirestoreDataService } from '../firestore-data.service';
+import { AuthService } from '../app/auth.service';
+import { FirestoreDataService } from '../app/firestore-data.service';
 import { Router } from '@angular/router';
-import { User } from '../user';
+import { User } from '../app/user';
 import { Subscription, async } from 'rxjs';
 
 

@@ -64,7 +64,8 @@ export class BeancanComponent implements OnInit {
   }
 
   startGame() {
-    this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet - this.bet)
+    this.dataService.updateChartValueBeancan(this.userData$![0].uid, this.userData$![0].beancanPlayed + 1);
+    this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet - this.bet);
     this.isAnimating = true;
     
     if (this.bombElement) {

@@ -47,7 +47,52 @@ export class FirestoreDataService {
       this.userDataSubject.next(updatedUsers);
     }
   }
+//1
+  updateChartValueSlots(uid:string, amount: number){
+    this.firestore.collection('userData').doc(uid).update({slotsPlayed : amount })
 
+    const currentUsers = this.userDataSubject.getValue();
+    if(currentUsers && currentUsers.length > 0){
+      const updatedUsers = currentUsers.map(user => {
+        if (user.uid === uid){
+          return{...user, slotsPlayed : amount};
+        }
+        return user
+      });
+      this.userDataSubject.next(updatedUsers);
+    }
+  }
+//2
+  updateChartValueBlackJack(uid:string, amount: number){
+    this.firestore.collection('userData').doc(uid).update({blackJackPlayed : amount })
+
+    const currentUsers = this.userDataSubject.getValue();
+    if(currentUsers && currentUsers.length > 0){
+      const updatedUsers = currentUsers.map(user => {
+        if (user.uid === uid){
+          return{...user, blackJackPlayed : amount};
+        }
+        return user
+      });
+      this.userDataSubject.next(updatedUsers);
+    }
+  }
+//3
+  updateChartValueBeancan(uid:string, amount: number){
+    this.firestore.collection('userData').doc(uid).update({beancanPlayed : amount })
+
+    const currentUsers = this.userDataSubject.getValue();
+    if(currentUsers && currentUsers.length > 0){
+      const updatedUsers = currentUsers.map(user => {
+        if (user.uid === uid){
+          return{...user, beancanPlayed : amount};
+        }
+        return user
+      });
+      this.userDataSubject.next(updatedUsers);
+    }
+  }
+  //need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
  getDataOfSingleUser(uid: string):Observable<User[]>{
   return this.getDataBasedOnField('uid', uid).pipe(
     tap(users => {
