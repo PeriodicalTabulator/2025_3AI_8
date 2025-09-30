@@ -5,5 +5,8 @@ export interface User {
     firstName:string;
     lastName:string;
     email:string;
-    wallet:number
+    wallet:number;
+    blackJackPlayed:number;
+    beancanPlayed:number;
+    slotsPlayed:number;
 }
