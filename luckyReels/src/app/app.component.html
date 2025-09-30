@@ -6,13 +6,26 @@
         <button mat-raised-button (click)="navigateToGame('chart')">Chart</button>
     <!--<button mat-raised-button (click)="openLoginDialog()">Login</button>-->
     <button mat-raised-button (click)="openUserDialog()">User</button>
-    <button mat-raised-button (click)="signOut()">Sign Out</button>
+    <button mat-raised-button (click)="signOut()">User</button>
+    <button mat-raised-button (click)="navigateToGame('piechart')">Stats</button>
     <div>
          <p style="color: white; font-size: 20px;">Wallet:{{wallet}}€</p>
     </div>
 </div>
 <router-outlet></router-outlet>
 
+
+
+<div class="background-layer">
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+  </div>
 
 
 <div class="background-layer">
