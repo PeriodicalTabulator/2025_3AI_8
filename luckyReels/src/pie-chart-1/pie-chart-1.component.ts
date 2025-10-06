@@ -18,7 +18,7 @@ export class PieChart1Component implements OnInit, OnDestroy {
   single: any[] = [];
   loading = true;
   private subscription: Subscription | null = null;
-
+  multi: any[] = [];
   view: [number, number] = [700, 400];
   gradient = true;
   showLegend = true;
@@ -26,8 +26,18 @@ export class PieChart1Component implements OnInit, OnDestroy {
   isDoughnut = false;
   legendPosition = 'below';
 
+
+  legend: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Year';
+  yAxisLabel: string = 'Population';
+  timeline: boolean = true;
   colorScheme = {
-    domain: ['blue', 'red', 'orange'], // only # colors
+    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
   constructor(
@@ -62,6 +72,58 @@ export class PieChart1Component implements OnInit, OnDestroy {
           { name: 'Slots', value: user.slotsPlayed ?? 0 },
           { name: 'BeanCan', value: user.beancanPlayed ?? 0 }
         ];
+        this.multi = [
+          {
+            "name": "money played ",
+            "series": [
+              {
+                "name": "1990",
+                "value": 1
+              },
+              {
+                "name": "2010",
+                "value": 5
+              },
+              {
+                "name": "2011",
+                "value": 4
+              },
+              {
+                "name": "2012",
+                "value": 4
+              },{
+                "name": "2013",
+                "value": 6
+              },
+              {
+                "name": "2014",
+                "value": 2
+              },{
+                "name": "2015",
+                "value": 1
+              },
+              {
+                "name": "2016",
+                "value": 5
+              },
+              {
+                "name": "2017",
+                "value": 4
+              },
+              {
+                "name": "2018",
+                "value": 4
+              },{
+                "name": "2019",
+                "value": 6
+              },
+              {
+                "name": "2020",
+                "value": 2
+              }
+            ]
+          },
+        ]
       },
     });
   }

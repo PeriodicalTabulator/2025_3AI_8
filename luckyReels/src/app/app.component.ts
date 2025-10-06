@@ -50,7 +50,7 @@ navigateToGame(route: string) {
   }
 
   openLoginDialog() {
-    const dialogRef = this.dialog.open(LoginComponent, {
+   const dialogRef = this.dialog.open(LoginComponent, {
       width: '400px'
     });
     dialogRef.afterClosed()
@@ -64,11 +64,11 @@ navigateToGame(route: string) {
 
 
   openUserDialog() {
-    const dialogRef = this.dialog.open(UserComponent, {
-      width: '400px'
+   const dialogRef = this.dialog.open(UserComponent, {
+     width: '400px'
     });
 
-    dialogRef.afterClosed()
-  
+  dialogRef.afterClosed()
+ 
   }
 }
