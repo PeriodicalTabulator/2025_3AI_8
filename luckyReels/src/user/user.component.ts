@@ -67,6 +67,10 @@ export class UserComponent {
     this.router.navigate(['/login']);
     return this.authService.logout();
   }
+  navigateToGame(route: string) {
+    this.router.navigate([route]);
+    this.dialogRef.close();
+  }
 
 }
 

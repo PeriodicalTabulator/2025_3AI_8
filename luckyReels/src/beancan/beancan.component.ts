@@ -33,7 +33,6 @@ export class BeancanComponent implements OnInit {
   isExploded: boolean = false;
   isAnimating: boolean = false;
   showNumber: number | null = null;
-  profitWin:number = 0;
   
   userData$:User[] | null = null;
   isDataLoaded: boolean = false;
@@ -65,6 +64,7 @@ export class BeancanComponent implements OnInit {
 
   startGame() {
     this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet - this.bet)
+    this.dataService.updateChartValueBeancan(this.userData$![0].uid, this.userData$![0].beancanPlayed + 1);
     this.isAnimating = true;
     
     if (this.bombElement) {
@@ -83,8 +83,7 @@ export class BeancanComponent implements OnInit {
 
   mathOfWinningBet(bet:number):number{
     let hunderBet = this.bet / 100;
-    bet =0.5 + hunderBet * this.userInput;
-
+    bet = hunderBet * this.userInput;
     return bet
   }
   
@@ -93,7 +92,7 @@ export class BeancanComponent implements OnInit {
       if (this.generatedNumber! >= this.userNumber) {
          this.showNumber = this.generatedNumber;
         this.isExploded = false;
-        let finalbet = this.mathOfWinningBet(this.bet);
+        let finalbet = this.bet + this.mathOfWinningBet(this.bet);
         this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet + finalbet);
         this.resultMessage = 'Bomb didnt explode. You won!';
         console.log(finalbet);
@@ -107,7 +106,6 @@ export class BeancanComponent implements OnInit {
         this.showNumber = this.generatedNumber;
         this.isExploded = false;
         let finalbet = this.bet + this.mathOfWinningBet(this.bet);
-        this.profitWin = finalbet;
         this.dataService.updateWallet(this.userData$![0].uid, this.userData$![0].wallet + finalbet);
         this.resultMessage = 'Bomb didnt explode. You won!';
          console.log(finalbet);

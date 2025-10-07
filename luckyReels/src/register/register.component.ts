@@ -56,9 +56,9 @@ export class RegisterComponent {
           lastName: formValue.lastName,
           email: formValue.email,
           wallet: 0,
-          blackJackPlayed: 15,
-          beancanPlayed: 20,
-          slotsPlayed: 42,
+          blackJackPlayed: 0,
+          beancanPlayed: 0,
+          slotsPlayed: 0,
         };
    
         await this.firestore.addUser(user);
