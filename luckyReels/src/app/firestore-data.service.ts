@@ -4,11 +4,11 @@ import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { UserBets } from './user-bets';
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreDataService {
-
 
   private userDataSubject = new BehaviorSubject<User[]>([]);
   userData$ = this.userDataSubject.asObservable();
@@ -24,9 +24,10 @@ export class FirestoreDataService {
   }
 
 
-  async addUser(user: User ){
+  async addUser(user: User, userBets: UserBets){
     this.firestore.collection('userData').doc(user.uid).set(user);
-
+   // this.firestore.collection('userBets').doc(user.uid).set(uidForBets); wont work expected object
+    this.firestore.collection('userBets').add(userBets);
      const currentUsers = this.userDataSubject.getValue();
     this.userDataSubject.next([...currentUsers, user]);
     return
@@ -110,6 +111,8 @@ export class FirestoreDataService {
     }
 
       getCurrentUserData(): User[] {
-    return this.userDataSubject.getValue();
+   
+     return this.userDataSubject.getValue();
   }
+
 }

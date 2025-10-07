@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../app/auth.service';
 import { User } from '../app/user';
 import { FirestoreDataService } from '../app/firestore-data.service';
+import { UserBets } from '../app/user-bets';
 
 @Component({
   selector: 'app-register',
@@ -46,10 +47,10 @@ export class RegisterComponent {
           formValue.password
         );
       
-        const uid = credential.user?.uid;
+        let createUid = credential.user?.uid;
         
         const user: User = {
-          uid: uid || '' ,
+          uid: createUid || '' ,
           userName: formValue.userName,
           idNumber: formValue.idNumber,
           firstName: formValue.firstName,
@@ -60,17 +61,21 @@ export class RegisterComponent {
           beancanPlayed: 0,
           slotsPlayed: 0,
         };
-   
-        await this.firestore.addUser(user);
+
+        const userBets : UserBets = {
+          uid: createUid || ''
+        };
+
+        await this.firestore.addUser(user, userBets);
 
         this.dialogRef.close(user);
       } 
   }
 
-  addData(user: User){
-    this.firestore.addUser(user);
+ /* addData(user: User){
+    this.firestore.addUser(user, user.uid);
     console.log("added user");
-  }
+  }*/
   onCancel() {
     this.dialogRef.close();
   }
