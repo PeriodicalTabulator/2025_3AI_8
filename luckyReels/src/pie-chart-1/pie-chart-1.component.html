@@ -1,0 +1,32 @@
+
+<div class="leftside" style="align-content:space-between;">
+  <div class="chart-container">
+    <ngx-charts-pie-chart
+      [view]="view"
+      [results]="single"
+      [gradient]="gradient"
+      [legend]="showLegend"
+      [labels]="showLabels"
+      [doughnut]="isDoughnut"
+      [customColors]="colorScheme"
+    >
+    </ngx-charts-pie-chart>
+  </div>
+
+  <div>
+    <ngx-charts-line-chart
+    [view]="view"
+  [customColors]="colorScheme"
+  [legend]="legend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxis]="xAxis"
+  [yAxis]="yAxis"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [timeline]="timeline"
+  [results]="multi"
+    >
+    </ngx-charts-line-chart>
+  </div>
+
