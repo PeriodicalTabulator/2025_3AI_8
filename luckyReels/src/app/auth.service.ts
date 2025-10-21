@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs';
-import { FirestoreDataService } from './firestore-data.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +14,7 @@ export class AuthService {
   isAuthenticated$ = this.user$.pipe(map (user => !!user));
   uid$ = this.user$.pipe(map(user => user?.uid))
 
-  constructor(public afAuth: AngularFireAuth, private router: Router, private userData: FirestoreDataService) {
+  constructor(public afAuth: AngularFireAuth, private router: Router) {
 
     this.afAuth.authState.subscribe(user => {
       this.userSubject.next(user);
@@ -29,10 +28,6 @@ export class AuthService {
     })
   }
 
-  isAuthenticatedBean():boolean{
-    if(this.userData.userData![0].uid == localStorage.getItem('token')){return false}
-    return true;
-  }
 
   async login(email: string, password: string): Promise<firebase.auth.UserCredential> {
   const result = await this.afAuth.signInWithEmailAndPassword(email, password);

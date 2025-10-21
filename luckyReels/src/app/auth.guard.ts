@@ -5,5 +5,5 @@ import { AuthService } from './auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
  const authService = inject(AuthService);
- return authService.isAuthenticatedBean();
+ return authService.isAuthenticated$;
 };

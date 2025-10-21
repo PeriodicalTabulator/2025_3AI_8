@@ -12,10 +12,10 @@ import { authGuard } from './auth.guard';
 export const routes: Routes = [
   { path: 'slots', component: SlotsComponent },
   { path: 'beancan', component:BeancanComponent, canActivate: [authGuard]},
-  {path: 'blackjack', component: BlackjackComponent},
-  {path: '', component:MenuComponent},
-  {path: 'roulette', component:RouletteComponent},
-  {path: 'user', component:UserComponent},
+  {path: 'blackjack', component: BlackjackComponent, canActivate: [authGuard]},
+  {path: '', component:MenuComponent, canActivate: [authGuard]},
+  {path: 'roulette', component:RouletteComponent,canActivate: [authGuard]},
+  {path: 'user', component:UserComponent, canActivate: [authGuard]},
   {path: 'piechart', component:PieChart1Component}
 ];
 

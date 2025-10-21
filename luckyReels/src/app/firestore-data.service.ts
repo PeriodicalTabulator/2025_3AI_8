@@ -23,20 +23,6 @@ export class FirestoreDataService {
     })
   }
 
-   userData:User[] | null = null;
-   isDataLoaded: boolean = false;
-   subscription: Subscription | null = null;
-  
-  ngOnInit(): void {
-    
-    this.subscription = this.userData$.subscribe(users => 
-      {
-        this.userData = users || [];
-        this.isDataLoaded = users && users.length > 0;
-        console.log('received user data:', users);
-      }
-    );
-  }
 
   async addUser(user: User, userBets: UserBets){
     this.firestore.collection('userData').doc(user.uid).set(user);
