@@ -10,7 +10,7 @@ import { PieChart1Component } from '../pie-chart-1/pie-chart-1.component';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
-  { path: 'slots', component: SlotsComponent },
+  { path: 'slots', component: SlotsComponent, canActivate: [authGuard] },
   { path: 'beancan', component:BeancanComponent, canActivate: [authGuard]},
   {path: 'blackjack', component: BlackjackComponent, canActivate: [authGuard]},
   {path: '', component:MenuComponent, canActivate: [authGuard]},
