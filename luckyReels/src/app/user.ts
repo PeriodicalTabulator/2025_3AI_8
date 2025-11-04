@@ -9,4 +9,5 @@ export interface User {
     blackJackPlayed:number;
     beancanPlayed:number;
     slotsPlayed:number;
+    admin?: boolean;
 }

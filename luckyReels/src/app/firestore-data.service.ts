@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map, tap } from 'rxjs';
 import { UserBets } from './user-bets';
 @Injectable({
   providedIn: 'root'
@@ -94,15 +94,16 @@ export class FirestoreDataService {
     }
   }
   //need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
- getDataOfSingleUser(uid: string):Observable<User[]>{
-  return this.getDataBasedOnField('uid', uid).pipe(
-    tap(users => {
-      if(users && users.length > 0){
-        this.userDataSubject.next(users)
-      }
-    })
-  );
-}
+  getDataOfSingleUser(uid: string):Observable<User[]>{
+    return this.getDataBasedOnField('uid', uid).pipe(
+      tap(users => {
+        if(users && users.length > 0){
+          this.userDataSubject.next(users)
+        }
+      })
+    );
+  }
+  
 
   getDataBasedOnField(field: string, value: string):Observable<User[]>{
     return this.firestore

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs';
+import { User } from './user';
 @Injectable({
   providedIn: 'root'
 })
@@ -53,6 +54,13 @@ export class AuthService {
   getUID(): string | null{
     const user = this.getCurrentUser();
     return user ? user.uid : null
+  }
+
+  adminCheck(user:User):boolean{
+    if(user.admin == true){
+      return true
+    }
+    return false
   }
 
 }

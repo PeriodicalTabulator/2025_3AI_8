@@ -8,15 +8,18 @@ import { RouletteComponent } from '../roulette/roulette.component';
 import { UserComponent } from '../user/user.component';
 import { PieChart1Component } from '../pie-chart-1/pie-chart-1.component';
 import { authGuard } from './auth.guard';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { adminGuardGuard } from './admin-guard.guard';
 
 export const routes: Routes = [
   { path: 'slots', component: SlotsComponent, canActivate: [authGuard] },
   { path: 'beancan', component:BeancanComponent, canActivate: [authGuard]},
   {path: 'blackjack', component: BlackjackComponent, canActivate: [authGuard]},
-  {path: '', component:MenuComponent, canActivate: [authGuard]},
+  {path: '', component:MenuComponent},
   {path: 'roulette', component:RouletteComponent,canActivate: [authGuard]},
   {path: 'user', component:UserComponent, canActivate: [authGuard]},
-  {path: 'piechart', component:PieChart1Component}
+  {path: 'piechart', component:PieChart1Component},
+  {path: 'adminPanel', component:AdminPanelComponent, canActivate: [adminGuardGuard]},
 ];
 
 @NgModule({

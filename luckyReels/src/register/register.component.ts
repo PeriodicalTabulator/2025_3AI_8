@@ -60,6 +60,7 @@ export class RegisterComponent {
           blackJackPlayed: 0,
           beancanPlayed: 0,
           slotsPlayed: 0,
+          admin : false
         };
 
         const userBets : UserBets = {
