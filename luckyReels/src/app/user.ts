@@ -9,4 +9,15 @@ export interface User {
     blackJackPlayed:number;
     beancanPlayed:number;
     slotsPlayed:number;
+     lifetimeCoins?: number;
+  blackjackWins?: number;
+  loginStreak?: number;
+  lastLoginDate?: string;
+  achievements?: {
+    slotSpinner?: boolean;
+    blackjackPro?: boolean;
+    beanCanCollector?: boolean;
+    highRoller?: boolean;
+    dailyPlayer?: boolean;
+};
 }

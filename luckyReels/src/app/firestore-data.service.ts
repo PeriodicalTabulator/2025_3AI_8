@@ -4,37 +4,39 @@ import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreDataService {
 
-
   private userDataSubject = new BehaviorSubject<User[]>([]);
   userData$ = this.userDataSubject.asObservable();
-  constructor(private firestore: AngularFirestore, private http: HttpClient, private auth:AuthService
-  ) { 
-    this.auth.user$.subscribe(user =>{
-      if(user){
-        this.getDataOfSingleUser(user.uid).subscribe()
-      }else{
-        this.userDataSubject.next([])
+
+  constructor(
+    private firestore: AngularFirestore,
+    private http: HttpClient,
+    private auth: AuthService
+  ) {
+    this.auth.user$.subscribe(user => {
+      if (user) {
+        this.getDataOfSingleUser(user.uid).subscribe();
+      } else {
+        this.userDataSubject.next([]);
       }
-    })
+    });
   }
 
-
-  async addUser(user: User ){
+  async addUser(user: User) {
     this.firestore.collection('userData').doc(user.uid).set(user);
 
-     const currentUsers = this.userDataSubject.getValue();
+    const currentUsers = this.userDataSubject.getValue();
     this.userDataSubject.next([...currentUsers, user]);
-    return
+    return;
   }
 
-  updateWallet(uid: string, amount: number){
-    this.firestore.collection('userData').doc(uid).update({wallet : amount
-    })
+  updateWallet(uid: string, amount: number) {
+    this.firestore.collection('userData').doc(uid).update({ wallet: amount });
 
     const currentUsers = this.userDataSubject.getValue();
     if (currentUsers && currentUsers.length > 0) {
@@ -47,69 +49,88 @@ export class FirestoreDataService {
       this.userDataSubject.next(updatedUsers);
     }
   }
-//1
-  updateChartValueSlots(uid:string, amount: number){
-    this.firestore.collection('userData').doc(uid).update({slotsPlayed : amount })
 
-    const currentUsers = this.userDataSubject.getValue();
-    if(currentUsers && currentUsers.length > 0){
-      const updatedUsers = currentUsers.map(user => {
-        if (user.uid === uid){
-          return{...user, slotsPlayed : amount};
-        }
-        return user
-      });
-      this.userDataSubject.next(updatedUsers);
-    }
-  }
-//2
-  updateChartValueBlackJack(uid:string, amount: number){
-    this.firestore.collection('userData').doc(uid).update({blackJackPlayed : amount })
+ 
+  updateLifetimeCoins(uid: string, amount: number) {
+ 
+  this.firestore.collection('userData').doc(uid).update({ lifetimeCoins: amount });
 
-    const currentUsers = this.userDataSubject.getValue();
-    if(currentUsers && currentUsers.length > 0){
-      const updatedUsers = currentUsers.map(user => {
-        if (user.uid === uid){
-          return{...user, blackJackPlayed : amount};
-        }
-        return user
-      });
-      this.userDataSubject.next(updatedUsers);
-    }
-  }
-//3
-  updateChartValueBeancan(uid:string, amount: number){
-    this.firestore.collection('userData').doc(uid).update({beancanPlayed : amount })
-
-    const currentUsers = this.userDataSubject.getValue();
-    if(currentUsers && currentUsers.length > 0){
-      const updatedUsers = currentUsers.map(user => {
-        if (user.uid === uid){
-          return{...user, beancanPlayed : amount};
-        }
-        return user
-      });
-      this.userDataSubject.next(updatedUsers);
-    }
-  }
-  //need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
- getDataOfSingleUser(uid: string):Observable<User[]>{
-  return this.getDataBasedOnField('uid', uid).pipe(
-    tap(users => {
-      if(users && users.length > 0){
-        this.userDataSubject.next(users)
+ 
+  const currentUsers = this.userDataSubject.getValue();
+  if (currentUsers && currentUsers.length > 0) {
+    const updatedUsers = currentUsers.map(user => {
+      if (user.uid === uid) {
+        return { ...user, lifetimeCoins: amount };
       }
-    })
-  );
+      return user;
+    });
+    this.userDataSubject.next(updatedUsers);
+  }
 }
 
-  getDataBasedOnField(field: string, value: string):Observable<User[]>{
+
+  updateChartValueSlots(uid: string, amount: number) {
+    this.firestore.collection('userData').doc(uid).update({ slotsPlayed: amount });
+
+    const currentUsers = this.userDataSubject.getValue();
+    if (currentUsers && currentUsers.length > 0) {
+      const updatedUsers = currentUsers.map(user => {
+        if (user.uid === uid) {
+          return { ...user, slotsPlayed: amount };
+        }
+        return user;
+      });
+      this.userDataSubject.next(updatedUsers);
+    }
+  }
+
+  updateChartValueBlackJack(uid: string, amount: number) {
+    this.firestore.collection('userData').doc(uid).update({ blackJackPlayed: amount });
+
+    const currentUsers = this.userDataSubject.getValue();
+    if (currentUsers && currentUsers.length > 0) {
+      const updatedUsers = currentUsers.map(user => {
+        if (user.uid === uid) {
+          return { ...user, blackJackPlayed: amount };
+        }
+        return user;
+      });
+      this.userDataSubject.next(updatedUsers);
+    }
+  }
+
+  updateChartValueBeancan(uid: string, amount: number) {
+    this.firestore.collection('userData').doc(uid).update({ beancanPlayed: amount });
+
+    const currentUsers = this.userDataSubject.getValue();
+    if (currentUsers && currentUsers.length > 0) {
+      const updatedUsers = currentUsers.map(user => {
+        if (user.uid === uid) {
+          return { ...user, beancanPlayed: amount };
+        }
+        return user;
+      });
+      this.userDataSubject.next(updatedUsers);
+    }
+  }
+
+  getDataOfSingleUser(uid: string): Observable<User[]> {
+    return this.getDataBasedOnField('uid', uid).pipe(
+      tap(users => {
+        if (users && users.length > 0) {
+          this.userDataSubject.next(users);
+        }
+      })
+    );
+  }
+
+  getDataBasedOnField(field: string, value: string): Observable<User[]> {
     return this.firestore
       .collection<User>('userData', ref => ref.where(field, '==', value))
       .valueChanges({ idField: 'docId' });
-    }
+  }
 
-      getCurrentUserData(): User[] {
+  getCurrentUserData(): User[] {
     return this.userDataSubject.getValue();
   }
 }

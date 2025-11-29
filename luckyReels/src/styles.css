@@ -283,6 +283,23 @@ body {
   gap: 10px;
   margin-top: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*roulette*/
 .wheel {
   height: 312px;
@@ -578,7 +595,7 @@ body {
 }
 
 .bet-chip{
-  position:absolute;
+  position: relative;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -592,6 +609,7 @@ body {
 .current-bet {
   font-weight: bold;
 }
+
 
 
 
