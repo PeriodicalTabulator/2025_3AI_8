@@ -11,9 +11,9 @@ import { BadgesComponent } from './badges/badges.component';
 import {AiPageComponent} from './ai-page/ai-page.component';
 
 export const routes: Routes = [
-  { path: 'slots', component: SlotsComponent },
-  { path: 'beancan', component:BeancanComponent },
-  {path: 'blackjack', component: BlackjackComponent},
+  { path: 'slots', component: SlotsComponent, canActivate: [authGuard] },
+  { path: 'beancan', component:BeancanComponent, canActivate: [authGuard]},
+  {path: 'blackjack', component: BlackjackComponent, canActivate: [authGuard]},
   {path: '', component:MenuComponent},
   {path: 'roulette', component:RouletteComponent},
   {path: 'user', component:UserComponent},
