@@ -20,4 +20,5 @@ export interface User {
     highRoller?: boolean;
     dailyPlayer?: boolean;
 };
+    admin?: boolean;
 }
