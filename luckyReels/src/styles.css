@@ -134,14 +134,14 @@ html, body {
 }
 
 .left-wing {
-  top: 62px;
-  left: -335px;
+  top: 93px;
+  left: -365px;
   z-index: 0;
 }
 
 .right-wing {
-  top: 62px;
-  left: 365px; 
+  top: 93px;
+  left: 342px; 
   z-index: 0;
 }
 
@@ -151,7 +151,6 @@ body {
   background-color: #50113C;
 
   height: 100vh;
-  overflow: hidden;
   position: relative;
   z-index: 0;
 }
@@ -284,6 +283,23 @@ body {
   gap: 10px;
   margin-top: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*roulette*/
 .wheel {
   height: 312px;
@@ -593,6 +609,7 @@ body {
 .current-bet {
   font-weight: bold;
 }
+
 
 
 

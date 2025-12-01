@@ -7,6 +7,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { RouletteComponent } from '../roulette/roulette.component';
 import { UserComponent } from '../user/user.component';
 import { PieChart1Component } from '../pie-chart-1/pie-chart-1.component';
+import { BadgesComponent } from './badges/badges.component';
 import { authGuard } from './auth.guard';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { adminGuardGuard } from './admin-guard.guard';
@@ -16,9 +17,10 @@ export const routes: Routes = [
   { path: 'beancan', component:BeancanComponent, canActivate: [authGuard]},
   {path: 'blackjack', component: BlackjackComponent, canActivate: [authGuard]},
   {path: '', component:MenuComponent},
-  {path: 'roulette', component:RouletteComponent,canActivate: [authGuard]},
-  {path: 'user', component:UserComponent, canActivate: [authGuard]},
+  {path: 'roulette', component:RouletteComponent},
+  {path: 'user', component:UserComponent},
   {path: 'piechart', component:PieChart1Component},
+  {path: 'Badges', component:BadgesComponent},
   {path: 'adminPanel', component:AdminPanelComponent, canActivate: [adminGuardGuard]},
 ];
 

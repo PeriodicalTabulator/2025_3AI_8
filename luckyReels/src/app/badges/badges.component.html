@@ -1,0 +1,30 @@
+<div *ngIf="user as u; else noUser">
+  <h2>Your Achievements</h2>
+
+  <div class="badges-grid">
+    <div
+      class="badge-card"
+      *ngFor="let a of achievementsDefs"
+      [class.unlocked]="isUnlocked(u, a.key)"
+    >
+      <div class="badge-icon">{{ a.icon }}</div>
+      <div class="badge-title">{{ a.title }}</div>
+
+      <div class="badge-condition">
+        {{ a.condition }}
+      </div>
+
+      <div class="badge-desc">
+        {{ a.description }}
+      </div>
+
+      <div class="badge-status">
+        {{ isUnlocked(u, a.key) ? 'Unlocked' : 'Locked' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUser>
+  <p>No user data loaded. Log in and play to earn achievements.</p>
+</ng-template>
