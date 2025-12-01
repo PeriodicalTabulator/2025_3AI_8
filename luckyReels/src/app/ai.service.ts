@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
-import { OllamaResponse } from './models/ollama-response';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment.development';
+import { Observable } from 'rxjs';
 
+import { OllamaResponse } from './models/ollama-response';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AIService {
+export class OllamaService {
 
-processPrompt(prompt: string): Observable<OllamaResponse> {
-  const requestBody = { prompt: prompt,
-    model: environment.llamaModel, }
-    
+  constructor(private httpClient: HttpClient) {}
 
+  processPrompt(prompt: string): Observable<OllamaResponse> {
+    const requestBody = {
+      model: environment.llamaModel,
+      prompt: prompt,
+      stream: false
+    };
 
-    return this.httpClient.post<OllamaResponse>(environment.llamaApiUrl, requestBody);
-}
-
-  constructor(private httpClient:HttpClient) { }
+    return this.httpClient.post<OllamaResponse>(
+      environment.llamaApiUrl,
+      requestBody
+    );
+  }
 }
