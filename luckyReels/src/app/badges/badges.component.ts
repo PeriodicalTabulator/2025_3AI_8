@@ -60,6 +60,27 @@ export class BadgesComponent implements OnInit, OnDestroy {
       condition: 'Log in 7 days in a row.',
       description: 'Consistency is key! Keep playing daily.',
       icon: '📅'
+    },
+    {
+      key: 'slotMarathon',
+      title: 'Slot Marathon',
+      condition: 'Play 200 slot games.',
+      description: 'Keep it rollin’.',
+      icon: '🎡'
+    },
+    {
+      key: 'passiveIncome',
+      title: 'Passive income',
+      condition: 'Reach 100 coins in your wallet.',
+      description: 'Your balance is looking healthy.',
+      icon: '💎'
+    },
+    {
+      key: 'tripleThreat',
+      title: 'Triple Threat',
+      condition: 'Play slots, blackjack and beancan at least 10 times each.',
+      description: 'You’ve became addicted.',
+      icon: '🎮'
     }
   ];
 
@@ -91,8 +112,7 @@ export class BadgesComponent implements OnInit, OnDestroy {
     return !!ach[key];
   }
 
-
-  // AUTO-UNLOCK LOGIKA
+  // AUTO-UNLOCK LOGIC
   private checkAndUnlockAchievements(): void {
     if (!this.user) return;
 
@@ -103,34 +123,55 @@ export class BadgesComponent implements OnInit, OnDestroy {
     const updates: Record<string, boolean> = {};
     let changed = false;
 
-
+    // 1) Slot Spinner – 50 slot games
     if ((u.slotsPlayed || 0) >= 50 && !achievements['slotSpinner']) {
       updates['slotSpinner'] = true;
       changed = true;
     }
 
- 
+    // 2) Blackjack Pro – using blackJackPlayed / blackjackWins
     const blackjackCount = (u as any).blackjackWins ?? (u.blackJackPlayed || 0);
     if (blackjackCount >= 25 && !achievements['blackjackPro']) {
       updates['blackjackPro'] = true;
       changed = true;
     }
 
- 
+    // 3) Bean Can Collector – 30 beancan games
     if ((u.beancanPlayed || 0) >= 30 && !achievements['beanCanCollector']) {
       updates['beanCanCollector'] = true;
       changed = true;
     }
 
-  
+    // 4) Shut Up and Take My Money – lifetimeCoins >= 10000
     if ((u.lifetimeCoins || 0) >= 10000 && !achievements['highRoller']) {
       updates['highRoller'] = true;
       changed = true;
     }
 
-
+    // 5) Daily Player – loginStreak >= 7
     if ((u.loginStreak || 0) >= 7 && !achievements['dailyPlayer']) {
       updates['dailyPlayer'] = true;
+      changed = true;
+    }
+
+    // 6) Slot Marathon – 200 slot games
+    if ((u.slotsPlayed || 0) >= 200 && !achievements['slotMarathon']) {
+      updates['slotMarathon'] = true;
+      changed = true;
+    }
+
+    // 7) Passive income – wallet >= 100
+    if ((u.wallet || 0) >= 100 && !achievements['passiveIncome']) {
+      updates['passiveIncome'] = true;
+      changed = true;
+    }
+
+    // 8) Triple Threat – all three games played >= 10
+    const slots = u.slotsPlayed || 0;
+    const bj = u.blackJackPlayed || 0;
+    const bean = u.beancanPlayed || 0;
+    if (slots >= 10 && bj >= 10 && bean >= 10 && !achievements['tripleThreat']) {
+      updates['tripleThreat'] = true;
       changed = true;
     }
 
