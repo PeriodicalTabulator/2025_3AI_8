@@ -8,6 +8,7 @@ import { RouletteComponent } from '../roulette/roulette.component';
 import { UserComponent } from '../user/user.component';
 import { PieChart1Component } from '../pie-chart-1/pie-chart-1.component';
 import { BadgesComponent } from './badges/badges.component';
+import {AiPageComponent} from './ai-page/ai-page.component';
 
 export const routes: Routes = [
   { path: 'slots', component: SlotsComponent },
@@ -17,7 +18,8 @@ export const routes: Routes = [
   {path: 'roulette', component:RouletteComponent},
   {path: 'user', component:UserComponent},
   {path: 'piechart', component:PieChart1Component},
-  {path: 'Badges', component:BadgesComponent}
+  {path: 'Badges', component:BadgesComponent},
+  {path: 'ai', component:AiPageComponent},
 ];
 
 @NgModule({

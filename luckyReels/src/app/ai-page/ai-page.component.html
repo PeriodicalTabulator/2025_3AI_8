@@ -1,1 +1,29 @@
-<p>ai-page works!</p>
+<div class="ai-page">
+  <h2>Ask the AI</h2>
+
+  <div class="prompt-block">
+    <label for="prompt">Your question</label>
+    <textarea
+      id="prompt"
+      [(ngModel)]="prompt"
+      rows="4"
+      placeholder="Type your question here..."
+    ></textarea>
+
+    <div class="buttons">
+      <button (click)="sendPrompt()" [disabled]="loading || !prompt.trim()">
+        {{ loading ? 'Thinking…' : 'Ask' }}
+      </button>
+      <button type="button" (click)="clear()" [disabled]="loading && !answer && !error">
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="answer-block" *ngIf="answer">
+    <h3>Answer</h3>
+    <pre>{{ answer }}</pre>
+  </div>
+</div>
