@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OllamaService } from '../ai.service';
 import { OllamaResponse } from '../models/ollama-response';
+import { MatButton } from "@angular/material/button";
 
 @Component({
   selector: 'app-ai-page',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatButton],
   templateUrl: './ai-page.component.html',
   styleUrl: './ai-page.component.css'
 })

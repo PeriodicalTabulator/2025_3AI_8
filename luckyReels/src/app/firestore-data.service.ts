@@ -116,17 +116,6 @@ export class FirestoreDataService {
     }
   }
   //need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
-  getDataOfSingleUser(uid: string):Observable<User[]>{
-    return this.getDataBasedOnField('uid', uid).pipe(
-      tap(users => {
-        if(users && users.length > 0){
-          this.userDataSubject.next(users)
-        }
-      })
-    );
-  }
-  
-
   getDataOfSingleUser(uid: string): Observable<User[]> {
     return this.getDataBasedOnField('uid', uid).pipe(
       tap(users => {
