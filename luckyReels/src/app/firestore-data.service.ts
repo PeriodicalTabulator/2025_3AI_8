@@ -15,7 +15,6 @@ export class FirestoreDataService {
 
   constructor(
     private firestore: AngularFirestore,
-    private http: HttpClient,
     private auth: AuthService
   ) {
     this.auth.user$.subscribe(user => {
@@ -70,7 +69,7 @@ export class FirestoreDataService {
   }
 }
 
-
+//need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
   updateChartValueSlots(uid: string, amount: number) {
     this.firestore.collection('userData').doc(uid).update({ slotsPlayed: amount });
 
@@ -115,23 +114,12 @@ export class FirestoreDataService {
       this.userDataSubject.next(updatedUsers);
     }
   }
-  //need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
+
   getDataOfSingleUser(uid: string):Observable<User[]>{
     return this.getDataBasedOnField('uid', uid).pipe(
       tap(users => {
         if(users && users.length > 0){
           this.userDataSubject.next(users)
-        }
-      })
-    );
-  }
-  
-
-  getDataOfSingleUser(uid: string): Observable<User[]> {
-    return this.getDataBasedOnField('uid', uid).pipe(
-      tap(users => {
-        if (users && users.length > 0) {
-          this.userDataSubject.next(users);
         }
       })
     );
