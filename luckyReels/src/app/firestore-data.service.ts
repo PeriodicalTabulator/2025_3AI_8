@@ -3,26 +3,81 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from './user';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { BehaviorSubject, Observable, Subscription, map, tap } from 'rxjs';
+import { BehaviorSubject,Subject, Observable, Subscription, map, tap, takeUntil, switchMap, EMPTY, delay, } from 'rxjs';
 import { UserBets } from './user-bets';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreDataService {
 
-  private userDataSubject = new BehaviorSubject<User[]>([]);
-  userData$ = this.userDataSubject.asObservable();
+  private socket$!: WebSocketSubject<any>;
+private destroy$ = new Subject<void>();
+
+private userDataSubject = new BehaviorSubject<User[]>([]);
+userData$ = this.userDataSubject.asObservable();
 
   constructor(
     private firestore: AngularFirestore,
+    private http: HttpClient,
     private auth: AuthService
   ) {
-    this.auth.user$.subscribe(user => {
-      if (user) {
-        this.getDataOfSingleUser(user.uid).subscribe();
-      } else {
+    this.connect();
+
+    this.auth.user$
+  .pipe(
+    takeUntil(this.destroy$),
+    switchMap(user => {
+      if (!user) {
         this.userDataSubject.next([]);
+        return EMPTY;
       }
+      return this.getDataOfSingleUser(user.uid); 
+    }))
+  .subscribe(users => {
+    this.userDataSubject.next(users);
+
+    
+    if (this.socket$) {
+      this.sendUser(users);
+    }
+  });
+    
+  }
+  private connect(): void {
+    this.socket$ = webSocket({
+      url: 'ws://localhost:8048/ws',
+      openObserver: {
+        next: () => {
+          console.log('WS connected');
+  
+          const users = this.userDataSubject.value;
+          this.sendUser(users)
+        }
+      },
+      closeObserver: {
+        next: () => console.log('WS closed')
+      }
+    });
+  
+    this.socket$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: msg => console.log('Received:', msg),
+        error: err => console.error('WS error:', err)
+      });
+  }
+  
+  public sendUser(user: User[]): void{
+    if (!this.socket$) {
+      console.error('WebSocket not initialized');
+      return;
+    }
+  
+    this.socket$.next({
+      type: 'User',
+      payload: user
     });
   }
 
@@ -69,7 +124,7 @@ export class FirestoreDataService {
   }
 }
 
-//need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
+
   updateChartValueSlots(uid: string, amount: number) {
     this.firestore.collection('userData').doc(uid).update({ slotsPlayed: amount });
 
@@ -114,7 +169,7 @@ export class FirestoreDataService {
       this.userDataSubject.next(updatedUsers);
     }
   }
-
+  //need to merge these 3 functions in one dynamic based on played game (this is only temporary solution)
   getDataOfSingleUser(uid: string):Observable<User[]>{
     return this.getDataBasedOnField('uid', uid).pipe(
       tap(users => {
@@ -124,7 +179,7 @@ export class FirestoreDataService {
       })
     );
   }
-
+  
   getDataBasedOnField(field: string, value: string): Observable<User[]> {
     return this.firestore
       .collection<User>('userData', ref => ref.where(field, '==', value))
@@ -136,4 +191,10 @@ export class FirestoreDataService {
      return this.userDataSubject.getValue();
   }
 
+
+  private api = 'http://127.0.0.1:8048';
+
+  getRandom(){
+    return this.http.get<number>(`${this.api}/randomNumber`);
+  }
 }

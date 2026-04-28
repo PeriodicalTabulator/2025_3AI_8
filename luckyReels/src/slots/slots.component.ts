@@ -9,9 +9,10 @@ import { LoginComponent } from '../login/login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../app/auth.service';
 import { NgIf } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { User } from '../app/user';
 import { FirestoreDataService } from '../app/firestore-data.service';
+import { connectFirestoreEmulator } from 'firebase/firestore';
 
 
 @Component({
@@ -46,6 +47,9 @@ export class SlotsComponent {
   enoughMoney:string = '';
   isDataLoaded: boolean = false;
   game: string = "slotsPlayed";
+  number1 : any = 0;
+  number2 : any = 0;
+  number3 : any = 0;
 
   private BIG_WIN = new Set([
     '8-8-8'
@@ -285,7 +289,7 @@ export class SlotsComponent {
     private router: Router,
     private dialog: MatDialog,
     public authService: AuthService, 
-    private dataService: FirestoreDataService) {
+    public dataService: FirestoreDataService) {
  }
  
 ngOnInit():void{
@@ -315,56 +319,75 @@ loadUserData(){
 
     this.dataService.getDataOfSingleUser(uid).subscribe();
 }
- spin() {
- if (!this.isDataLoaded || this.userData!.length === 0) {
-      this.enoughMoney = 'User data not loaded. Please try again.';
-      return;
-    }
+spin() {
+  if (!this.isDataLoaded || this.userData!.length === 0) {
+    this.enoughMoney = 'User data not loaded. Please try again.';
+    return;
+  }
+  const wallet = this.userData![0].wallet;
 
-    const wallet = this.userData![0].wallet;
-    
-    if (wallet < 0.5) {
-      this.enoughMoney = 'Not enough money';
-    } else {
-      this.dataService.updateWallet(this.userData![0].uid, wallet - 0.5);
-      this.dataService.updateChartValueSlots(this.userData![0].uid, this.userData![0].slotsPlayed + 1);
-      this.enoughMoney = '';
-      console.log('user wallet before spin', wallet);
-      this.slotMachine.generateRandomNumbers();
-      
-      this.disableButton = true;
-      console.log(this.slotMachine.collum1, this.slotMachine.collum2, this.slotMachine.collum3);
-      this.youWon = "";
-    
-      this.reel1.nativeElement.classList.add('rolling');
-      this.reel2.nativeElement.classList.add('rolling');
-      this.reel3.nativeElement.classList.add('rolling');
-    
-       setTimeout(() => {
-        this.reel1.nativeElement.classList.remove('rolling');
-        this.reel2.nativeElement.classList.remove('rolling');
-        this.reel3.nativeElement.classList.remove('rolling');
-    
-        const offset: number = 480;
-  
-        const itemHeight = 120; 
-        const position1 = -(this.slotMachine.collum1!.id * itemHeight) + offset;
-        const position2 = -(this.slotMachine.collum2!.id * itemHeight) + offset;
-        const position3 = -(this.slotMachine.collum3!.id * itemHeight) + offset;
-        
-        console.log(position1, position2, position3);
-  
-        this.reel1.nativeElement.style.transform = `translateY(${position1}px)`;
-        this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
-        this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
-    
-        this.checkWinningConditions();
-      }, 1000);
-    }
+  if (wallet < 0.5) {
+    this.enoughMoney = 'Not enough money';
+    return;
   }
 
+  this.dataService.updateWallet(this.userData![0].uid, wallet - 0.5);
+  this.dataService.updateChartValueSlots(
+    this.userData![0].uid,
+    this.userData![0].slotsPlayed + 1
+  );
+
+  this.disableButton = true;
+  this.youWon = '';
+  this.enoughMoney = '';
+
+  forkJoin({
+    n1: this.dataService.getRandom(),
+    n2: this.dataService.getRandom(),
+    n3: this.dataService.getRandom(),
+  }).subscribe(({ n1, n2, n3 }) => {
+
+    this.number1 = n1;
+    this.number2 = n2;
+    this.number3 = n3;
+    console.log(n3,n2,n1)
+    this.slotMachine.generateRandomNumbers(n1, n2, n3);
+
+    this.startReels();
+  });
+}
+
+private startReels() {
+  this.reel1.nativeElement.classList.add('rolling');
+  this.reel2.nativeElement.classList.add('rolling');
+  this.reel3.nativeElement.classList.add('rolling');
+
+  setTimeout(() => {
+    this.reel1.nativeElement.classList.remove('rolling');
+    this.reel2.nativeElement.classList.remove('rolling');
+    this.reel3.nativeElement.classList.remove('rolling');
+
+    const offset = 480;
+    const itemHeight = 120;
+
+    const position1 = -(this.slotMachine.collum1!.id * itemHeight) + offset;
+    const position2 = -(this.slotMachine.collum2!.id * itemHeight) + offset;
+    const position3 = -(this.slotMachine.collum3!.id * itemHeight) + offset;
+
+    this.reel1.nativeElement.style.transform = `translateY(${position1}px)`;
+    this.reel2.nativeElement.style.transform = `translateY(${position2}px)`;
+    this.reel3.nativeElement.style.transform = `translateY(${position3}px)`;
+
+    this.checkWinningConditions();
+    this.disableButton = false;
+  }, 1000);
+}
+
+
+
   private checkWinningConditions() {
-    const combination = `${this.slotMachine.collum1?.id}-${this.slotMachine.collum2?.id}-${this.slotMachine.collum3?.id}`;
+    const combination = `${this.number3}-${this.number2}-${this.number1}`;
+    console.log(combination)
     if (this.SMALL_WIN.has(combination)) {
       this.smallWin();
       this.disableButton = false;
@@ -425,10 +448,11 @@ class SlotMachine {
 
   constructor(private fruitsList: fruits[]) {}
 
-  generateRandomNumbers() {
-    this.collum1 = this.fruitsList[Math.floor(Math.random() * this.fruitsList.length)];
-    this.collum2 = this.fruitsList[Math.floor(Math.random() * this.fruitsList.length)];
-    this.collum3 = this.fruitsList[Math.floor(Math.random() * this.fruitsList.length)];
+  generateRandomNumbers(n1:number , n2:number , n3:number) {
+    this.collum1 = this.fruitsList[n1];
+    this.collum2 = this.fruitsList[n2];
+    this.collum3 = this.fruitsList[n3];
+
   }
 }
 
