@@ -1,26 +1,25 @@
 from typing import Union
 from pydantic import BaseModel
 from fastapi import FastAPI, WebSocket
-from fastapi.middleware.cors import CORMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 import random
 
-app = FastAPI(title = "sksafsd")
+app = FastAPI(title = "SKibididididiidd")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["*"],
-    allow_credentials = True,
-    allow_methods = ["*"],
-    allow_headers = ["*"],
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
-
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
-        data = await websocekt.receive_json()
+        data = await websocket.receive_json()
 
 @app.get("/randomNumber")
 def get_random():
-    return random.randrange(0,9)
+    return random.randrange(0, 9)
